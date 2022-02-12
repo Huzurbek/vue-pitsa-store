@@ -3,13 +3,13 @@
     Суши
   </div>
   <div class="sushi-container">
-<!--  Card Component-->
+<!--  FoodCard Component-->
     <Card v-for="(item, index) in sushes" :key="index" :items="sushes[index]" class="card-style"/>
   </div>
 </template>
 
 <script>
-import Card from "@/components/Card/Card";
+import Card from "@/components/FoodCard/FoodCard";
 import { mapState } from 'vuex';
 export default {
   name: 'SushiSection',

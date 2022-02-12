@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <div class="card-container">
-<!--      Card with Icon component-->
+<!--      FoodCard with Icon component-->
       <IconCard/>
     </div>
     <div class="card-container">
