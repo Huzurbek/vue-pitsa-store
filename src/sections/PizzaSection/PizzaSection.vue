@@ -1,13 +1,13 @@
 <template>
   <div class="topic">Пицца</div>
   <div class="pizza-container">
-<!--    Component Card-->
-    <Card  v-for="(item, index) in pizzas" :key="index" :items="pizzas[index]" class="card-style"/>
+<!--    Component FoodCard-->
+    <Card  v-for="(item, index) in pizzas" :key="index" :items="pizzas[index]" @click="fromBasket(item)" class="card-style"/>
   </div>
 </template>
 
 <script>
-import Card from "@/components/Card/Card";
+import Card from "@/components/FoodCard/FoodCard";
 import { mapState } from 'vuex'
 export default {
   components:{
@@ -17,6 +17,13 @@ export default {
     ...mapState({
       pizzas: state => state.pizzas,
     })
+  },
+  methods: {
+    fromBasket(val){
+      console.log('bus ket is wroki',val.price)
+      this.$store.commit('addToBasket',val.price)
+
+    }
   }
 }
 </script>

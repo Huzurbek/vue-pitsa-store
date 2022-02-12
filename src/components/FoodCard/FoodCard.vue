@@ -5,7 +5,7 @@
     <div class="card-title">{{items.title}}</div>
     <div class="car-text">{{items.text}}</div>
     <div class="card-footer">
-      <Button text="Выбрать"/>
+      <Button text="Выбрать" @click="addToBasket"/>
       <div class="price"><span v-if="items.startingPrice">от</span> {{ items.price }} ₽</div>
     </div>
   </div>
@@ -23,11 +23,11 @@ export default {
       default:()=>{}
     }
   },
-data(){
-  return {
-
+  methods: {
+    addToBasket(){
+    this.$emit('fromBasket')
+    }
   }
-}
 }
 </script>
 

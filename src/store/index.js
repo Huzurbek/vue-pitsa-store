@@ -120,9 +120,13 @@ export default createStore({
         price: 395
       },
     ],
-    basket: 3333333
+    basket: 0
   },
   mutations: {
+    addToBasket(state,payload){
+      console.log('in mutation',payload)
+      state.basket += payload
+    }
   },
   actions: {
   },
