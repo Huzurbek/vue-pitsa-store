@@ -3,9 +3,11 @@
   <div class="container">
     <HeaderSection/>
 
-    <PizzaSection/>
+    <PizzaSection @openModal="openModal"/>
 
     <SushiSection/>
+
+    <Modal v-if="modal" @close="modal = false" :selected-pizza="sendingObj"/>
 
   </div>
   <FooterSection/>
@@ -17,6 +19,7 @@ import HeaderSection from "@/sections/HeaderSection/HeaderSection";
 import PizzaSection from "@/sections/PizzaSection/PizzaSection";
 import SushiSection from "@/sections/SushiSection/SushiSection";
 import FooterSection from "@/sections/FooterSerction/FooterSection";
+import Modal from "@/sections/Modal";
 
 export default {
   name: 'Main',
@@ -25,7 +28,23 @@ export default {
     HeaderSection,
     PizzaSection,
     FooterSection,
-    SushiSection
+    SushiSection,
+    Modal
+  },
+  data(){
+    return {
+      modal: false,
+      sendingObj:{}
+    }
+  },
+  methods:{
+    openModal(val){
+      console.log('modal is working',val)
+      this.sendingObj={
+        name: val
+      }
+      this.modal = true
+    }
   }
 }
 </script>
@@ -33,7 +52,7 @@ export default {
 <style scoped lang="sass">
 
 .container
-  border: 1px solid red
+  //border: 1px solid red
   border-top: none
   border-bottom: none
   max-width: 1290px
@@ -41,6 +60,9 @@ export default {
   padding-top: 31px
 
   min-height: 1000px
+
+
+
 
 
 

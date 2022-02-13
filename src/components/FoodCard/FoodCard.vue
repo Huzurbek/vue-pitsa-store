@@ -1,13 +1,21 @@
 <template>
   <div class="card-container">
-    <img :src="require(`@/assets/${items.image}`)" alt="Pizza Picture">
-    <div class="red-sign" v-if="items.sign">{{items.sign}}</div>
-    <div class="card-title">{{items.title}}</div>
-    <div class="car-text">{{items.text}}</div>
-    <div class="card-footer">
-      <Button text="Выбрать" @click="addToBasket"/>
-      <div class="price"><span v-if="items.startingPrice">от</span> {{ items.price }} ₽</div>
+    <div class="image">
+      <img :src="require(`@/assets/${items.image}`)" alt="Pizza Picture">
     </div>
+
+    <div class="card-content">
+      <div  style="flex: 1">
+        <div class="red-sign" v-if="items.status">{{items.status}}</div>
+        <div class="card-title">{{items.name}}</div>
+        <div class="car-text">{{items.description}}</div>
+      </div>
+      <div class="card-footer" >
+        <Button text="Выбрать" @click="addToBasket"/>
+        <div class="price"><span v-if="items.startingPrice">от</span> {{ items.price }} ₽</div>
+      </div>
+    </div>
+
   </div>
 </template>
 
@@ -35,25 +43,15 @@ export default {
 .card-container
   position: relative
   display: flex
+  //align-self: auto
   flex-direction: column
-  justify-content: end
-  width: 300px
-  height: 482px
+  width: 302px
+  //height: 482px
   box-sizing: border-box
   overflow: hidden
   background: #FFFFFF
   border: 1px solid #F0F0F0
   border-radius: 12px
-  padding: 20px
-
-img
-  position: absolute
-  top: 0
-  left: 0
-
-.card-title, .car-text, .price
-  font-family: SF Pro Text
-  color: #191919
 
 .red-sign
   position: absolute
@@ -72,20 +70,37 @@ img
   font-weight: normal
   font-size: 14px
   line-height: 18px
+.image
+  width: 300px
+  height: 300px
+  box-sizing: border-box
+
+.card-content
+  padding: 16px 20px 20px 20px
+  display: flex
+  flex-direction: column
+  flex: 1
+  box-sizing: border-box
+  text-align: left
+
+.card-title, .car-text, .price
+  font-family: SF Pro Text
+  color: #191919
 
 .card-title
-  //height: 48px
+  display: flex
+  align-items: center
   font-weight: 600
   font-size: 18px
   line-height: 24px
   white-space: pre-wrap
+  margin-bottom: 12px
 
 .car-text
-  height: 44px
-  margin-top: 12px
   font-weight: normal
   font-size: 16px
   line-height: 22px
+  margin-bottom: 16px
 
 .price
   font-weight: 600
@@ -95,9 +110,11 @@ img
 
 .card-footer
   display: flex
-  align-items: center
   justify-content: space-between
-  margin-top: 29px
+  align-items: center
+  //width: 100%
+
+
 
 
 </style>

@@ -2,7 +2,10 @@
  <div class="buttonWrapper" :style="{
    ...style,
    width:full?'auto':'fit-content',
-   minWidth: fit?'auto':'150px'
+   minWidth: fit?'auto':'150px',
+   background: active ? '#FF7010':'#FFFFFF',
+   color: active ? '#FFFFFF':'#191919'
+
  }">
   <Iconca v-if="leftIcon" color="white" :name="leftIcon" :width="iconWidth" :height="iconWidth" style="margin-right: 8px"/>
    <span v-if="text">{{text}}</span>
@@ -49,6 +52,10 @@ export default{
       type: Number,
       default:()=>8
     },
+    active: {
+      type: Boolean,
+      default:()=>true
+    }
   },
   data(){
     return{

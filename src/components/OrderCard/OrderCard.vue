@@ -30,7 +30,6 @@ export default {
 <style scoped lang="sass">
 .order-card
   width: 190px
-  align-self: auto
   background: #FFFFFF
   box-sizing: border-box
   border: 1px solid #F0F0F0
@@ -38,6 +37,7 @@ export default {
   overflow: hidden
   display: flex
   flex-direction: column
+  align-self: auto
 
 .image
   width: 190px
