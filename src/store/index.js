@@ -2,125 +2,194 @@ import { createStore } from 'vuex'
 
 export default createStore({
   state: {
-    pizzas: [
-      {
-        image: 'chicken-sweet.png',
-        title: 'Чикен Сладкий Чили',
-        text: 'Курица, Лук, Перец Халапеньо, Сыр Моцарелла, Томатный соу...',
-        price: 399,
-        startingPrice: true,
-        sign: 'NEW'
-      },
-      {
-        image: 'easy-peasy.png',
-        title: 'EASY PEASY огуречный ',
-        text: 'Курица, Лук, Перец Халапеньо...',
-        price: 549,
-        startingPrice: true,
-        sign: 'ХИТ'
-      },
-      {
-        image: 'easy-peasy-checken.png',
-        title: 'EASY PEASY чикен а-ля',
-        text: 'Курица, Лук, Соус Карбонара,...',
-        price: 249,
-        startingPrice: true
-      },
-      {
-        image: 'four-season.png',
-        title: '4 сезона',
-        text: 'Бекон, Ветчина, Грибы, Курица, Лук, Маслины, Огурцы мари...',
-        price: 630,
-        startingPrice: true
-      },
 
-      {
-        image: 'four-season.png',
-        title: '4 сезона',
-        text: 'Бекон, Ветчина, Грибы, Курица, Лук, Маслины, Огурцы мари...',
-        price: 630,
-        startingPrice: true
-      },
-      {
-        image: 'easy-peasy-checken.png',
-        title: 'EASY PEASY чикен а-ля',
-        text: 'Курица, Лук, Соус Карбонара,...',
-        price: 249,
-        startingPrice: true
-      },
-      {
-        image: 'chicken-sweet.png',
-        title: 'Чикен Сладкий Чили',
-        text: 'Курица, Лук, Перец Халапеньо, Сыр Моцарелла, Томатный соу...',
-        price: 399,
-        startingPrice: true
-      },
-      {
-        image: 'easy-peasy.png',
-        title: 'EASY PEASY огуречный ',
-        text: 'Курица, Лук, Перец Халапеньо...',
-        price: 549,
-        startingPrice: true
-      },
-    ],
     sushes: [
       {
         image: 'sushi-cranch.png',
-        title: 'Филадельфия кранч',
-        text: 'Семга, рис, сыр креметто, соус унаги, креветка, авокадо, чип...',
+        name: 'Филадельфия кранч',
+        description: 'Семга, рис, сыр креметто, соус унаги, креветка, авокадо, чип...',
+        toppings: ['Моцарелла','Огурцы маринованные','Пепперони','Томатный соус'],
+        crust: 'Традиционное',
+        size: '20 см',
         price: 475,
         startingPrice: true,
-        sign: 'NEW'
+        status: 'NEW',
       },
       {
         image: 'sushi-cream.png',
-        title: 'Филадельфия крем-брюле ',
-        text: 'Сливочный сыр, семга татаки с тростниковым сахаром, соус у...',
+        name: 'Филадельфия крем-брюле ',
+        description: 'Сливочный сыр, семга татаки с тростниковым сахаром, соус у...',
+        toppings: ['Моцарелла','Огурцы маринованные','Пепперони','Томатный соус'],
+        crust: 'Традиционное',
+        size: '20 см',
         price: 395,
         startingPrice: false,
-        sign: 'ХИТ'
+        status: 'ХИТ'
       },
       {
         image: 'sushi-super.png',
-        title: 'Супер Филадельфия',
-        text: 'Действительно много семги, сливочный сыр, огурец, рис, н...',
+        name: 'Супер Филадельфия',
+        description: 'Действительно много семги, сливочный сыр, огурец, рис, н...',
+        toppings: ['Моцарелла','Огурцы маринованные','Пепперони','Томатный соус'],
+        crust: 'Традиционное',
+        size: '20 см',
         price: 425,
-        startingPrice: false
+        startingPrice: false,
+        status: ''
       },
       {
         image: 'sushi-tigr-mama.png',
-        title: 'Тигр мама',
-        text: 'Тигровая креветка, огурец, авокадо, соус Айоли, рис, ик...',
+        name: 'Тигр мама',
+        description: 'Тигровая креветка, огурец, авокадо, соус Айоли, рис, ик...',
+        toppings: ['Моцарелла','Огурцы маринованные','Пепперони','Томатный соус'],
+        crust: 'Традиционное',
+        size: '20 см',
         price: 525,
-        startingPrice: false
+        startingPrice: false,
+        status: ''
       },
       {
         image: 'sushi-tigr-mama.png',
-        title: 'Тигр мама',
-        text: 'Тигровая креветка, огурец, авокадо, соус Айоли, рис, ик...',
+        name: 'Тигр мама',
+        description: 'Тигровая креветка, огурец, авокадо, соус Айоли, рис, ик...',
+        toppings: ['Моцарелла','Огурцы маринованные','Пепперони','Томатный соус'],
+        crust: 'Традиционное',
+        size: '20 см',
         price: 525,
-        startingPrice: false
+        startingPrice: false,
+        status: ''
       },
       {
         image: 'sushi-super.png',
-        title: 'Супер Филадельфия',
-        text: 'Действительно много семги, сливочный сыр, огурец, рис, н...',
-        price: 425
+        name: 'Супер Филадельфия',
+        description: 'Действительно много семги, сливочный сыр, огурец, рис, н...',
+        toppings: ['Моцарелла','Огурцы маринованные','Пепперони','Томатный соус'],
+        crust: 'Традиционное',
+        size: '20 см',
+        price: 425,
+        startingPrice: false,
+        status: ''
       },
       {
         image: 'sushi-cranch.png',
-        title: 'Филадельфия кранч',
-        text: 'Семга, рис, сыр креметто, соус унаги, креветка, авокадо, чип...',
-        price: 475
+        name: 'Филадельфия кранч',
+        description: 'Семга, рис, сыр креметто, соус унаги, креветка, авокадо, чип...',
+        toppings: ['Моцарелла','Огурцы маринованные','Пепперони','Томатный соус'],
+        crust: 'Традиционное',
+        size: '20 см',
+        price: 475,
+        startingPrice: false,
+        status: ''
       },
       {
         image: 'sushi-cream.png',
-        title: 'Филадельфия крем-брюле ',
-        text: 'Сливочный сыр, семга татаки с тростниковым сахаром, соус у...',
-        price: 395
+        name: 'Филадельфия крем-брюле ',
+        description: 'Сливочный сыр, семга татаки с тростниковым сахаром, соус у...',
+        toppings: ['Моцарелла','Огурцы маринованные','Пепперони','Томатный соус'],
+        crust: 'Традиционное',
+        size: '20 см',
+        price: 395,
+        startingPrice: false,
+        status: ''
       },
     ],
-    basket: 0
+    basket: 0,
+    products: [
+      {
+        image: 'chicken-sweet.png',
+        name: 'Чикен Сладкий Чили',
+        description: 'Курица, Лук, Перец Халапеньо, Сыр Моцарелла, Томатный соу...',
+        toppings: ['Моцарелла','Огурцы маринованные','Пепперони','Томатный соус'],
+        crust: 'Традиционное',
+        size: '20 см',
+        price: 399,
+        startingPrice: true,
+        status: 'NEW',
+      },
+      {
+        image: 'easy-peasy.png',
+        name: 'EASY PEASY огуречный расколбас',
+        description: 'Курица, Лук, Перец Халапеньо...',
+        toppings: ['Моцарелла','Огурцы маринованные','Пепперони','Томатный соус'],
+        crust: 'Традиционное',
+        size: '20 см',
+        price: 399,
+        startingPrice: true,
+        status: 'ХИТ',
+      },
+      {
+        image: 'easy-peasy-checken.png',
+        name: 'EASY PEASY чикен а-ля хрен',
+        description: 'Курица, Лук, Соус Карбонара,...',
+        toppings: ['Моцарелла','Огурцы маринованные','Пепперони','Томатный соус'],
+        crust: 'Традиционное',
+        size: '20 см',
+        price: 399,
+        startingPrice: true,
+        status: '',
+      },
+      {
+        image: 'four-season.png',
+        name: '4 сезона',
+        description: 'Бекон, Ветчина, Грибы, Курица, Лук, Маслины, Огурцы мари...',
+        toppings: ['Моцарелла','Огурцы маринованные','Пепперони','Томатный соус'],
+        crust: 'Традиционное',
+        size: '20 см',
+        price: 399,
+        startingPrice: true,
+        status: '',
+      },
+      {
+        image: 'four-season.png',
+        name: '4 сезона',
+        description: 'Бекон, Ветчина, Грибы, Курица, Лук, Маслины, Огурцы мари...',
+        toppings: ['Моцарелла','Огурцы маринованные','Пепперони','Томатный соус'],
+        crust: 'Традиционное',
+        size: '20 см',
+        price: 399,
+        startingPrice: true,
+        status: '',
+      },
+      {
+        image: 'easy-peasy-checken.png',
+        name: 'EASY PEASY чикен а-ля хрен',
+        description: 'Курица, Лук, Соус Карбонара,...',
+        toppings: ['Моцарелла','Огурцы маринованные','Пепперони','Томатный соус'],
+        crust: 'Традиционное',
+        size: '20 см',
+        price: 399,
+        startingPrice: true,
+        status: '',
+      },
+      {
+        image: 'chicken-sweet.png',
+        name: 'Чикен Сладкий Чили',
+        description: 'Курица, Лук, Перец Халапеньо, Сыр Моцарелла, Томатный соу...',
+        toppings: ['Моцарелла','Огурцы маринованные','Пепперони','Томатный соус'],
+        crust: 'Традиционное',
+        size: '20 см',
+        price: 399,
+        startingPrice: true,
+        status: '',
+      },
+      {
+        image: 'easy-peasy.png',
+        name: 'EASY PEASY огуречный расколбас',
+        description: 'Курица, Лук, Перец Халапеньо...',
+        toppings: ['Моцарелла','Огурцы маринованные','Пепперони','Томатный соус'],
+        crust: 'Традиционное',
+        size: '20 см',
+        price: 399,
+        startingPrice: true,
+        status: '',
+      },
+    ],
+    plan: [
+      {
+        crust: ['Традиционное','Тонкое'],
+        size: ['20 см','28 см','33 см'],
+      }
+    ]
   },
   mutations: {
     addToBasket(state,payload){

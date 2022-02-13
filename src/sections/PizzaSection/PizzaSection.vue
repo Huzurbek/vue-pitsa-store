@@ -2,25 +2,26 @@
   <div class="topic">Пицца</div>
   <div class="pizza-container">
 <!--    Component FoodCard-->
-    <Card  v-for="(item, index) in pizzas" :key="index" :items="pizzas[index]" @click="fromBasket(item)" class="card-style"/>
+    <FoodCard  v-for="(item, index) in products" :key="index" :items="products[index]" @click="fromBasket(item)" class="card-style"/>
   </div>
 </template>
 
 <script>
-import Card from "@/components/FoodCard/FoodCard";
+import FoodCard from "@/components/FoodCard/FoodCard";
 import { mapState } from 'vuex'
 export default {
   components:{
-    Card
+    FoodCard
   },
   computed: {
     ...mapState({
-      pizzas: state => state.pizzas,
+      products: state => state.products,
     })
   },
   methods: {
     fromBasket(val){
-      console.log('bus ket is wroki',val.price)
+      console.log('bus ket is wroki',val.title)
+      this.$emit('openModal', val.title)
       this.$store.commit('addToBasket',val.price)
 
     }
