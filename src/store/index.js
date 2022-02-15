@@ -99,9 +99,34 @@ export default createStore({
         image: 'chicken-sweet.png',
         name: 'Чикен Сладкий Чили',
         description: 'Курица, Лук, Перец Халапеньо, Сыр Моцарелла, Томатный соу...',
-        toppings: ['Моцарелла','Огурцы маринованные','Пепперони','Томатный соус'],
+        toppings: [
+          {
+            icon: 'MozarellaCheese',
+            width: 41,
+            height: 35,
+            toppingName: 'Моцарелла'
+          },
+          {
+            icon: 'Cucumber',
+            width: 40,
+            height: 40,
+            toppingName: 'Огурцы маринованные'
+          },
+          {
+            icon: 'Cucumber',
+            width: 40,
+            height: 40,
+            toppingName: 'Пепперони'
+          },
+          {
+            icon: 'SousInsideWhite',
+            width: 41,
+            height: 27,
+            toppingName: 'Томатный соус'
+          }
+        ],
         crust: 'Традиционное',
-        size: '20 см',
+        size: 20,
         price: 399,
         startingPrice: true,
         status: 'NEW',
@@ -110,10 +135,24 @@ export default createStore({
         image: 'easy-peasy.png',
         name: 'EASY PEASY огуречный расколбас',
         description: 'Курица, Лук, Перец Халапеньо...',
-        toppings: ['Моцарелла','Огурцы маринованные','Пепперони','Томатный соус'],
-        crust: 'Традиционное',
-        size: '20 см',
-        price: 399,
+        toppings: [
+          {
+            icon: 'MozarellaCheese',
+            width: 41,
+            height: 35,
+            toppingName: 'Моцарелла'
+          },
+          {
+            icon: 'Cucumber',
+            width: 40,
+            height: 40,
+            toppingName: 'Огурцы маринованные'
+          },
+
+        ],
+        crust: 'Тонкое',
+        size: 28,
+        price: 280,
         startingPrice: true,
         status: 'ХИТ',
       },
@@ -121,9 +160,34 @@ export default createStore({
         image: 'easy-peasy-checken.png',
         name: 'EASY PEASY чикен а-ля хрен',
         description: 'Курица, Лук, Соус Карбонара,...',
-        toppings: ['Моцарелла','Огурцы маринованные','Пепперони','Томатный соус'],
+        toppings: [
+          {
+            icon: 'MozarellaCheese',
+            width: 41,
+            height: 35,
+            toppingName: 'Моцарелла'
+          },
+          {
+            icon: 'Cucumber',
+            width: 40,
+            height: 40,
+            toppingName: 'Огурцы маринованные'
+          },
+          {
+            icon: 'Cucumber',
+            width: 40,
+            height: 40,
+            toppingName: 'Пепперони'
+          },
+          {
+            icon: 'SousInsideWhite',
+            width: 41,
+            height: 27,
+            toppingName: 'Томатный соус'
+          }
+        ],
         crust: 'Традиционное',
-        size: '20 см',
+        size: 20,
         price: 399,
         startingPrice: true,
         status: '',
@@ -132,9 +196,34 @@ export default createStore({
         image: 'four-season.png',
         name: '4 сезона',
         description: 'Бекон, Ветчина, Грибы, Курица, Лук, Маслины, Огурцы мари...',
-        toppings: ['Моцарелла','Огурцы маринованные','Пепперони','Томатный соус'],
+        toppings: [
+          {
+            icon: 'MozarellaCheese',
+            width: 41,
+            height: 35,
+            toppingName: 'Моцарелла'
+          },
+          {
+            icon: 'Cucumber',
+            width: 40,
+            height: 40,
+            toppingName: 'Огурцы маринованные'
+          },
+          {
+            icon: 'Cucumber',
+            width: 40,
+            height: 40,
+            toppingName: 'Пепперони'
+          },
+          {
+            icon: 'SousInsideWhite',
+            width: 41,
+            height: 27,
+            toppingName: 'Томатный соус'
+          }
+        ],
         crust: 'Традиционное',
-        size: '20 см',
+        size: 20,
         price: 399,
         startingPrice: true,
         status: '',
@@ -143,9 +232,34 @@ export default createStore({
         image: 'four-season.png',
         name: '4 сезона',
         description: 'Бекон, Ветчина, Грибы, Курица, Лук, Маслины, Огурцы мари...',
-        toppings: ['Моцарелла','Огурцы маринованные','Пепперони','Томатный соус'],
+        toppings: [
+          {
+            icon: 'MozarellaCheese',
+            width: 41,
+            height: 35,
+            toppingName: 'Моцарелла'
+          },
+          {
+            icon: 'Cucumber',
+            width: 40,
+            height: 40,
+            toppingName: 'Огурцы маринованные'
+          },
+          {
+            icon: 'Cucumber',
+            width: 40,
+            height: 40,
+            toppingName: 'Пепперони'
+          },
+          {
+            icon: 'SousInsideWhite',
+            width: 41,
+            height: 27,
+            toppingName: 'Томатный соус'
+          }
+        ],
         crust: 'Традиционное',
-        size: '20 см',
+        size: 28,
         price: 399,
         startingPrice: true,
         status: '',
@@ -154,9 +268,34 @@ export default createStore({
         image: 'easy-peasy-checken.png',
         name: 'EASY PEASY чикен а-ля хрен',
         description: 'Курица, Лук, Соус Карбонара,...',
-        toppings: ['Моцарелла','Огурцы маринованные','Пепперони','Томатный соус'],
+        toppings: [
+          {
+            icon: 'MozarellaCheese',
+            width: 41,
+            height: 35,
+            toppingName: 'Моцарелла'
+          },
+          {
+            icon: 'Cucumber',
+            width: 40,
+            height: 40,
+            toppingName: 'Огурцы маринованные'
+          },
+          {
+            icon: 'Cucumber',
+            width: 40,
+            height: 40,
+            toppingName: 'Пепперони'
+          },
+          {
+            icon: 'SousInsideWhite',
+            width: 41,
+            height: 27,
+            toppingName: 'Томатный соус'
+          }
+        ],
         crust: 'Традиционное',
-        size: '20 см',
+        size: 33,
         price: 399,
         startingPrice: true,
         status: '',
@@ -165,9 +304,34 @@ export default createStore({
         image: 'chicken-sweet.png',
         name: 'Чикен Сладкий Чили',
         description: 'Курица, Лук, Перец Халапеньо, Сыр Моцарелла, Томатный соу...',
-        toppings: ['Моцарелла','Огурцы маринованные','Пепперони','Томатный соус'],
+        toppings: [
+          {
+            icon: 'MozarellaCheese',
+            width: 41,
+            height: 35,
+            toppingName: 'Моцарелла'
+          },
+          {
+            icon: 'Cucumber',
+            width: 40,
+            height: 40,
+            toppingName: 'Огурцы маринованные'
+          },
+          {
+            icon: 'Cucumber',
+            width: 40,
+            height: 40,
+            toppingName: 'Пепперони'
+          },
+          {
+            icon: 'SousInsideWhite',
+            width: 41,
+            height: 27,
+            toppingName: 'Томатный соус'
+          }
+        ],
         crust: 'Традиционное',
-        size: '20 см',
+        size: 20,
         price: 399,
         startingPrice: true,
         status: '',
@@ -176,9 +340,34 @@ export default createStore({
         image: 'easy-peasy.png',
         name: 'EASY PEASY огуречный расколбас',
         description: 'Курица, Лук, Перец Халапеньо...',
-        toppings: ['Моцарелла','Огурцы маринованные','Пепперони','Томатный соус'],
+        toppings: [
+          {
+            icon: 'MozarellaCheese',
+            width: 41,
+            height: 35,
+            toppingName: 'Моцарелла'
+          },
+          {
+            icon: 'Cucumber',
+            width: 40,
+            height: 40,
+            toppingName: 'Огурцы маринованные'
+          },
+          {
+            icon: 'Cucumber',
+            width: 40,
+            height: 40,
+            toppingName: 'Пепперони'
+          },
+          {
+            icon: 'SousInsideWhite',
+            width: 41,
+            height: 27,
+            toppingName: 'Томатный соус'
+          }
+        ],
         crust: 'Традиционное',
-        size: '20 см',
+        size: 33,
         price: 399,
         startingPrice: true,
         status: '',

@@ -3,7 +3,6 @@
     <div class="image">
       <img :src="require(`@/assets/${items.image}`)" alt="Pizza Picture">
     </div>
-
     <div class="card-content">
       <div  style="flex: 1">
         <div class="red-sign" v-if="items.status">{{items.status}}</div>
@@ -11,11 +10,10 @@
         <div class="car-text">{{items.description}}</div>
       </div>
       <div class="card-footer" >
-        <Button text="Выбрать" @click="addToBasket"/>
+        <Button text="Выбрать" @click="chooseProduct"/>
         <div class="price"><span v-if="items.startingPrice">от</span> {{ items.price }} ₽</div>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -32,8 +30,8 @@ export default {
     }
   },
   methods: {
-    addToBasket(){
-    this.$emit('fromBasket')
+    chooseProduct(){
+    this.$emit('chooseProduct')
     }
   }
 }
@@ -46,7 +44,6 @@ export default {
   //align-self: auto
   flex-direction: column
   width: 302px
-  //height: 482px
   box-sizing: border-box
   overflow: hidden
   background: #FFFFFF
@@ -70,6 +67,7 @@ export default {
   font-weight: normal
   font-size: 14px
   line-height: 18px
+
 .image
   width: 300px
   height: 300px
@@ -112,9 +110,4 @@ export default {
   display: flex
   justify-content: space-between
   align-items: center
-  //width: 100%
-
-
-
-
 </style>
