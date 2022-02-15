@@ -1,15 +1,9 @@
 <template>
-  <h2>Modal Example</h2>
-
-<!--  &lt;!&ndash; Trigger/Open The Modal &ndash;&gt;-->
-<!--  <button @click="modal=true">Open Modal</button>-->
-
-  <!-- The Modal -->
   <div class="modal">
     <!-- Modal content -->
     <div class="modal-content">
       <div class="image">
-        <img src="@/assets/bigPizza.png" alt="Pizza Picture">
+        <img :src="require(`@/assets/${selectedProduct.image}`)" alt="Product Picture">
       </div>
 
       <div class="description" style="flex: 1; max-width: 480px" >
@@ -21,11 +15,11 @@
         <!--              <Iconca name="Cucumber" color="#A5A5A5" :width="40" :height="40"/>-->
         <div class="pizza-name">
           <Iconca name="smallSale" color="#E23535" :width="18" :height="24" style="margin-right: 11px"/>
-          {{ selectedPizza.name }}
+          {{ selectedProduct.name }}
         </div>
 <!--Toppings-->
         <div class="toppings">
-          <div class="blog" v-for="(item, index) in toppings" :key="index">
+          <div class="blog" v-for="(item, index) in selectedProduct.toppings" :key="index">
             <div class="icon-box">
               <Iconca :name="item.icon" color="#FF7010" :width="item.width" :height="item.height"/>
             </div>
@@ -33,15 +27,23 @@
           </div>
         </div>
 <!--    Crust Part    -->
-        <div class="crust">
-          <Button text="Традиционное" class="btn-style"/>
-          <Button text="Тонкое" :active="false" class="btn-style"/>
+        <div class="crust-form-group">
+          <input class="custom-radio" type="radio" id="first" value="Традиционное" v-model="crust">
+          <label for="first">Традиционное</label>
+
+          <input class="custom-radio" type="radio" id="second" value="Тонкое" v-model="crust">
+          <label for="second">Тонкое</label>
         </div>
 <!--        Pizza Size-->
-        <div class="size">
-          <Button text="20 см" class="btn-style"/>
-          <Button text="28 см" :active="false" class="btn-style"/>
-          <Button text="33 см" :active="false" class="btn-style"/>
+        <div class="size-form-group">
+          <input class="custom-radio" type="radio" id="sizeOne" value="20" v-model="PizzaSize">
+          <label for="sizeOne">20 см</label>
+
+          <input class="custom-radio" type="radio" id="sizeSecond" value="28" v-model="PizzaSize">
+          <label for="sizeSecond">28 см</label>
+
+          <input class="custom-radio" type="radio" id="sizeThird" value="33" v-model="PizzaSize">
+          <label for="sizeThird">33 см</label>
         </div>
 <!--Adding Toppings to Pizza-->
         <div class="adding-title">Добавьте в пиццу</div>
@@ -57,7 +59,7 @@
 <!--     Footer Part   -->
         <div class="modal-footer">
           <div class="total-sum" style="display: flex; align-items: center">
-            <div class="sum">Итого: 379 ₽</div>
+            <div class="sum">Итого: {{ selectedProduct.price }} ₽</div>
             <div class="gramm">400 г</div>
           </div>
           <Button text="Добавить" style="height: 48px"/>
@@ -84,14 +86,15 @@ export default {
     Button
   },
   props: {
-    selectedPizza:{
+    selectedProduct:{
       type: Object,
       default:()=>{}
     }
   },
   data(){
     return {
-      // modal: true,
+      crust: this.$props.selectedProduct.crust,
+      PizzaSize: this.$props.selectedProduct.size,
       toppingProducts: [
         {
           icon: 'MozarellaCheese',
@@ -182,7 +185,7 @@ export default {
   top: 20px
   //left: 305px
   //top: 132px
-  background: #eadbe0
+  background: #FFFFFF
   border-radius: 24px
   padding: 32px 20px 0 60px
   box-sizing: border-box
@@ -267,9 +270,6 @@ img
   display: flex
   align-items: center
 
-.btn-style
-  flex: 1
-  height: 48px
 
 //Footer Part
 .modal-footer
@@ -296,4 +296,41 @@ img
   right: -62px
   top: 0
   cursor: pointer
+
+//Input style
+.crust-form-group, .size-form-group
+  display: flex
+  width: 480px
+  background: #FFFFFF
+  border: 1px solid #F0F0F0
+  border-radius: 6px
+  box-sizing: border-box
+  height: 48px
+  margin-bottom: 16px
+
+.size-form-group
+  height: 44px
+
+.custom-radio
+  display: none
+
+.custom-radio + label
+  -webkit-appearance: none
+  display: flex
+  justify-content: center
+  align-items: center
+  background-color: #FFFFFF
+  border-radius: 6px
+  width: 100%
+  color: #191919
+  font-family: SF Pro Text
+  font-weight: normal
+  font-size: 16px
+  line-height: 22px
+  cursor: pointer
+
+.custom-radio:checked + label
+  background: #FF7010
+  color: #FFFFFF
+
 </style>

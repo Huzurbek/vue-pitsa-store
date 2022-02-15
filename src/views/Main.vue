@@ -7,7 +7,10 @@
 
     <SushiSection/>
 
-    <Modal v-if="modal" @close="modal = false" :selected-pizza="sendingObj"/>
+    <Modal v-if="modal" @close="modal = false" :selected-product="selectedProduct"/>
+    <p>selected:{{selectedProduct}}</p>
+
+
 
   </div>
   <FooterSection/>
@@ -34,15 +37,15 @@ export default {
   data(){
     return {
       modal: false,
-      sendingObj:{}
+      selectedProduct:{},
+
     }
   },
   methods:{
     openModal(val){
-      console.log('modal is working',val)
-      this.sendingObj={
-        name: val
-      }
+
+      this.selectedProduct = val
+
       this.modal = true
     }
   }
@@ -58,11 +61,40 @@ export default {
   max-width: 1290px
   margin:  0 auto
   padding-top: 31px
-
   min-height: 1000px
 
 
+//Input style
+.form-group
+  display: flex
+  width: 480px
+  background: #FFFFFF
+  border: 1px solid #F0F0F0
+  border-radius: 6px
+  box-sizing: border-box
 
+.custom-radio
+  display: none
+
+.custom-radio + label
+  -webkit-appearance: none
+  display: flex
+  justify-content: center
+  align-items: center
+  background-color: #FFFFFF
+  border-radius: 6px
+  width: 100%
+  color: #191919
+  height: 48px
+  font-family: SF Pro Text
+  font-weight: normal
+  font-size: 16px
+  line-height: 22px
+  cursor: pointer
+
+.custom-radio:checked + label
+  background: #FF7010
+  color: #FFFFFF
 
 
 

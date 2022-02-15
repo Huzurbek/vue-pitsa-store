@@ -2,7 +2,7 @@
   <div class="topic">Пицца</div>
   <div class="pizza-container">
 <!--    Component FoodCard-->
-    <FoodCard  v-for="(item, index) in products" :key="index" :items="products[index]" @click="fromBasket(item)" class="card-style"/>
+    <FoodCard  v-for="(item, index) in products" :key="index" :items="products[index]" @click="chooseProduct(item)" class="card-style"/>
   </div>
 </template>
 
@@ -19,10 +19,10 @@ export default {
     })
   },
   methods: {
-    fromBasket(val){
+    chooseProduct(val){
       console.log('bus ket is wroki',val.title)
-      this.$emit('openModal', val.title)
-      this.$store.commit('addToBasket',val.price)
+      this.$emit('openModal', val)
+      // this.$store.commit('addToBasket',val.price)
 
     }
   }
