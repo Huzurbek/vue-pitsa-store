@@ -20,9 +20,8 @@ export default {
   },
   methods: {
     chooseProduct(val){
-      console.log('bus ket is wroki',val.title)
       this.$emit('openModal', val)
-      // this.$store.commit('addToBasket',val.price)
+
 
     }
   }

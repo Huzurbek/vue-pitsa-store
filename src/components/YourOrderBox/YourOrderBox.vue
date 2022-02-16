@@ -1,18 +1,25 @@
 <template>
   <div class="your-order-box">
-    <div style="display: flex; align-items: center">
-      <img :src="require(`@/assets/${items.image}`)" alt="Pizza Picture">
-      <div class="description">
-        <div class="product-name">{{  items.name }}</div>
-        <div class="product-size">{{ items.size }}</div>
+    <div class="image">
+      <img :src="require(`@/assets/${item.image}`)" alt="Pizza Picture">
+    </div>
+
+    <div class="content">
+      <div class="product-name">{{  item.name }}</div>
+      <div class="product-size">{{ item.crust }} тесто, {{ item.size }} см</div>
+
+
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 12px">
+        <div class="add-remove-box">
+          <Iconca name="Minus" color="#FF7010" :width="8" :height="8" class="icon" @click.prevent="decQuantity" />
+          <div class="quantity">{{ quantity }}</div>
+          <Iconca name="Plus" color="#FF7010" :width="8" :height="8" class="icon" @click.prevent="incQuantity(item.id)"/>
+        </div>
+        <div class="product-price">{{ productPrice }} ₽</div>
       </div>
     </div>
-    <div class="add-remove-box">
-      <Iconca name="Minus" color="#FF7010" :width="8" :height="8" class="icon"/>
-      <div class="cuantity">1</div>
-      <Iconca name="Plus" color="#FF7010" :width="8" :height="8" class="icon"/>
-    </div>
-    <div class="product-price">{{ items.price }} ₽</div>
+
+
   </div>
 </template>
 
@@ -23,9 +30,37 @@ export default {
     Iconca
   },
   props:{
-    items: {
+    item: {
       type: Object,
       default:()=>{}
+    }
+  },
+  data(){
+    return {
+      demo: 1,
+    }
+  },
+  computed: {
+    quantity(){
+      return this.$props.item.quantity
+    },
+    productPrice(){
+      let props = this.$props.item
+      return props.price * props.quantity
+    }
+
+
+  },
+  methods: {
+    incQuantity(val){
+      // this.$props.item.quantity += 1
+      console.log('product id',val)
+      this.$store.commit("incrementQuantity",val)
+    },
+    decQuantity(){
+      if(this.$props.item.quantity > 1){
+        this.$props.item.quantity -= 1
+      }
     }
   }
 }
@@ -34,49 +69,48 @@ export default {
 <style scoped lang="sass">
 
 .your-order-box
-  max-width: 850px
-  height: 152px
   background: #FFFFFF
   border: 1px solid #F0F0F0
   box-sizing: border-box
   border-radius: 12px
-  padding: 16px 24px 16px 16px
+  padding: 16px 16px 16px 16px
   display: flex
-  align-items: center
-  justify-content: space-between
+
+.image
+  box-sizing: border-box
+  overflow: hidden
+  width: 94px
+  height: 94px
+  margin-right: 16px
 
 img
-  width: 120px
-  height: 120px
-  margin-right: 16px
-.description
-  width: 269px
-.product-name
-  font-family: Inter
-  font-weight: 600
-  font-size: 20px
-  line-height: 28px
-  color: #191919
-  margin-bottom: 8px
+  width: 94px
+  height: 94px
 
+.content
+  box-sizing: border-box
+  flex: 1
+
+.product-name, .product-size, .product-price, .quantity
+  font-family: Inter
+
+.product-name, .product-price, .cuantity
+  font-weight: 600
+  font-size: 16px
+  line-height: 20px
+
+.product-name
+  margin-bottom: 8px
+  color: #191919
 
 .product-size
-  font-family: SF Pro Text
   font-weight: normal
-  font-size: 16px
-  line-height: 22px
+  font-size: 14px
+  line-height: 18px
   color: #191919
 
 .product-price
-  font-family: Inter
-  font-weight: 600
-  font-size: 20px
-  line-height: 28px
-  //display: flex
-  //align-items: center
-  //text-align: right
   color: #FF7010
-
 
 .add-remove-box
   width: 92px
@@ -91,16 +125,8 @@ img
 
 .icon
   cursor: pointer
-.cuantity
-  font-family: Inter
-  font-weight: 600
-  font-size: 16px
-  line-height: 20px
+.quantity
   color: #FF7010
   user-select: none
-
-//display: flex;
-//align-items: center;
-//text-align: center;
 
 </style>
