@@ -62,13 +62,8 @@
             <div class="sum">Итого: {{ selectedProduct.price }} ₽</div>
             <div class="gramm">400 г</div>
           </div>
-          <Button text="Добавить" style="height: 48px"/>
+          <Button text="Добавить" @click="addToBasket"/>
         </div>
-
-
-
-
-<!--        <span class="close" style="font-weight: bold; font-size: 30px">&times;</span>-->
       </div>
       <div class="close-btn">
         <Iconca @click="closeModal" name="Close" color="white" :width="32" :height="32"/>
@@ -125,35 +120,29 @@ export default {
           price: 59
         }
       ],
-      toppings: [
-        {
-          icon: 'MozarellaCheese',
-          width: 41,
-          height: 35,
-          toppingName: 'Моцарелла'
-        },
-        {
-          icon: 'Cucumber',
-          width: 40,
-          height: 40,
-          toppingName: 'Огурцы маринованные'
-        },
-        {
-          icon: 'Cucumber',
-          width: 40,
-          height: 40,
-          toppingName: 'Пепперони'
-        },
-        {
-          icon: 'SousInsideWhite',
-          width: 41,
-          height: 27,
-          toppingName: 'Томатный соус'
-        }
-      ]
+
     }
   },
   methods:{
+    addToBasket(){
+      let props = this.$props.selectedProduct;
+      const product = {
+            id: props.id,
+            image: props.image,
+            name: props.name,
+            description: props.description,
+            toppings: props.toppings,
+            crust: this.crust,
+            size: this.PizzaSize,
+            price: props.price,
+            startingPrice: true,
+            status: 'NEW',
+            quantity: 1
+          }
+
+      this.$store.commit('addToBasket',product)
+      this.closeModal()
+    },
   closeModal(){
     this.$emit('close')
   }

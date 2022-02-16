@@ -36,7 +36,7 @@
         </div>
       </div>
       <!--    Basket Button component-->
-      <Button fit :text="`${basket} ₽`" left-icon="Basket" :icon-width="24" :icon-height="22" />
+      <Button fit :text="`${basketTotalSum} ₽`" left-icon="Basket" :icon-width="24" :icon-height="22" @click.prevent="openModel" style="height: 40px"/>
     </div>
   </div>
 </template>
@@ -44,7 +44,7 @@
 <script>
 import Button from "@/components/Button/Button";
 import Iconca from "@/components/Iconca/Iconca";
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 
 export default {
   name:"NavigationSection",
@@ -85,8 +85,16 @@ export default {
   },
   computed: {
     ...mapState({
-      basket: state => state.basket
+      // basket: state => state.basket
+    }),
+    ...mapGetters({
+      basketTotalSum: 'basketTotalSum'
     })
+  },
+  methods: {
+    openModel(){
+      this.$emit('openModel')
+    }
   }
 }
 </script>

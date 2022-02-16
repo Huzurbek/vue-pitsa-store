@@ -1,5 +1,5 @@
 <template>
-  <NavigationSection/>
+  <NavigationSection @openModel="isOpen=true"/>
   <div class="container">
     <HeaderSection/>
 
@@ -9,8 +9,8 @@
 
     <Modal v-if="modal" @close="modal = false" :selected-product="selectedProduct"/>
     <p>selected:{{selectedProduct}}</p>
-
-
+<!--YourOrder Modal component-->
+    <YourOrderModal :display="isOpen"  @close="isOpen = false"/>
 
   </div>
   <FooterSection/>
@@ -23,6 +23,7 @@ import PizzaSection from "@/sections/PizzaSection/PizzaSection";
 import SushiSection from "@/sections/SushiSection/SushiSection";
 import FooterSection from "@/sections/FooterSerction/FooterSection";
 import Modal from "@/sections/Modal";
+import YourOrderModal from "@/sections/YourOrderModal";
 
 export default {
   name: 'Main',
@@ -32,11 +33,13 @@ export default {
     PizzaSection,
     FooterSection,
     SushiSection,
-    Modal
+    Modal,
+    YourOrderModal
   },
   data(){
     return {
       modal: false,
+      isOpen: false,
       selectedProduct:{},
 
     }
@@ -63,38 +66,6 @@ export default {
   padding-top: 31px
   min-height: 1000px
 
-
-//Input style
-.form-group
-  display: flex
-  width: 480px
-  background: #FFFFFF
-  border: 1px solid #F0F0F0
-  border-radius: 6px
-  box-sizing: border-box
-
-.custom-radio
-  display: none
-
-.custom-radio + label
-  -webkit-appearance: none
-  display: flex
-  justify-content: center
-  align-items: center
-  background-color: #FFFFFF
-  border-radius: 6px
-  width: 100%
-  color: #191919
-  height: 48px
-  font-family: SF Pro Text
-  font-weight: normal
-  font-size: 16px
-  line-height: 22px
-  cursor: pointer
-
-.custom-radio:checked + label
-  background: #FF7010
-  color: #FFFFFF
 
 
 

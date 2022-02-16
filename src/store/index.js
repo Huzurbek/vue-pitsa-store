@@ -96,6 +96,7 @@ export default createStore({
     basket: 0,
     products: [
       {
+        id: 1,
         image: 'chicken-sweet.png',
         name: 'Чикен Сладкий Чили',
         description: 'Курица, Лук, Перец Халапеньо, Сыр Моцарелла, Томатный соу...',
@@ -130,8 +131,10 @@ export default createStore({
         price: 399,
         startingPrice: true,
         status: 'NEW',
+        quantity: 1,
       },
       {
+        id: 2,
         image: 'easy-peasy.png',
         name: 'EASY PEASY огуречный расколбас',
         description: 'Курица, Лук, Перец Халапеньо...',
@@ -155,8 +158,10 @@ export default createStore({
         price: 280,
         startingPrice: true,
         status: 'ХИТ',
+        quantity: 1,
       },
       {
+        id: 3,
         image: 'easy-peasy-checken.png',
         name: 'EASY PEASY чикен а-ля хрен',
         description: 'Курица, Лук, Соус Карбонара,...',
@@ -191,8 +196,10 @@ export default createStore({
         price: 399,
         startingPrice: true,
         status: '',
+        quantity: 1,
       },
       {
+        id: 4,
         image: 'four-season.png',
         name: '4 сезона',
         description: 'Бекон, Ветчина, Грибы, Курица, Лук, Маслины, Огурцы мари...',
@@ -227,8 +234,10 @@ export default createStore({
         price: 399,
         startingPrice: true,
         status: '',
+        quantity: 1,
       },
       {
+        id: 5,
         image: 'four-season.png',
         name: '4 сезона',
         description: 'Бекон, Ветчина, Грибы, Курица, Лук, Маслины, Огурцы мари...',
@@ -263,8 +272,10 @@ export default createStore({
         price: 399,
         startingPrice: true,
         status: '',
+        quantity: 1,
       },
       {
+        id: 6,
         image: 'easy-peasy-checken.png',
         name: 'EASY PEASY чикен а-ля хрен',
         description: 'Курица, Лук, Соус Карбонара,...',
@@ -299,8 +310,10 @@ export default createStore({
         price: 399,
         startingPrice: true,
         status: '',
+        quantity: 1,
       },
       {
+        id: 7,
         image: 'chicken-sweet.png',
         name: 'Чикен Сладкий Чили',
         description: 'Курица, Лук, Перец Халапеньо, Сыр Моцарелла, Томатный соу...',
@@ -335,8 +348,10 @@ export default createStore({
         price: 399,
         startingPrice: true,
         status: '',
+        quantity: 1,
       },
       {
+        id: 8,
         image: 'easy-peasy.png',
         name: 'EASY PEASY огуречный расколбас',
         description: 'Курица, Лук, Перец Халапеньо...',
@@ -371,8 +386,10 @@ export default createStore({
         price: 399,
         startingPrice: true,
         status: '',
+        quantity: 1,
       },
     ],
+    basketProducts: [],
     plan: [
       {
         crust: ['Традиционное','Тонкое'],
@@ -380,10 +397,23 @@ export default createStore({
       }
     ]
   },
+  getters: {
+    basketTotalSum: (state) => {
+      return state.basketProducts.reduce((total,el)=>total += (el.price * el.quantity),0)
+    }
+  },
   mutations: {
     addToBasket(state,payload){
       console.log('in mutation',payload)
-      state.basket += payload
+      state.basketProducts.push(payload)
+    },
+    incrementQuantity(state, payload){
+      state.basketProducts = state.basketProducts.map((product)=>{
+        if(product.id === payload){
+          product.quantity +=1
+        }
+          return product
+      })
     }
   },
   actions: {
