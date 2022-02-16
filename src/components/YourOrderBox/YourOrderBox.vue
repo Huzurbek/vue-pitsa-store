@@ -11,7 +11,7 @@
 
       <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 12px">
         <div class="add-remove-box">
-          <Iconca name="Minus" color="#FF7010" :width="8" :height="8" class="icon" @click.prevent="decQuantity" />
+          <Iconca name="Minus" color="#FF7010" :width="8" :height="8" class="icon" @click.prevent="decQuantity(item.id)" />
           <div class="quantity">{{ quantity }}</div>
           <Iconca name="Plus" color="#FF7010" :width="8" :height="8" class="icon" @click.prevent="incQuantity(item.id)"/>
         </div>
@@ -53,14 +53,10 @@ export default {
   },
   methods: {
     incQuantity(val){
-      // this.$props.item.quantity += 1
-      console.log('product id',val)
       this.$store.commit("incrementQuantity",val)
     },
-    decQuantity(){
-      if(this.$props.item.quantity > 1){
-        this.$props.item.quantity -= 1
-      }
+    decQuantity(val){
+      this.$store.commit("decrementQuantity",val)
     }
   }
 }

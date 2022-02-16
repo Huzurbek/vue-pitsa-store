@@ -414,6 +414,14 @@ export default createStore({
         }
           return product
       })
+    },
+    decrementQuantity(state,payload){
+      state.basketProducts = state.basketProducts.map((product)=>{
+        if(product.id === payload && product.quantity > 1){
+          product.quantity -=1
+        }
+        return product
+      })
     }
   },
   actions: {
