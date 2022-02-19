@@ -1,98 +1,108 @@
-import { createStore } from 'vuex'
 
+import { createStore } from 'vuex'
+function containsObject(obj, list) {
+  var i;
+  for (i = 0; i < list.length; i++) {
+    if (list[i].id === obj.id) {
+      return true;
+    }
+  }
+
+  return false;
+}
 export default createStore({
   state: {
 
-    sushes: [
-      {
-        image: 'sushi-cranch.png',
-        name: 'Филадельфия кранч',
-        description: 'Семга, рис, сыр креметто, соус унаги, креветка, авокадо, чип...',
-        toppings: ['Моцарелла','Огурцы маринованные','Пепперони','Томатный соус'],
-        crust: 'Традиционное',
-        size: '20 см',
-        price: 475,
-        startingPrice: true,
-        status: 'NEW',
-      },
-      {
-        image: 'sushi-cream.png',
-        name: 'Филадельфия крем-брюле ',
-        description: 'Сливочный сыр, семга татаки с тростниковым сахаром, соус у...',
-        toppings: ['Моцарелла','Огурцы маринованные','Пепперони','Томатный соус'],
-        crust: 'Традиционное',
-        size: '20 см',
-        price: 395,
-        startingPrice: false,
-        status: 'ХИТ'
-      },
-      {
-        image: 'sushi-super.png',
-        name: 'Супер Филадельфия',
-        description: 'Действительно много семги, сливочный сыр, огурец, рис, н...',
-        toppings: ['Моцарелла','Огурцы маринованные','Пепперони','Томатный соус'],
-        crust: 'Традиционное',
-        size: '20 см',
-        price: 425,
-        startingPrice: false,
-        status: ''
-      },
-      {
-        image: 'sushi-tigr-mama.png',
-        name: 'Тигр мама',
-        description: 'Тигровая креветка, огурец, авокадо, соус Айоли, рис, ик...',
-        toppings: ['Моцарелла','Огурцы маринованные','Пепперони','Томатный соус'],
-        crust: 'Традиционное',
-        size: '20 см',
-        price: 525,
-        startingPrice: false,
-        status: ''
-      },
-      {
-        image: 'sushi-tigr-mama.png',
-        name: 'Тигр мама',
-        description: 'Тигровая креветка, огурец, авокадо, соус Айоли, рис, ик...',
-        toppings: ['Моцарелла','Огурцы маринованные','Пепперони','Томатный соус'],
-        crust: 'Традиционное',
-        size: '20 см',
-        price: 525,
-        startingPrice: false,
-        status: ''
-      },
-      {
-        image: 'sushi-super.png',
-        name: 'Супер Филадельфия',
-        description: 'Действительно много семги, сливочный сыр, огурец, рис, н...',
-        toppings: ['Моцарелла','Огурцы маринованные','Пепперони','Томатный соус'],
-        crust: 'Традиционное',
-        size: '20 см',
-        price: 425,
-        startingPrice: false,
-        status: ''
-      },
-      {
-        image: 'sushi-cranch.png',
-        name: 'Филадельфия кранч',
-        description: 'Семга, рис, сыр креметто, соус унаги, креветка, авокадо, чип...',
-        toppings: ['Моцарелла','Огурцы маринованные','Пепперони','Томатный соус'],
-        crust: 'Традиционное',
-        size: '20 см',
-        price: 475,
-        startingPrice: false,
-        status: ''
-      },
-      {
-        image: 'sushi-cream.png',
-        name: 'Филадельфия крем-брюле ',
-        description: 'Сливочный сыр, семга татаки с тростниковым сахаром, соус у...',
-        toppings: ['Моцарелла','Огурцы маринованные','Пепперони','Томатный соус'],
-        crust: 'Традиционное',
-        size: '20 см',
-        price: 395,
-        startingPrice: false,
-        status: ''
-      },
-    ],
+    // sushes: [
+    //   {
+    //     image: 'sushi-cranch.png',
+    //     name: 'Филадельфия кранч',
+    //     description: 'Семга, рис, сыр креметто, соус унаги, креветка, авокадо, чип...',
+    //     toppings: ['Моцарелла','Огурцы маринованные','Пепперони','Томатный соус'],
+    //     crust: 'Традиционное',
+    //     size: '20 см',
+    //     price: 475,
+    //     startingPrice: true,
+    //     status: 'NEW',
+    //   },
+    //   {
+    //     image: 'sushi-cream.png',
+    //     name: 'Филадельфия крем-брюле ',
+    //     description: 'Сливочный сыр, семга татаки с тростниковым сахаром, соус у...',
+    //     toppings: ['Моцарелла','Огурцы маринованные','Пепперони','Томатный соус'],
+    //     crust: 'Традиционное',
+    //     size: '20 см',
+    //     price: 395,
+    //     startingPrice: false,
+    //     status: 'ХИТ'
+    //   },
+    //   {
+    //     image: 'sushi-super.png',
+    //     name: 'Супер Филадельфия',
+    //     description: 'Действительно много семги, сливочный сыр, огурец, рис, н...',
+    //     toppings: ['Моцарелла','Огурцы маринованные','Пепперони','Томатный соус'],
+    //     crust: 'Традиционное',
+    //     size: '20 см',
+    //     price: 425,
+    //     startingPrice: false,
+    //     status: ''
+    //   },
+    //   {
+    //     image: 'sushi-tigr-mama.png',
+    //     name: 'Тигр мама',
+    //     description: 'Тигровая креветка, огурец, авокадо, соус Айоли, рис, ик...',
+    //     toppings: ['Моцарелла','Огурцы маринованные','Пепперони','Томатный соус'],
+    //     crust: 'Традиционное',
+    //     size: '20 см',
+    //     price: 525,
+    //     startingPrice: false,
+    //     status: ''
+    //   },
+    //   {
+    //     image: 'sushi-tigr-mama.png',
+    //     name: 'Тигр мама',
+    //     description: 'Тигровая креветка, огурец, авокадо, соус Айоли, рис, ик...',
+    //     toppings: ['Моцарелла','Огурцы маринованные','Пепперони','Томатный соус'],
+    //     crust: 'Традиционное',
+    //     size: '20 см',
+    //     price: 525,
+    //     startingPrice: false,
+    //     status: ''
+    //   },
+    //   {
+    //     image: 'sushi-super.png',
+    //     name: 'Супер Филадельфия',
+    //     description: 'Действительно много семги, сливочный сыр, огурец, рис, н...',
+    //     toppings: ['Моцарелла','Огурцы маринованные','Пепперони','Томатный соус'],
+    //     crust: 'Традиционное',
+    //     size: '20 см',
+    //     price: 425,
+    //     startingPrice: false,
+    //     status: ''
+    //   },
+    //   {
+    //     image: 'sushi-cranch.png',
+    //     name: 'Филадельфия кранч',
+    //     description: 'Семга, рис, сыр креметто, соус унаги, креветка, авокадо, чип...',
+    //     toppings: ['Моцарелла','Огурцы маринованные','Пепперони','Томатный соус'],
+    //     crust: 'Традиционное',
+    //     size: '20 см',
+    //     price: 475,
+    //     startingPrice: false,
+    //     status: ''
+    //   },
+    //   {
+    //     image: 'sushi-cream.png',
+    //     name: 'Филадельфия крем-брюле ',
+    //     description: 'Сливочный сыр, семга татаки с тростниковым сахаром, соус у...',
+    //     toppings: ['Моцарелла','Огурцы маринованные','Пепперони','Томатный соус'],
+    //     crust: 'Традиционное',
+    //     size: '20 см',
+    //     price: 395,
+    //     startingPrice: false,
+    //     status: ''
+    //   },
+    // ],
     basket: 0,
     products: [
       {
@@ -132,6 +142,14 @@ export default createStore({
         ],
         additionalToppings:[
           {
+            id: 1,
+            icon: 'MozarellaCheese',
+            width: 41,
+            height: 35,
+            toppingName: 'Моцарелла',
+            price: 59
+          },
+          {
             id: 2,
             icon: 'Mashroom',
             width: 105,
@@ -139,6 +157,7 @@ export default createStore({
             toppingName: 'Шампиньоны',
             price: 59
           },
+
         ],
         crust: 'Традиционное',
         size: 20,
@@ -459,19 +478,13 @@ export default createStore({
   mutations: {
     addTopping(state,payload){
       let index = state.products.findIndex(el=>el.id === payload.id)
-      state.products[index].additionalToppings.map(el=>{
-        if(el.id === payload.value.id){
-        console.log('bor ekan')
-        }else{
-          console.log('yoq ekan')
-        }
+      if(containsObject(payload.value,state.products[index].additionalToppings)){
+        let toppingIndex= state.products[index].additionalToppings.findIndex(el=>el.id === payload.value.id)
+        state.products[index].additionalToppings.splice(toppingIndex,1)
 
-      })
-      // state.products.map(el=> {
-      //   if(el.id === payload.id){
-      //     el.additionalToppings.push(payload.value)
-      //   }
-      // })
+      }else{
+        state.products[index].additionalToppings.push(payload.value)
+      }
     },
     addToBasket(state,payload){
       console.log('in mutation',payload)
