@@ -1,8 +1,13 @@
 <template>
   <div class="container">
     <div class="order-topic">Ваш заказ</div>
-    <YourOrderBox v-for="(item,index) in orderBoxProduct" :key="index" :items="orderBoxProduct[index]" style="margin-bottom: 16px"/>
 
+    <YourOrderBox v-for="(item,index) in basketProducts" :key="index" :item="basketProducts[index]" style="margin-bottom: 16px"/>
+
+    <div class="sum-container">
+      <Input placeholder="Промокод" input-btn style="max-width:320px"/>
+      <div class="sum-text">Итого: 2 379 ₽</div>
+    </div>
 
     <div class="order-title">Добавить к заказу?</div>
     <Slider :items="items"/>
@@ -11,40 +16,39 @@
     <Slider :items="sous"/>
 
     <div class="order-title">О вас</div>
+    <div class="client-info">
+      <div class="name">
+        <div class="input-label">Имя*</div>
+        <Input placeholder="Алексей" style="max-width: 270px"/>
+      </div>
+      <div class="number">
+        <div class="input-label">Номер телефона*</div>
+        <Input placeholder="+7" style="max-width: 270px"/>
+      </div>
+      <div class="email">
+        <div class="input-label">Почта</div>
+        <Input placeholder="mail@gmail.com" style="max-width: 270px"/>
+      </div>
+    </div>
 
   </div>
 </template>
 
 <script>
-import YourOrderBox from "@/components/YourOrderBox/YourOrderBox";
+import YourOrderBox from "@/components/OrderedCard/OrderedCard";
+import Input from "@/components/Input/Input";
+
 import Slider from "@/components/Slider/Slider";
+import { mapState } from 'vuex'
 export default {
   components: {
     Slider,
-    YourOrderBox
+    YourOrderBox,
+    Input
   },
   data(){
     return {
-      orderBoxProduct:[
-        {
-          image: 'easy-peasy.png',
-          name: 'Пепперони по-деревенски',
-          size: 'Традиционное тесто, 23 см',
-          price: 399
-        },
-        {
-          image: 'four-season.png',
-          name: 'Пепперони ',
-          size: 'Традиционное тесто, 23 см',
-          price: 399
-        },
-        {
-          image: 'easy-peasy.png',
-          name: 'Пепперони по-деревенски',
-          size: 'Традиционное тесто, 23 см',
-          price: 399
-        }
-      ],
+
       items: [
         {
           image: 'order1.png',
@@ -118,7 +122,11 @@ export default {
 
     }
   },
-
+  computed: {
+    ...mapState({
+      basketProducts: state => state.basketProducts
+    })
+  }
 
 }
 </script>
@@ -150,5 +158,40 @@ export default {
   line-height: 32px
   margin: 30px 0 24px 0
 
+.sum-container
+  display: flex
+  justify-content: space-between
+  align-items: center
+  background: #FFFFFF
+  border: 1px solid #F0F0F0
+  box-sizing: border-box
+  border-radius: 8px
+  padding: 16px 24px
+  //height: 80px
+.sum-text
+  font-family: Inter
+  font-weight: 600
+  font-size: 20px
+  line-height: 28px
+  display: flex
+  align-items: center
+  text-align: right
+  color: #FF7010
+
+.client-info
+  height: 74px
+  width: 850px
+  background: #e7ccb9
+  display: flex
+  justify-content: space-between
+.input-label
+  font-family: Inter
+  font-weight: normal
+  font-size: 14px
+  line-height: 18px
+  display: flex
+  align-items: center
+  color: #A5A5A5
+  margin-bottom: 8px
 
 </style>

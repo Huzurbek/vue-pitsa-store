@@ -2,16 +2,26 @@
   <div class="topic">Пицца</div>
   <div class="pizza-container">
 <!--    Component FoodCard-->
-    <FoodCard  v-for="(item, index) in products" :key="index" :items="products[index]" @click="chooseProduct(item)" class="card-style"/>
+    <FoodCard  v-for="(item, index) in products" :key="index" :items="products[index]" @chooseProduct="chooseProduct(item)" class="card-style"/>
   </div>
+<!--  Modal Section-->
+  <Modal v-if="modal" @close="modal = false" :selected-product="selectedProduct"/>
 </template>
 
 <script>
 import FoodCard from "@/components/FoodCard/FoodCard";
+import Modal from "@/sections/Modal";
 import { mapState } from 'vuex'
 export default {
   components:{
-    FoodCard
+    FoodCard,
+    Modal
+  },
+  data(){
+    return {
+      modal: false,
+      selectedProduct:{},
+    }
   },
   computed: {
     ...mapState({
@@ -20,10 +30,9 @@ export default {
   },
   methods: {
     chooseProduct(val){
-      this.$emit('openModal', val)
-
-
-    }
+      this.selectedProduct = val
+      this.modal = true
+     }
   }
 }
 </script>

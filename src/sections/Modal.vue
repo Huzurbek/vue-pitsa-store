@@ -20,8 +20,13 @@
 <!--Toppings-->
         <div class="toppings">
           <div class="blog" v-for="(item, index) in selectedProduct.toppings" :key="index">
+
             <div class="icon-box">
-              <Iconca :name="item.icon" color="#FF7010" :width="item.width" :height="item.height"/>
+              <div class="close-sign" v-if="!item.inStock">
+                <Iconca name="CircleClose" color="#A5A5A5" :width="16" :height="16"/>
+              </div>
+
+              <Iconca :name="item.icon" :color="item.inStock ? '#FF7010':'#A5A5A5'" :width="item.width" :height="item.height"/>
             </div>
             <div class="blog-title">{{ item.toppingName }}</div>
           </div>
@@ -48,8 +53,11 @@
 <!--Adding Toppings to Pizza-->
         <div class="adding-title">Добавьте в пиццу</div>
         <div class="toppings">
-          <div class="blog" v-for="(item, index) in toppingProducts" :key="index">
-            <div class="icon-box">
+          <div class="blog" v-for="(item, index) in paidToppings" :key="index">
+            <div class="icon-box" @click="addTopping(item)" :style="selectedProduct.additionalToppings.filter(el=>el.toppingName === item.toppingName).length ? 'border: 1px solid #FF7010':''">
+              <div style="position: absolute; top:8px; right: 8px" v-if="selectedProduct.additionalToppings.filter(el=>el.toppingName === item.toppingName).length">
+                <Iconca name="CircleClick" color="#FF7010" :width="16" :height="16"/>
+              </div>
               <Iconca :name="item.icon" color="#FF7010" :width="item.width" :height="item.height"/>
             </div>
             <div class="blog-title">{{ item.toppingName }}</div>
@@ -88,10 +96,11 @@ export default {
   },
   data(){
     return {
-      crust: this.$props.selectedProduct.crust,
-      PizzaSize: this.$props.selectedProduct.size,
-      toppingProducts: [
+      crust: this.selectedProduct.crust,
+      PizzaSize: this.selectedProduct.size,
+      paidToppings: [
         {
+          id: 1,
           icon: 'MozarellaCheese',
           width: 41,
           height: 35,
@@ -99,6 +108,7 @@ export default {
           price: 59
         },
         {
+          id: 2,
           icon: 'Mashroom',
           width: 105,
           height: 105,
@@ -106,6 +116,7 @@ export default {
           price: 59
         },
         {
+          id: 3,
           icon: 'Onion',
           width: 28,
           height: 40,
@@ -113,6 +124,7 @@ export default {
           price: 59
         },
         {
+          id: 4,
           icon: 'BellPapper',
           width: 35,
           height: 41,
@@ -120,32 +132,29 @@ export default {
           price: 59
         }
       ],
-
     }
   },
   methods:{
     addToBasket(){
-      let props = this.$props.selectedProduct;
+      let props = this.selectedProduct;
       const product = {
-            id: props.id,
-            image: props.image,
-            name: props.name,
-            description: props.description,
-            toppings: props.toppings,
+            ...props,
             crust: this.crust,
             size: this.PizzaSize,
-            price: props.price,
             startingPrice: true,
             status: 'NEW',
             quantity: 1
           }
-
       this.$store.commit('addToBasket',product)
       this.closeModal()
     },
-  closeModal(){
-    this.$emit('close')
-  }
+    addTopping(val){
+      // console.log('clicked toppings ', {id:this.selectedProduct.id,value:val})
+      this.$store.commit('addTopping',{id:this.selectedProduct.id,value:val})
+    },
+    closeModal(){
+      this.$emit('close')
+    }
   }
 }
 </script>
@@ -157,6 +166,7 @@ export default {
   //padding-top: 100px /* Location of the box */
   overflow: auto /* Enable scroll if needed */
   position: fixed
+  z-index: 1000
   width: 100%
   height: 100%
   left: 0
@@ -210,6 +220,7 @@ img
   box-sizing: border-box
 
 .icon-box
+  position: relative
   width: 105px
   height: 105px
   box-sizing: border-box
@@ -220,6 +231,11 @@ img
   justify-content: center
   align-items: center
   margin-bottom: 8px
+  cursor: pointer
+.close-sign
+  position: absolute
+  top: 8px
+  right: 8px
 
 .blog-title
   margin-bottom: 4px

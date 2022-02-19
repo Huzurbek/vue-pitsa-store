@@ -2,7 +2,7 @@
  <div class="buttonWrapper" :style="{
    ...style,
    width:full?'auto':'fit-content',
-   minWidth: fit?'auto':'150px',
+   minWidth: fit?'auto':'158px',
    background: active ? '#FF7010':'#FFFFFF',
    color: active ? '#FFFFFF':'#191919'
 

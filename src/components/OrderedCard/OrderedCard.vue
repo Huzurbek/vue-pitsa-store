@@ -7,8 +7,6 @@
     <div class="content">
       <div class="product-name">{{  item.name }}</div>
       <div class="product-size">{{ item.crust }} тесто, {{ item.size }} см</div>
-
-
       <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 12px">
         <div class="add-remove-box">
           <Iconca name="Minus" color="#FF7010" :width="8" :height="8" class="icon" @click.prevent="decQuantity(item.id)" />

@@ -6,6 +6,7 @@
           <div class="header">Ваш заказ
             <Iconca @click="close" name="Close" color="#A5A5A5" :width="24" :height="24" style="cursor: pointer"/>
           </div>
+<!--OrderedCard Component-->
           <YourOrderBox v-for="(item,index) in basketProducts" :key="index" :item="basketProducts[index]" style="margin-bottom: 20px"/>
         </div>
         <div class="model-footer">
@@ -19,7 +20,7 @@
 
 <script>
 import Iconca from "@/components/Iconca/Iconca";
-import YourOrderBox from "@/components/YourOrderBox/YourOrderBox";
+import YourOrderBox from "@/components/OrderedCard/OrderedCard";
 import Button from "@/components/Button/Button";
 import { mapState, mapGetters } from 'vuex';
 export default {
@@ -51,16 +52,18 @@ export default {
       this.$emit('close')
     },
     checkoutOrder(){
-     alert(`Оформить заказ ${this.totalPrice}`)
+     // alert(`Оформить заказ ${this.totalPrice}`)
       this.close()
+      this.$router.push('/order')
     }
   }
 }
 </script>
 <style scoped lang="sass">
 .trans
-  //overflow: auto /* Enable scroll if needed */
+  overflow: auto /* Enable scroll if needed */
   position: fixed
+  z-index: 500
   width: 100%
   height: 100%
   left: 0
