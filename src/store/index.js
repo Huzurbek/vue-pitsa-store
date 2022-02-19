@@ -105,26 +105,40 @@ export default createStore({
             icon: 'MozarellaCheese',
             width: 41,
             height: 35,
-            toppingName: 'Моцарелла'
+            toppingName: 'Моцарелла',
+            inStock: true,
           },
           {
             icon: 'Cucumber',
             width: 40,
             height: 40,
-            toppingName: 'Огурцы маринованные'
+            toppingName: 'Огурцы маринованные',
+            inStock: true,
           },
           {
-            icon: 'Cucumber',
+            icon: '',
             width: 40,
             height: 40,
-            toppingName: 'Пепперони'
+            toppingName: 'Пепперони',
+            inStock: true,
           },
           {
             icon: 'SousInsideWhite',
             width: 41,
             height: 27,
-            toppingName: 'Томатный соус'
+            toppingName: 'Томатный соус',
+            inStock: false,
           }
+        ],
+        additionalToppings:[
+          {
+            id: 2,
+            icon: 'Mashroom',
+            width: 105,
+            height: 105,
+            toppingName: 'Шампиньоны',
+            price: 59
+          },
         ],
         crust: 'Традиционное',
         size: 20,
@@ -143,16 +157,32 @@ export default createStore({
             icon: 'MozarellaCheese',
             width: 41,
             height: 35,
-            toppingName: 'Моцарелла'
+            toppingName: 'Моцарелла',
+            inStock: false,
           },
           {
             icon: 'Cucumber',
             width: 40,
             height: 40,
-            toppingName: 'Огурцы маринованные'
+            toppingName: 'Огурцы маринованные',
+            inStock: false,
           },
-
+          {
+            icon: '',
+            width: 40,
+            height: 40,
+            toppingName: 'Пепперони',
+            inStock: true,
+          },
+          {
+            icon: 'SousInsideWhite',
+            width: 41,
+            height: 27,
+            toppingName: 'Томатный соус',
+            inStock: false,
+          }
         ],
+        additionalToppings:[],
         crust: 'Тонкое',
         size: 28,
         price: 280,
@@ -170,25 +200,29 @@ export default createStore({
             icon: 'MozarellaCheese',
             width: 41,
             height: 35,
-            toppingName: 'Моцарелла'
+            toppingName: 'Моцарелла',
+            inStock: true,
           },
           {
             icon: 'Cucumber',
             width: 40,
             height: 40,
-            toppingName: 'Огурцы маринованные'
+            toppingName: 'Огурцы маринованные',
+            inStock: false,
           },
           {
             icon: 'Cucumber',
             width: 40,
             height: 40,
-            toppingName: 'Пепперони'
+            toppingName: 'Пепперони',
+            inStock: true,
           },
           {
             icon: 'SousInsideWhite',
             width: 41,
             height: 27,
-            toppingName: 'Томатный соус'
+            toppingName: 'Томатный соус',
+            inStock: false,
           }
         ],
         crust: 'Традиционное',
@@ -208,25 +242,29 @@ export default createStore({
             icon: 'MozarellaCheese',
             width: 41,
             height: 35,
-            toppingName: 'Моцарелла'
+            toppingName: 'Моцарелла',
+            inStock: true,
           },
           {
             icon: 'Cucumber',
             width: 40,
             height: 40,
-            toppingName: 'Огурцы маринованные'
+            toppingName: 'Огурцы маринованные',
+            inStock: false,
           },
           {
             icon: 'Cucumber',
             width: 40,
             height: 40,
-            toppingName: 'Пепперони'
+            toppingName: 'Пепперони',
+            inStock: true,
           },
           {
             icon: 'SousInsideWhite',
             width: 41,
             height: 27,
-            toppingName: 'Томатный соус'
+            toppingName: 'Томатный соус',
+            inStock: false,
           }
         ],
         crust: 'Традиционное',
@@ -246,25 +284,29 @@ export default createStore({
             icon: 'MozarellaCheese',
             width: 41,
             height: 35,
-            toppingName: 'Моцарелла'
+            toppingName: 'Моцарелла',
+            inStock: true,
           },
           {
             icon: 'Cucumber',
             width: 40,
             height: 40,
-            toppingName: 'Огурцы маринованные'
+            toppingName: 'Огурцы маринованные',
+            inStock: false,
           },
           {
             icon: 'Cucumber',
             width: 40,
             height: 40,
-            toppingName: 'Пепперони'
+            toppingName: 'Пепперони',
+            inStock: true,
           },
           {
             icon: 'SousInsideWhite',
             width: 41,
             height: 27,
-            toppingName: 'Томатный соус'
+            toppingName: 'Томатный соус',
+            inStock: false,
           }
         ],
         crust: 'Традиционное',
@@ -284,25 +326,29 @@ export default createStore({
             icon: 'MozarellaCheese',
             width: 41,
             height: 35,
-            toppingName: 'Моцарелла'
+            toppingName: 'Моцарелла',
+            inStock: true,
           },
           {
             icon: 'Cucumber',
             width: 40,
             height: 40,
-            toppingName: 'Огурцы маринованные'
+            toppingName: 'Огурцы маринованные',
+            inStock: false,
           },
           {
             icon: 'Cucumber',
             width: 40,
             height: 40,
-            toppingName: 'Пепперони'
+            toppingName: 'Пепперони',
+            inStock: true,
           },
           {
             icon: 'SousInsideWhite',
             width: 41,
             height: 27,
-            toppingName: 'Томатный соус'
+            toppingName: 'Томатный соус',
+            inStock: false,
           }
         ],
         crust: 'Традиционное',
@@ -322,25 +368,29 @@ export default createStore({
             icon: 'MozarellaCheese',
             width: 41,
             height: 35,
-            toppingName: 'Моцарелла'
+            toppingName: 'Моцарелла',
+            inStock: true,
           },
           {
             icon: 'Cucumber',
             width: 40,
             height: 40,
-            toppingName: 'Огурцы маринованные'
+            toppingName: 'Огурцы маринованные',
+            inStock: false,
           },
           {
             icon: 'Cucumber',
             width: 40,
             height: 40,
-            toppingName: 'Пепперони'
+            toppingName: 'Пепперони',
+            inStock: true,
           },
           {
             icon: 'SousInsideWhite',
             width: 41,
             height: 27,
-            toppingName: 'Томатный соус'
+            toppingName: 'Томатный соус',
+            inStock: false,
           }
         ],
         crust: 'Традиционное',
@@ -360,25 +410,29 @@ export default createStore({
             icon: 'MozarellaCheese',
             width: 41,
             height: 35,
-            toppingName: 'Моцарелла'
+            toppingName: 'Моцарелла',
+            inStock: true,
           },
           {
             icon: 'Cucumber',
             width: 40,
             height: 40,
-            toppingName: 'Огурцы маринованные'
+            toppingName: 'Огурцы маринованные',
+            inStock: false,
           },
           {
             icon: 'Cucumber',
             width: 40,
             height: 40,
-            toppingName: 'Пепперони'
+            toppingName: 'Пепперони',
+            inStock: true,
           },
           {
             icon: 'SousInsideWhite',
             width: 41,
             height: 27,
-            toppingName: 'Томатный соус'
+            toppingName: 'Томатный соус',
+            inStock: false,
           }
         ],
         crust: 'Традиционное',
@@ -403,6 +457,22 @@ export default createStore({
     }
   },
   mutations: {
+    addTopping(state,payload){
+      let index = state.products.findIndex(el=>el.id === payload.id)
+      state.products[index].additionalToppings.map(el=>{
+        if(el.id === payload.value.id){
+        console.log('bor ekan')
+        }else{
+          console.log('yoq ekan')
+        }
+
+      })
+      // state.products.map(el=> {
+      //   if(el.id === payload.id){
+      //     el.additionalToppings.push(payload.value)
+      //   }
+      // })
+    },
     addToBasket(state,payload){
       console.log('in mutation',payload)
       state.basketProducts.push(payload)

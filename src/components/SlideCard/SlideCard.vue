@@ -4,12 +4,12 @@
       <img :src="require(`@/assets/${items.image}`)" alt="Pizza Picture">
     </div>
     <div class="content">
-      <div style="flex: 1">
+      <div style="flex: 1;">
         <div class="card-text">{{items.text}}</div>
         <div class="portion" v-if="items.portion">Порция {{ items.portion }} г</div>
       </div>
       <!--    Component Button-->
-      <Button :text="`${items.price} ₽`" class="btn"/>
+      <Button :text="`${items.price} ₽`" class="btn" style="height: 40px;"/>
     </div>
   </div>
 </template>
@@ -39,6 +39,9 @@ export default {
   flex-direction: column
   align-self: auto
 
+img
+  width: 190px
+  height: 190px
 .image
   width: 190px
   height: 190px
@@ -50,6 +53,7 @@ export default {
   flex: 1
   padding: 16px
   box-sizing: border-box
+
 
 .card-text, .portion
   text-align: center

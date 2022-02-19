@@ -14,7 +14,7 @@
     </div>
 </template>
 <script>
-import OrderCard from "@/components/OrderCard/OrderCard";
+import OrderCard from "@/components/SlideCard/SlideCard";
 import Iconca from "@/components/Iconca/Iconca";
 export default {
   components: {
