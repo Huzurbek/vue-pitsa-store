@@ -2,17 +2,12 @@
   <div class="modal">
     <!-- Modal content -->
     <div class="modal-content">
+      <div class="red-sign" v-if="selectedProduct.status">{{selectedProduct.status}}</div>
       <div class="image">
         <img :src="require(`@/assets/${selectedProduct.image}`)" alt="Product Picture">
       </div>
 
       <div class="description" style="flex: 1; max-width: 480px" >
-
-        <!--              <Iconca name="Mashroom" color="#FF7010" :width="105" :height="105"/>-->
-        <!--              <Iconca name="Onion" color="#FF7010" :width="28" :height="40"/>-->
-        <!--              <Iconca name="BellPapper" color="#FF7010" :width="35" :height="41"/>-->
-        <!--              <Iconca name="SousInsideWhite" color="#FF7010" :width="41" :height="27"/>-->
-        <!--              <Iconca name="Cucumber" color="#A5A5A5" :width="40" :height="40"/>-->
         <div class="pizza-name">
           <Iconca name="smallSale" color="#E23535" :width="18" :height="24" style="margin-right: 11px"/>
           {{ selectedProduct.name }}
@@ -61,13 +56,13 @@
               <Iconca :name="item.icon" color="#FF7010" :width="item.width" :height="item.height"/>
             </div>
             <div class="blog-title">{{ item.toppingName }}</div>
-            <div class="topping-price">{{item.price}} ₽</div>
+            <div class="topping-price">{{ item.price }} ₽</div>
           </div>
         </div>
 <!--     Footer Part   -->
         <div class="modal-footer">
           <div class="total-sum" style="display: flex; align-items: center">
-            <div class="sum">Итого: {{ selectedProduct.price }} ₽</div>
+            <div class="sum">Итого: {{ productPrice }} ₽</div>
             <div class="gramm">400 г</div>
           </div>
           <Button text="Добавить" @click="addToBasket"/>
@@ -134,6 +129,13 @@ export default {
       ],
     }
   },
+  computed:{
+    productPrice(){
+      return this.selectedProduct.additionalToppings.reduce((total,el)=>{
+         return total += el.price
+      },this.selectedProduct.price)
+    }
+  },
   methods:{
     addToBasket(){
       let props = this.selectedProduct;
@@ -141,6 +143,7 @@ export default {
             ...props,
             crust: this.crust,
             size: this.PizzaSize,
+            price: this.productPrice,
             startingPrice: true,
             status: 'NEW',
             quantity: 1
@@ -149,7 +152,6 @@ export default {
       this.closeModal()
     },
     addTopping(val){
-      // console.log('clicked toppings ', {id:this.selectedProduct.id,value:val})
       this.$store.commit('addTopping',{id:this.selectedProduct.id,value:val})
     },
     closeModal(){
@@ -182,19 +184,31 @@ export default {
   height: 680px
   left: 20px
   top: 20px
-  //left: 305px
-  //top: 132px
   background: #FFFFFF
   border-radius: 24px
   padding: 32px 20px 0 60px
   box-sizing: border-box
   display: flex
   justify-content: space-between
+  align-items: center
+.red-sign
+  position: absolute
+  top: 32px
+  left: 0
+  width: 82px
+  height: 40px
+  border-top-right-radius: 6px
+  border-bottom-right-radius: 6px
+  background: #E23535
+  display: flex
+  justify-content: center
+  align-items: center
+  color: #FFFFFF
+  font-family: SF Pro Text
+  font-weight: normal
+  font-size: 18px
+  line-height: 24px
 
-  //margin: auto
-  //padding: 20px
-  //border: 1px solid #888
-  //width: 80%
 img
   width: 450px
   height: 450px

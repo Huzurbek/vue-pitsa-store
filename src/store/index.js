@@ -1,15 +1,14 @@
 
 import { createStore } from 'vuex'
-function containsObject(obj, list) {
-  var i;
-  for (i = 0; i < list.length; i++) {
-    if (list[i].id === obj.id) {
-      return true;
-    }
-  }
-
-  return false;
-}
+// function containsObject(obj, list) {
+//   var i;
+//   for (i = 0; i < list.length; i++) {
+//     if (list[i].id === obj.id) {
+//       return true;
+//     }
+//   }
+//   return false;
+// }
 export default createStore({
   state: {
 
@@ -230,7 +229,7 @@ export default createStore({
             inStock: false,
           },
           {
-            icon: 'Cucumber',
+            icon: '',
             width: 40,
             height: 40,
             toppingName: 'Пепперони',
@@ -244,6 +243,7 @@ export default createStore({
             inStock: false,
           }
         ],
+        additionalToppings:[],
         crust: 'Традиционное',
         size: 20,
         price: 399,
@@ -272,7 +272,7 @@ export default createStore({
             inStock: false,
           },
           {
-            icon: 'Cucumber',
+            icon: '',
             width: 40,
             height: 40,
             toppingName: 'Пепперони',
@@ -286,6 +286,7 @@ export default createStore({
             inStock: false,
           }
         ],
+        additionalToppings:[],
         crust: 'Традиционное',
         size: 20,
         price: 399,
@@ -314,7 +315,7 @@ export default createStore({
             inStock: false,
           },
           {
-            icon: 'Cucumber',
+            icon: '',
             width: 40,
             height: 40,
             toppingName: 'Пепперони',
@@ -328,6 +329,7 @@ export default createStore({
             inStock: false,
           }
         ],
+        additionalToppings:[],
         crust: 'Традиционное',
         size: 28,
         price: 399,
@@ -356,7 +358,7 @@ export default createStore({
             inStock: false,
           },
           {
-            icon: 'Cucumber',
+            icon: '',
             width: 40,
             height: 40,
             toppingName: 'Пепперони',
@@ -370,6 +372,7 @@ export default createStore({
             inStock: false,
           }
         ],
+        additionalToppings:[],
         crust: 'Традиционное',
         size: 33,
         price: 399,
@@ -398,7 +401,7 @@ export default createStore({
             inStock: false,
           },
           {
-            icon: 'Cucumber',
+            icon: '',
             width: 40,
             height: 40,
             toppingName: 'Пепперони',
@@ -412,6 +415,7 @@ export default createStore({
             inStock: false,
           }
         ],
+        additionalToppings:[],
         crust: 'Традиционное',
         size: 20,
         price: 399,
@@ -440,7 +444,7 @@ export default createStore({
             inStock: false,
           },
           {
-            icon: 'Cucumber',
+            icon: '',
             width: 40,
             height: 40,
             toppingName: 'Пепперони',
@@ -454,6 +458,7 @@ export default createStore({
             inStock: false,
           }
         ],
+        additionalToppings:[],
         crust: 'Традиционное',
         size: 33,
         price: 399,
@@ -478,12 +483,13 @@ export default createStore({
   mutations: {
     addTopping(state,payload){
       let index = state.products.findIndex(el=>el.id === payload.id)
-      if(containsObject(payload.value,state.products[index].additionalToppings)){
-        let toppingIndex= state.products[index].additionalToppings.findIndex(el=>el.id === payload.value.id)
-        state.products[index].additionalToppings.splice(toppingIndex,1)
 
+      let toppings = state.products[index].additionalToppings
+      if(toppings.filter(el=>el.id === payload.value.id).length > 0){
+        let toppingIndex= toppings.findIndex(el=>el.id === payload.value.id)
+        toppings.splice(toppingIndex,1)
       }else{
-        state.products[index].additionalToppings.push(payload.value)
+        toppings.push(payload.value)
       }
     },
     addToBasket(state,payload){
