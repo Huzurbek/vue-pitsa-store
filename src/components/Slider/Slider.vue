@@ -2,7 +2,7 @@
   <div class="slider-box">
       <div class="carousel">
         <div class="inner" ref="inner" :style="innerStyles">
-          <OrderCard v-for="(item, index) in items" :key="index" :items="items[index]" class="card-style"/>
+          <OrderCard v-for="(item, index) in items" :key="index" :item="items[index]" class="card-style"/>
         </div>
       </div>
       <div class="prev"  @click="prev">

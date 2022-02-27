@@ -7,11 +7,18 @@
             <Iconca @click="close" name="Close" color="#A5A5A5" :width="24" :height="24" style="cursor: pointer"/>
           </div>
 <!--OrderedCard Component-->
-          <YourOrderBox v-for="(item,index) in basketProducts" :key="index" :item="basketProducts[index]" style="margin-bottom: 20px"/>
+          <OrderedCard
+              v-for="(item,index) in basketProducts"
+              :key="index"
+              :item="basketProducts[index]"
+              @increment="increment"
+              @decrement="decrement"
+              style="margin-bottom: 20px"/>
         </div>
         <div class="model-footer">
           <div class="total-sum">Итого: {{ basketTotalSum }} ₽</div>
-          <Button text="Оформить заказ" @click="checkoutOrder"/>
+          <Button class="submit-btn" text="Оформить заказ" @click="checkoutOrder" :class="{'myDisabled':!isEmpty}"/>
+
         </div>
       </div>
     </div>
@@ -20,11 +27,11 @@
 
 <script>
 import Iconca from "@/components/Iconca/Iconca";
-import YourOrderBox from "@/components/OrderedCard/OrderedCard";
+import OrderedCard from "@/components/OrderedCard/OrderedCard";
 import Button from "@/components/Button/Button";
 import { mapState, mapGetters } from 'vuex';
 export default {
-  components: {Iconca, YourOrderBox, Button},
+  components: {Iconca, OrderedCard, Button},
   props: {
     display: {
       type: Boolean,
@@ -43,16 +50,26 @@ export default {
     ...mapGetters({
       basketTotalSum: 'basketTotalSum'
     }),
+    isEmpty(){
+      return this.basketProducts.length
+    }
   },
   methods:{
     clickMe(val){
       console.log("clicked -", val)
     },
+    increment(val){
+      this.$store.commit("incBasketProQuantity",val)
+    },
+    decrement(val){
+      this.$store.commit("decBasketProQuantity",val)
+    },
     close(){
       this.$emit('close')
     },
     checkoutOrder(){
-     // alert(`Оформить заказ ${this.totalPrice}`)
+      this.$store.commit('addToCheckout',this.basketProducts)
+      this.$store.commit('removeBasketProducts')
       this.close()
       this.$router.push('/order')
     }
@@ -118,5 +135,19 @@ export default {
   font-size: 20px
   line-height: 28px
   color: #FF7010
+
+
+
+.myDisabled
+  pointer-events: none
+  cursor: not-allowed
+  user-select: none
+  opacity: 0.65
+  filter: alpha(opacity=65)
+  -webkit-box-shadow: none
+  box-shadow: none
+
+
+
 
 </style>

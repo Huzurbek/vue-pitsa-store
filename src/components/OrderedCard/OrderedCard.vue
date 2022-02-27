@@ -1,60 +1,57 @@
 <template>
   <div class="your-order-box">
-    <div class="image">
-      <img :src="require(`@/assets/${item.image}`)" alt="Pizza Picture">
+    <div class="image" :class="{'max-img': large}">
+      <img :src="require(`@/assets/${item.image}`)" :class="{'max-img': large}" alt="Pizza Picture">
     </div>
-
-    <div class="content">
-      <div class="product-name">{{  item.name }}</div>
-      <div class="product-size">{{ item.crust }} тесто, {{ item.size }} см</div>
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 12px">
+    <div class="content" :class="{'max-content': large}" >
+      <div>
+        <div class="product-name" :class="{'max-product-name': large}">{{  item.name }}</div>
+        <div v-if="item.crust !== ''&& item.size !==0" class="product-size" :class="{'max-product-size': large}">
+          {{ item.crust }} тесто, {{ item.size }} см
+        </div>
+      </div>
+      <div class="footer-wrap" :class="{'max-footer-wrap': large}">
         <div class="add-remove-box">
           <Iconca name="Minus" color="#FF7010" :width="8" :height="8" class="icon" @click.prevent="decQuantity(item.id)" />
           <div class="quantity">{{ quantity }}</div>
           <Iconca name="Plus" color="#FF7010" :width="8" :height="8" class="icon" @click.prevent="incQuantity(item.id)"/>
         </div>
-        <div class="product-price">{{ productPrice }} ₽</div>
+        <div class="product-price" :class="{'max-product-price': large}">{{ item.price }} ₽</div>
       </div>
     </div>
-
-
   </div>
 </template>
 
 <script>
 import Iconca from "@/components/Iconca/Iconca";
 export default {
-  components:{
-    Iconca
-  },
+  components:{ Iconca },
   props:{
     item: {
       type: Object,
       default:()=>{}
+    },
+    large: {
+      type: Boolean,
+      default:()=>false
     }
   },
   data(){
     return {
-      demo: 1,
+
     }
   },
   computed: {
     quantity(){
-      return this.$props.item.quantity
+      return this.item.quantity
     },
-    productPrice(){
-      let props = this.$props.item
-      return props.price * props.quantity
-    }
-
-
   },
   methods: {
     incQuantity(val){
-      this.$store.commit("incrementQuantity",val)
+      this.$emit('increment',val)
     },
     decQuantity(val){
-      this.$store.commit("decrementQuantity",val)
+      this.$emit('decrement',val)
     }
   }
 }
@@ -82,6 +79,8 @@ img
   height: 94px
 
 .content
+  display: flex
+  flex-direction: column
   box-sizing: border-box
   flex: 1
 
@@ -105,7 +104,13 @@ img
 
 .product-price
   color: #FF7010
+  user-select: none
 
+.footer-wrap
+  display: flex
+  justify-content: space-between
+  align-items: center
+  margin-top: 12px
 .add-remove-box
   width: 92px
   height: 36px
@@ -123,4 +128,23 @@ img
   color: #FF7010
   user-select: none
 
+
+//Max card style
+.max-img
+  width: 120px
+  height: 120px
+.max-product-name, .max-product-price
+  font-size: 20px
+  line-height: 28px
+.max-product-size
+  font-family: SF Pro Text
+  font-size: 16px
+  line-height: 22px
+.max-content
+  flex-direction: row
+  justify-content: space-between
+  align-items: center
+.max-footer-wrap
+  width: 191px
+  margin-top: 0
 </style>
