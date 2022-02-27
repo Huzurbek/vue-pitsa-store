@@ -78,6 +78,7 @@
 <script>
 import Iconca from "@/components/Iconca/Iconca";
 import Button from "@/components/Button/Button";
+import IDGenerator from "@/helpers/uniqueId.js"
 export default {
   components:{
     Iconca,
@@ -129,6 +130,7 @@ export default {
       ],
     }
   },
+
   computed:{
     productPrice(){
       return this.selectedProduct.additionalToppings.reduce((total,el)=>{
@@ -137,10 +139,14 @@ export default {
     }
   },
   methods:{
+    addTopping(val){
+      this.$store.commit('addTopping',{id:this.selectedProduct.id,value:val})
+    },
     addToBasket(){
       let props = this.selectedProduct;
       const product = {
             ...props,
+            id: IDGenerator.uniqueId(),
             crust: this.crust,
             size: this.PizzaSize,
             price: this.productPrice,
@@ -150,9 +156,6 @@ export default {
           }
       this.$store.commit('addToBasket',product)
       this.closeModal()
-    },
-    addTopping(val){
-      this.$store.commit('addTopping',{id:this.selectedProduct.id,value:val})
     },
     closeModal(){
       this.$emit('close')
@@ -175,7 +178,6 @@ export default {
   top: 0
   background: rgba(25, 25, 25, 0.4)
   backdrop-filter: blur(32px)
-
 
 /* Modal Content */
 .modal-content
@@ -269,7 +271,7 @@ img
 
   //Adding toppings to pizza
 .adding-title
-  font-family: Inte
+  font-family: Inter
   font-weight: 600
   font-size: 16px
   line-height: 20px

@@ -468,16 +468,15 @@ export default createStore({
       },
     ],
     basketProducts: [],
-    plan: [
-      {
-        crust: ['Традиционное','Тонкое'],
-        size: ['20 см','28 см','33 см'],
-      }
-    ]
+    checkoutProducts:[],
+
   },
   getters: {
     basketTotalSum: (state) => {
       return state.basketProducts.reduce((total,el)=>total += (el.price * el.quantity),0)
+    },
+    checkoutTotalSum: (state) => {
+      return state.checkoutProducts.reduce((total,el)=>total += (el.price * el.quantity),0)
     }
   },
   mutations: {
@@ -493,10 +492,9 @@ export default createStore({
       }
     },
     addToBasket(state,payload){
-      console.log('in mutation',payload)
       state.basketProducts.push(payload)
     },
-    incrementQuantity(state, payload){
+    incBasketProQuantity(state, payload){
       state.basketProducts = state.basketProducts.map((product)=>{
         if(product.id === payload){
           product.quantity +=1
@@ -504,14 +502,40 @@ export default createStore({
           return product
       })
     },
-    decrementQuantity(state,payload){
+    decBasketProQuantity(state,payload){
       state.basketProducts = state.basketProducts.map((product)=>{
         if(product.id === payload && product.quantity > 1){
           product.quantity -=1
         }
         return product
       })
+    },
+    removeBasketProducts(state){
+      state.basketProducts = []
+    },
+    addToCheckout(state,payload){
+      state.checkoutProducts = (payload)
+    },
+    pushToCheckout(state,payload){
+      state.checkoutProducts.push(payload)
+    },
+    incCheckoutProQuantity(state, payload){
+      state.checkoutProducts = state.checkoutProducts.map((product)=>{
+        if(product.id === payload){
+          product.quantity +=1
+        }
+        return product
+      })
+    },
+    decCheckoutProQuantity(state,payload){
+      state.checkoutProducts = state.checkoutProducts.map((product)=>{
+        if(product.id === payload && product.quantity > 1){
+          product.quantity -=1
+        }
+        return product
+      })
     }
+
   },
   actions: {
   },

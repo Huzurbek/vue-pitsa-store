@@ -1,29 +1,39 @@
 <template>
   <div class="order-card">
     <div class="image">
-      <img :src="require(`@/assets/${items.image}`)" alt="Pizza Picture">
+      <img :src="require(`@/assets/${item.image}`)" alt="Pizza Picture">
     </div>
     <div class="content">
       <div style="flex: 1;">
-        <div class="card-text">{{items.text}}</div>
-        <div class="portion" v-if="items.portion">Порция {{ items.portion }} г</div>
+        <div class="card-text">{{item.name}}</div>
+        <div class="portion" v-if="item.portion">Порция {{ item.portion }} г</div>
       </div>
       <!--    Component Button-->
-      <Button :text="`${items.price} ₽`" class="btn" style="height: 40px;"/>
+      <Button :text="`${item.price} ₽`" class="btn" @click.prevent="addItem(item)" style="height: 40px;"/>
     </div>
   </div>
 </template>
 
 <script>
 import Button from "@/components/Button/Button";
+import IDGenerator from "@/helpers/uniqueId.js"
 export default {
   components: {Button},
   props: {
-   items: {
+   item: {
      type: Object,
      default: ()=>{}
    }
- }
+ },
+  methods:{
+    addItem(val) {
+      const newProduct ={
+        ...val,
+        id: IDGenerator.uniqueId()
+      }
+      this.$store.commit("pushToCheckout",newProduct)
+    }
+  }
 }
 </script>
 
