@@ -80,15 +80,15 @@
 <!--      Pickup Form-->
       <div class="pickup-form" v-if="deliveryType==='pickup'" style="background: #f2ff7f;">
           <div class="input-label">Ресторан*</div>
-          <Input placeholder="Выберите ресторан" />
+          <Input placeholder="Выберите ресторан" right-icon="ArrowDown" :icon-width="16" :icon-height="10"/>
       </div>
 <!--Order Time part        -->
       <div class="order-time-title">Когда выполнить заказ?</div>
       <div class="order-time-box">
-        <CycleRadioInput :cycle-radio-object="deliveryTimeOptions" @selectType="cycleRadioClick" />
+        <CycleRadioInput :cycle-radio-object="deliveryTimeOptions" @selectType="clickTimeOption" />
         <div v-if="selectedTimeType==='normal'" style="display: flex">
-          <Input placeholder="Дата" style="max-width: 160px; margin-right: 16px"/>
-          <Input placeholder="Время" style="max-width: 160px"/>
+          <Input placeholder="Дата" style="max-width: 160px; margin-right: 16px" right-icon="Date" :icon-width="16" :icon-height="16"/>
+          <Input placeholder="Время" style="max-width: 160px" right-icon="ArrowDown" :icon-width="16" :icon-height="10"/>
         </div>
       </div>
       <div class="diveder-line"></div>
@@ -98,12 +98,24 @@
       <div class="diveder-line"></div>
 <!--    Changes Part  -->
       <div class="section-title">Сдача</div>
-      <CycleRadioInput :cycle-radio-object="changeOptions" style="margin-top: 16px"/>
+     <div class="order-change-box">
+       <CycleRadioInput :cycle-radio-object="changeOptions" @selectType="clickChangeOption"/>
+       <div v-if="selectedChangeOption==='withChange'" style="display: flex">
+         <Input placeholder="0" style="max-width: 160px"  right-icon="Ruble" :icon-width="10" :icon-height="12"/>
+       </div>
+     </div>
       <div class="diveder-line"></div>
-<!--    Comments Part  -->
+
+      <svg width="10" height="12" viewBox="0 0 10 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3.85156 1.97656H5.64844C7.26562 1.97656 8.04688 2.83594 8.04688 4.1875C8.04688 5.54688 7.25781 6.41406 5.64844 6.41406H3.85156V1.97656ZM7.09375 10.2031V9.14062H3.85156V7.63281H6C8.11719 7.63281 9.49219 6.17188 9.49219 4.1875C9.49219 2.21094 8.13281 0.726562 6.01562 0.726562H2.44531V6.41406H0.882812V7.63281H2.44531V9.14062H0.882812V10.2031H2.44531V12H3.85156V10.2031H7.09375Z" fill="#A5A5A5"/>
+      </svg>
+      <Iconca  color="#A5A5A5" name="Ruble" :width="10" :height="12"/>
+
+
+      <!--    Comments Part  -->
       <div class="section-title">Комментарий</div>
-
-
+      <textarea v-model="comment" class="comment-form" placeholder="Есть уточнения?"></textarea>
+      <div class="diveder-line"></div>
     </div>
 
   </div>
@@ -116,6 +128,7 @@ import Input from "@/components/Input/Input";
 import Slider from "@/components/Slider/Slider";
 import RadioInput from "@/components/RadioInput/RadioInput";
 import CycleRadioInput from "@/components/CycleRadioInput/CycleRadioInput";
+import Iconca from "@/components/Iconca/Iconca";
 import {mapGetters, mapState} from 'vuex'
 export default {
   components: {
@@ -123,12 +136,15 @@ export default {
     OrderedCard,
     Input,
     RadioInput,
-    CycleRadioInput
+    CycleRadioInput,
+    Iconca
   },
   data(){
     return {
       deliveryType: 'delivery',
       selectedTimeType: 'urgent',
+      selectedChangeOption: 'noChange',
+      comment: '',
 
       items: [
         {
@@ -366,8 +382,11 @@ export default {
     selectType(val){
       this.deliveryType = val
     },
-    cycleRadioClick(val){
+    clickTimeOption(val){
       this.selectedTimeType = val
+    },
+    clickChangeOption(val){
+      this.selectedChangeOption = val
     }
 
   }
@@ -473,9 +492,34 @@ export default {
   align-items: center
   color: #A5A5A5
   margin-top: 16px
-.order-time-box
+.order-time-box, .order-change-box
   display: flex
   align-items: center
   margin-top: 8px
   height: 48px
+.order-change-box
+  margin-top: 4px
+
+.comment-form
+  background: #FFFFFF
+  border: 1px solid #F0F0F0
+  box-sizing: border-box
+  border-radius: 6px
+  width: 100%
+  min-height: 200px
+  padding: 13px 16px
+  font-family: SF Pro Text
+  font-weight: normal
+  font-size: 16px
+  line-height: 22px
+  display: flex
+  align-items: center
+  color: #A5A5A5
+  margin-top: 16px
+
+.comment-form:focus
+  width: 100%
+  border: none
+  outline: none !important
+  
 </style>
