@@ -116,7 +116,7 @@
       <div class="section-title">Комментарий</div>
       <textarea v-model="comment" class="comment-form" placeholder="Есть уточнения?"></textarea>
 
-      <CheckoutOrder :total-sum="checkoutTotalSum" @clickComponent="helloMe"/>
+      <CheckoutOrder :total-sum="checkoutTotalSum" @clickComponent="helloMe" style="margin-bottom: 48px"/>
     </div>
 
   </div>

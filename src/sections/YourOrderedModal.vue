@@ -16,7 +16,7 @@
               style="margin-bottom: 20px"/>
         </div>
 <!--CheckoutOrder Component-->
-        <CheckoutOrder :total-sum="basketTotalSum" @clickComponent="checkoutOrder"/>
+        <CheckoutOrder :total-sum="basketTotalSum" @clickComponent="checkoutOrder" style="padding: 12px 20px"/>
       </div>
     </div>
   </transition>

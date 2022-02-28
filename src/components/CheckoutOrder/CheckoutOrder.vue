@@ -28,7 +28,7 @@ export default {
   display: flex
   justify-content: space-between
   align-items: center
-  padding: 12px 20px
+  padding: 12px 0
   box-sizing: border-box
   border-top: 1px solid #F0F0F0
 
