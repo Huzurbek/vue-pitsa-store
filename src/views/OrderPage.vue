@@ -115,7 +115,8 @@
       <!--    Comments Part  -->
       <div class="section-title">Комментарий</div>
       <textarea v-model="comment" class="comment-form" placeholder="Есть уточнения?"></textarea>
-      <div class="diveder-line"></div>
+
+      <CheckoutOrder :total-sum="checkoutTotalSum" @clickComponent="helloMe"/>
     </div>
 
   </div>
@@ -128,6 +129,7 @@ import Input from "@/components/Input/Input";
 import Slider from "@/components/Slider/Slider";
 import RadioInput from "@/components/RadioInput/RadioInput";
 import CycleRadioInput from "@/components/CycleRadioInput/CycleRadioInput";
+import CheckoutOrder from "@/components/CheckoutOrder/CheckoutOrder";
 import Iconca from "@/components/Iconca/Iconca";
 import {mapGetters, mapState} from 'vuex'
 export default {
@@ -137,6 +139,7 @@ export default {
     Input,
     RadioInput,
     CycleRadioInput,
+    CheckoutOrder,
     Iconca
   },
   data(){
@@ -360,7 +363,7 @@ export default {
           value: 'withChange',
           placeholder: 'Сдача с'
         },
-      ]
+      ],
 
     }
   },
@@ -387,6 +390,9 @@ export default {
     },
     clickChangeOption(val){
       this.selectedChangeOption = val
+    },
+    helloMe(){
+      console.log('component working properly')
     }
 
   }
@@ -465,7 +471,7 @@ export default {
   margin: 20px 0
   box-sizing: border-box
   height: 1px
-  background: red
+  background: #F0F0F0
 
 //DELIVERY SECTION WITH FORM STYLE
 .delivery-header
@@ -515,11 +521,11 @@ export default {
   display: flex
   align-items: center
   color: #A5A5A5
-  margin-top: 16px
+  margin: 16px 0 20px
 
 .comment-form:focus
   width: 100%
   border: none
   outline: none !important
-  
+
 </style>
