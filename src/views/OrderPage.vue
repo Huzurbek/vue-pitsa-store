@@ -17,11 +17,12 @@
 
     <div class="section-title">Добавить к заказу?</div>
 <!--Slider Component    -->
-    <Slider :items="items"/>
+    <Slider :items="items" style="margin-top: 24px"/>
+    <div class="diveder-line" style="margin: 26px 0 3px 0"></div>
 
     <div class="section-title">Соусы</div>
 <!--Slider Component    -->
-    <Slider :items="sous"/>
+    <Slider :items="sous" style="margin: 24px 0 30px 0"/>
 
     <div class="section-title">О вас</div>
     <div class="client-info">
@@ -39,21 +40,68 @@
       </div>
     </div>
 
-    <div class="diveder-line" style="height: 1px; background: red; width: 100%"></div>
+    <div class="diveder-line"></div>
 <!--Delivery Section with Form    -->
     <div class="delivery-section">
       <div class="delivery-header">
         <div>Доставка</div>
 <!--Radio Input Component-->
-        <RadioInput :radio-object="radioObject" />
+        <RadioInput :radio-object="deliveryOptions" @selectType="selectType" />
       </div>
-
-      <div class="delivery-form" v-if="deliveryType==='delivery'" style="background: aquamarine; height: 200px">
-        <h3>Delivery Type</h3>
+<!--Delivery Form-->
+      <div class="delivery-form" v-if="deliveryType==='delivery'" style="background: aquamarine; ">
+        <div style="margin-bottom: 16px">
+          <div class="input-label">Улица*</div>
+          <Input placeholder="Пушкина" />
+        </div>
+        <div style="display: flex; align-items: center; justify-content: space-between">
+          <div class="dv-form-group">
+            <div class="input-label">Дом</div>
+            <Input placeholder="1а" />
+          </div>
+          <div class="dv-form-group">
+            <div class="input-label">Подъезд</div>
+            <Input placeholder="1" />
+          </div>
+          <div class="dv-form-group">
+            <div class="input-label">Этаж</div>
+            <Input placeholder="2" />
+          </div>
+          <div class="dv-form-group">
+            <div class="input-label">Квартира</div>
+            <Input placeholder="3" />
+          </div>
+           <div class="dv-form-group">
+             <div class="input-label">Домофон</div>
+             <Input placeholder="0000" />
+           </div>
+        </div>
       </div>
-      <div class="pickup-form" v-if="deliveryType==='pickup'" style="background: #f2ff7f; height: 200px">
-        <h3>Pickup Type</h3>
+<!--      Pickup Form-->
+      <div class="pickup-form" v-if="deliveryType==='pickup'" style="background: #f2ff7f;">
+          <div class="input-label">Ресторан*</div>
+          <Input placeholder="Выберите ресторан" />
       </div>
+<!--Order Time part        -->
+      <div class="order-time-title">Когда выполнить заказ?</div>
+      <div class="order-time-box">
+        <CycleRadioInput :cycle-radio-object="deliveryTimeOptions" @selectType="cycleRadioClick" />
+        <div v-if="selectedTimeType==='normal'" style="display: flex">
+          <Input placeholder="Дата" style="max-width: 160px; margin-right: 16px"/>
+          <Input placeholder="Время" style="max-width: 160px"/>
+        </div>
+      </div>
+      <div class="diveder-line"></div>
+<!--Payment Part-->
+      <div class="section-title">Оплата</div>
+      <CycleRadioInput :cycle-radio-object="paymentOptions" style="margin-top: 16px"/>
+      <div class="diveder-line"></div>
+<!--    Changes Part  -->
+      <div class="section-title">Сдача</div>
+      <CycleRadioInput :cycle-radio-object="changeOptions" style="margin-top: 16px"/>
+      <div class="diveder-line"></div>
+<!--    Comments Part  -->
+      <div class="section-title">Комментарий</div>
 
 
     </div>
@@ -67,16 +115,20 @@ import Input from "@/components/Input/Input";
 
 import Slider from "@/components/Slider/Slider";
 import RadioInput from "@/components/RadioInput/RadioInput";
+import CycleRadioInput from "@/components/CycleRadioInput/CycleRadioInput";
 import {mapGetters, mapState} from 'vuex'
 export default {
   components: {
     Slider,
     OrderedCard,
     Input,
-    RadioInput
+    RadioInput,
+    CycleRadioInput
   },
   data(){
     return {
+      deliveryType: 'delivery',
+      selectedTimeType: 'urgent',
 
       items: [
         {
@@ -239,8 +291,7 @@ export default {
         },
 
       ],
-      deliveryType: 'delivery',
-      radioObject:[
+      deliveryOptions:[
         {
           radioId: 'first',
           value: 'delivery',
@@ -251,11 +302,48 @@ export default {
           value: 'pickup',
           placeholder: 'Самовывоз'
         },
-        // {
-        //   radioId: 'third',
-        //   value: 'mok',
-        //   placeholder: 'Mok'
-        // },
+      ],
+      deliveryTimeOptions:[
+        {
+          cycleId: 'time1',
+          value: 'urgent',
+          placeholder: 'Как можно скорее'
+        },
+        {
+          cycleId: 'time2',
+          value: 'normal',
+          placeholder: 'По времени'
+        },
+      ],
+      paymentOptions:[
+        {
+          cycleId: 'payment1',
+          value: 'cash',
+          placeholder: 'Наличными'
+        },
+        {
+          cycleId: 'payment2',
+          value: 'card',
+          placeholder: 'Картой'
+        },
+        {
+          cycleId: 'payment3',
+          value: 'applePay',
+          placeholder: 'Apple Pay'
+        },
+
+      ],
+      changeOptions:[
+        {
+          cycleId: 'change1',
+          value: 'noChange',
+          placeholder: 'Без сдачи'
+        },
+        {
+          cycleId: 'change2',
+          value: 'withChange',
+          placeholder: 'Сдача с'
+        },
       ]
 
     }
@@ -274,6 +362,12 @@ export default {
     },
     decrement(val){
       this.$store.commit("decCheckoutProQuantity",val)
+    },
+    selectType(val){
+      this.deliveryType = val
+    },
+    cycleRadioClick(val){
+      this.selectedTimeType = val
     }
 
   }
@@ -306,7 +400,7 @@ export default {
 .section-title
   font-size: 24px
   line-height: 32px
-  margin: 30px 0 24px 0
+  //margin: 30px 0 24px 0
 
 .sum-container
   display: flex
@@ -317,7 +411,7 @@ export default {
   box-sizing: border-box
   border-radius: 8px
   padding: 16px 24px
-  //height: 80px
+  margin-bottom: 30px
 .sum-text
   font-family: Inter
   font-weight: 600
@@ -329,15 +423,15 @@ export default {
   color: #FF7010
 
 .client-info
-  height: 74px
-  background: #e7ccb9
   display: flex
   justify-content: space-between
   box-sizing: border-box
+  margin-top: 16px
 
 .client-info-box
   max-width: 270px
   flex: 1
+
 .input-label
   font-family: Inter
   font-weight: normal
@@ -351,20 +445,37 @@ export default {
 .diveder-line
   margin: 20px 0
   box-sizing: border-box
+  height: 1px
+  background: red
 
 //DELIVERY SECTION WITH FORM STYLE
 .delivery-header
   display: flex
   align-items: center
   justify-content: space-between
-  background: aliceblue
   font-family: Inter
   font-weight: 600
   font-size: 24px
   line-height: 32px
   color: #191919
+  margin-bottom: 16px
 
-//display: flex;
-//align-items: center;
+.dv-form-group
+  max-width: 154px
 
+.order-time-title
+  font-family: SF Pro Text
+  font-style: normal
+  font-weight: normal
+  font-size: 16px
+  line-height: 22px
+  display: flex
+  align-items: center
+  color: #A5A5A5
+  margin-top: 16px
+.order-time-box
+  display: flex
+  align-items: center
+  margin-top: 8px
+  height: 48px
 </style>
