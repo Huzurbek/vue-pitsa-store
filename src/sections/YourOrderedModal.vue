@@ -15,11 +15,8 @@
               @decrement="decrement"
               style="margin-bottom: 20px"/>
         </div>
-        <div class="model-footer">
-          <div class="total-sum">Итого: {{ basketTotalSum }} ₽</div>
-          <Button class="submit-btn" text="Оформить заказ" @click="checkoutOrder" :class="{'myDisabled':!isEmpty}"/>
-
-        </div>
+<!--CheckoutOrder Component-->
+        <CheckoutOrder :total-sum="basketTotalSum" @clickComponent="checkoutOrder"/>
       </div>
     </div>
   </transition>
@@ -28,10 +25,10 @@
 <script>
 import Iconca from "@/components/Iconca/Iconca";
 import OrderedCard from "@/components/OrderedCard/OrderedCard";
-import Button from "@/components/Button/Button";
+import CheckoutOrder from "@/components/CheckoutOrder/CheckoutOrder";
 import { mapState, mapGetters } from 'vuex';
 export default {
-  components: {Iconca, OrderedCard, Button},
+  components: {Iconca, OrderedCard, CheckoutOrder},
   props: {
     display: {
       type: Boolean,
@@ -50,9 +47,6 @@ export default {
     ...mapGetters({
       basketTotalSum: 'basketTotalSum'
     }),
-    isEmpty(){
-      return this.basketProducts.length
-    }
   },
   methods:{
     clickMe(val){
@@ -120,34 +114,5 @@ export default {
   align-items: center
   justify-content: space-between
   margin-bottom: 20px
-
-.model-footer
-  display: flex
-  justify-content: space-between
-  align-items: center
-  padding: 12px 20px
-  box-sizing: border-box
-  border-top: 1px solid #F0F0F0
-
-.total-sum
-  font-family: Inter
-  font-weight: 600
-  font-size: 20px
-  line-height: 28px
-  color: #FF7010
-
-
-
-.myDisabled
-  pointer-events: none
-  cursor: not-allowed
-  user-select: none
-  opacity: 0.65
-  filter: alpha(opacity=65)
-  -webkit-box-shadow: none
-  box-shadow: none
-
-
-
 
 </style>
