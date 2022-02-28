@@ -1,7 +1,7 @@
 <template>
   <div class="radio-form-group">
     <div v-for="(item,index) of radioObject" :key="index" class="radio-style">
-      <input class="custom-radio" type="radio" :id="item.radioId" :value="item.value" v-model="selected">
+      <input  class="custom-radio" type="radio" :id="item.radioId" :value="item.value" v-model="selected" @click="sendVal(item.value)">
       <label :for="item.radioId">{{ item.placeholder }}</label>
     </div>
   </div>
@@ -18,6 +18,12 @@ export default {
   data(){
     return {
       selected: this.radioObject[0].value
+    }
+  },
+  methods:{
+    sendVal(val){
+      this.$emit('selectType',val)
+      console.log('radio bosildi')
     }
   }
 
