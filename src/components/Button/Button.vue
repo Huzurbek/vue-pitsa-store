@@ -1,8 +1,9 @@
 <template>
  <div class="buttonWrapper"  :style="{
-   ...style,
-   width:full?'auto':'fit-content',
+
+   width:full?'100%':'fit-content',
    minWidth: fit?'auto':'158px',
+   ...style,
  }">
   <Iconca v-if="leftIcon" color="white" :name="leftIcon" :width="iconWidth" :height="iconWidth" style="margin-right: 8px"/>
    <span v-if="text">{{text}}</span>

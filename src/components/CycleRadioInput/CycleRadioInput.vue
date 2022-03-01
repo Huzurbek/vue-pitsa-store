@@ -3,7 +3,7 @@
     <div  v-for="(item,index) in cycleRadioObject"
           :key="index"
       style="display: flex; margin-right: 24px">
-      <input class="custom-radio" type="radio" :id="item.cycleId" :value="item.value" v-model="selected" @click="sendVal(item.value)">
+      <input  type="radio" :id="item.cycleId" :value="item.value" v-model="selected" @click="sendVal(item.value)">
       <label :for="item.cycleId">{{item.placeholder}}</label>
     </div>
 
@@ -31,7 +31,6 @@ export default {
   }
 }
 </script>
-
 <style scoped lang="sass">
 .cycle-form-group
   display: flex
@@ -43,28 +42,26 @@ export default {
   line-height: 22px
   color: #191919
 
-.cycle-form-group input[type="radio"]
-  /* remove standard background appearance */
-  -webkit-appearance: none
-  -moz-appearance: none
-  appearance: none
-  /* create custom radiobutton appearance */
-  //display: inline-block
+input[type="radio"]
+  display: none
+
+input[type="radio"] + *::before
+  content: ""
+  display: inline-block
+  vertical-align: bottom
   width: 16px
   height: 16px
-  padding: 2px
-  border: 2px solid #A5A5A5
-  box-sizing: border-box
-  background: #FFFFFF
-  border-radius: 50px
   margin-right: 8px
+  border-radius: 50%
+  border: 1.6px solid #A5A5A5
 
-/* appearance for checked radiobutton */
-.cycle-form-group input[type="radio"]:checked
-  background-color: #FF7010
-  border: 2px solid #FF7010
-  background-clip: content-box
-  padding: 2px
+input[type="radio"]:checked + *::before
+  background: radial-gradient(#FF7010 0%, #FF7010 40%, transparent 50%, transparent)
+  border-color: #FF7010
 
-
+//input[type="radio"]:checked
+//  color: red
+//input[type="radio"] + *
+//  display: inline-block
+//  padding: 0.5rem 1rem
 </style>
