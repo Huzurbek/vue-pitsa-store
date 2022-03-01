@@ -49,7 +49,7 @@
         <RadioInput :radio-object="deliveryOptions" @selectType="selectType" />
       </div>
 <!--Delivery Form-->
-      <div class="delivery-form" v-if="deliveryType==='delivery'" style="background: aquamarine; ">
+      <div class="delivery-form" v-if="deliveryType==='delivery'" >
         <div style="margin-bottom: 16px">
           <div class="input-label">Улица*</div>
           <Input placeholder="Пушкина" />
@@ -78,7 +78,7 @@
         </div>
       </div>
 <!--      Pickup Form-->
-      <div class="pickup-form" v-if="deliveryType==='pickup'" style="background: #f2ff7f;">
+      <div class="pickup-form" v-if="deliveryType==='pickup'" >
           <div class="input-label">Ресторан*</div>
           <Input placeholder="Выберите ресторан" right-icon="ArrowDown" :icon-width="16" :icon-height="10"/>
       </div>
@@ -393,6 +393,7 @@ export default {
     },
     helloMe(){
       console.log('component working properly')
+      this.$router.push('/orderDone')
     }
 
   }
@@ -408,7 +409,7 @@ export default {
   border-bottom: none
   max-width: 990px
   margin:  0 auto
-  padding: 0 70px 0 70px
+  padding: 41px 70px 0 70px
   box-sizing: border-box
 
 

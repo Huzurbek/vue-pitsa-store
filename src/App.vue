@@ -54,7 +54,6 @@ export default {
   border-bottom: none
   max-width: 1290px
   margin:  0 auto
-  padding-top: 31px
   min-height: 1000px
 
 </style>
