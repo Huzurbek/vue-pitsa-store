@@ -1,7 +1,7 @@
 <template>
   <div class="pagination-container">
-    <div class="card" v-for="(post, index) in filteredList" :key="index">
-      <div class="title">Cart title {{index}}</div>
+    <div class="card" v-for="post in filteredList" :key="post.id">
+      <div class="title">Cart title {{post.id}}</div>
       <div class="text">There are some tex....</div>
       <button class="btn">Read More</button>
 <!--      <p>{{post}}</p>-->
@@ -9,7 +9,8 @@
   </div>
   <div class="btn-wrapper">
     <button class="btn" type="button" :disabled="currentPage === 1" @click="changePage(-1)"> Prev</button>
-    <button class="btn" type="button" :disabled="currentPage === 4" @click="changePage(1)">Next >></button>
+    <button class="btn" type="button" :disabled="currentPage === 5" @click="changePage(1)">Next</button>
+
   </div>
 </template>
 
@@ -20,7 +21,7 @@ export default {
   data(){
     return {
       list: [],
-      prePage: 5,
+      prePage: 20,
       currentPage: 1
     }
   },
@@ -34,12 +35,13 @@ export default {
         fromVuexPosts: 'getPosts'
       }),
     filteredList() {
+        console.log('computed working')
       // console.log('this.currentPage', this.currentPage)
       const star = (this.currentPage - 1) * this.prePage
       const end = this.currentPage * this.prePage
-      // console.log(star, end)
-      // console.log('computed', this.list)
-      // console.log('result', this.list.slice(star, end))
+      console.log(star, end)
+      console.log('computed', this.list)
+      console.log('resultchaa', this.list.slice(star, end))
       const result = this.list.slice(star, end)
       return result
     }
