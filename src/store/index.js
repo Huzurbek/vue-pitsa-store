@@ -1,5 +1,6 @@
 
 import { createStore } from 'vuex'
+import axios from 'axios';
 // function containsObject(obj, list) {
 //   var i;
 //   for (i = 0; i < list.length; i++) {
@@ -11,7 +12,7 @@ import { createStore } from 'vuex'
 // }
 export default createStore({
   state: {
-
+    posts: [],
     // sushes: [
     //   {
     //     image: 'sushi-cranch.png',
@@ -102,6 +103,7 @@ export default createStore({
     //     status: ''
     //   },
     // ],
+
     basket: 0,
     products: [
       {
@@ -477,6 +479,9 @@ export default createStore({
     },
     checkoutTotalSum: (state) => {
       return state.checkoutProducts.reduce((total,el)=>total += (el.price * el.quantity),0)
+    },
+    getPosts:(state) => {
+      return state.posts
     }
   },
   mutations: {
@@ -534,10 +539,21 @@ export default createStore({
         }
         return product
       })
+    },
+    setPost(state,payload){
+      state.posts = payload
     }
 
   },
   actions: {
+    getPost({ commit }) {
+      axios.get('https://jsonplaceholder.typicode.com/posts')
+          .then(response => {
+            console.log('dat is',response.data)
+            commit('setPost', response.data)
+          })
+    },
+
   },
   modules: {
   }
