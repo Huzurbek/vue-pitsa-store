@@ -7,8 +7,9 @@
     </div>
   </div>
   <div class="btn-wrapper">
-    <button class="btn" type="button" :disabled="currentPage === 1" @click="changePage(-1)"> Prev</button>
-    <button class="btn" type="button" :disabled="currentPage === 5" @click="changePage(1)">Next</button>
+    <button class="btn-click" type="button" :disabled="currentPage === 1" @click="changePage(-1)"> Prev</button>
+    <div class="mini"  :class="{active: n === currentPage}" v-for="n in 5" :key="n" >{{ n }}</div>
+    <button class="btn-click" type="button" :disabled="currentPage === 5" @click="changePage(1)">Next</button>
   </div>
 </template>
 
@@ -45,9 +46,10 @@ export default {
 
 <style scoped lang="sass">
 .pagination-container
-  background: #F0F0F0
+  padding: 20px 0
   display: flex
   flex-wrap: wrap
+  text-align: center
 
 .card
   width: 200px
@@ -66,4 +68,34 @@ export default {
   width: 100px
   color: white
   box-sizing: border-box
+
+.btn-wrapper
+  display: flex
+  align-items: center
+  justify-content: center
+  margin-top: 20px
+.btn-click
+  height: 30px
+  width: 55px
+  background: #00BFFF
+  border-radius: 3px
+  color: #FFFFFF
+  border: none
+  cursor: pointer
+.btn-click:hover
+  background: #1E90FF
+.mini
+  width: 30px
+  height: 30px
+  display: flex
+  justify-content: center
+  align-items: center
+  background: #00BFFF
+  color: #FFFFFF
+
+  border-radius: 3px
+  box-sizing: border-box
+  margin: 0 3px
+.active
+  background: #1E90FF
 </style>
