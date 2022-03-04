@@ -549,7 +549,6 @@ export default createStore({
     getPost({ commit }) {
       axios.get('https://jsonplaceholder.typicode.com/posts')
           .then(response => {
-            console.log('dat is',response.data)
             commit('setPost', response.data)
           })
     },
