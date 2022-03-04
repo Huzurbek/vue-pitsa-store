@@ -2,7 +2,12 @@
   <div class="form-group" :style="style">
     <div style="display: flex; align-items: center; flex: 1">
       <Iconca v-if="leftIcon"  color="#FF7010" :name="leftIcon" :height="20" :width="14" style="margin-right: 5px"/>
-      <input type="text" :placeholder="placeholder">
+      <input
+          type="text"
+          :placeholder="placeholder"
+          :value="modelValue"
+          @input="$emit('update:modelValue', $event.target.value)"
+          @blur="$emit('blur')"/>
       <Iconca v-if="rightIcon"  color="#A5A5A5" :name="rightIcon" :width="iconWidth" :height="iconHeight"  style="margin-right: 16px;"/>
     </div>
 
@@ -47,9 +52,14 @@ export default {
     inputBtn:{
       type: Boolean,
       default:()=>false
+    },
+    modelValue: {
+      type: String
     }
 
-  }
+  },
+
+  emits: ['update:modelValue','blur']
 }
 </script>
 

@@ -1,7 +1,9 @@
 <template>
+  <div style="padding-top: 41px">
     <HeaderSection/>
     <PizzaSection />
     <SushiSection/>
+  </div>
 </template>
 
 <script>

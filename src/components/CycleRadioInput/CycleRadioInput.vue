@@ -1,12 +1,11 @@
 <template>
-  <div class="cycle-form-group">
-    <div  v-for="(item,index) in cycleRadioObject"
+  <div class="cycle-form-group" v-if="cycleRadioObject">
+    <div v-for="(item,index) in cycleRadioObject"
           :key="index"
       style="display: flex; margin-right: 24px">
       <input  type="radio" :id="item.cycleId" :value="item.value" v-model="selected" @click="sendVal(item.value)">
       <label :for="item.cycleId">{{item.placeholder}}</label>
     </div>
-
   </div>
 </template>
 
@@ -15,7 +14,11 @@ export default {
   props: {
     cycleRadioObject:{
       type: Object,
-      default:()=>{}
+      default:()=>null
+    },
+    text:{
+      type: String,
+      default:()=>'default text'
     }
   },
   data(){
