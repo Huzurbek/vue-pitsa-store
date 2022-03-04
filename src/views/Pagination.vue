@@ -60,6 +60,7 @@ export default {
       console.log('num', num)
       console.log('this.currentPage', this.currentPage)
       this.currentPage = this.currentPage + num
+      
     }
   }
 }
