@@ -48,7 +48,7 @@
         <div class="delivery-header">
           <div>Доставка</div>
           <!--Radio Input Component-->
-          <RadioInput :radio-object="deliveryOptions" @selectType="selectType" />
+          <RadioInput :radio-object="deliveryOptions" v-model="deliveryType" style="max-width: 350px"/>
         </div>
         <!--Delivery Form-->
         <div class="delivery-form" v-if="deliveryType==='delivery'" >
@@ -84,13 +84,13 @@
 <!--      Pickup Form-->
         <div class="pickup-form" v-if="deliveryType==='pickup'" >
             <div class="input-label">Ресторан*</div>
-            <Input placeholder="Выберите ресторан" right-icon="ArrowDown" :icon-width="16" :icon-height="10"/>
+            <Input placeholder="Выберите ресторан" right-icon="ArrowDown"  v-model="restaurant" :icon-width="16" :icon-height="10"/>
         </div>
 <!--Order Time part        -->
         <div class="order-time-title">Когда выполнить заказ?</div>
         <div class="order-time-box">
-          <CycleRadioInput :cycle-radio-object="deliveryTimeOptions" @selectType="clickTimeOption" />
-          <div v-if="selectedTimeType==='normal'" style="display: flex">
+          <CycleRadioInput :cycle-radio-object="deliveryTimeOptions" v-model="form.selectedTime.value"/>
+          <div v-if="form.selectedTime.value==='normal'" style="display: flex">
             <Input placeholder="Дата" style="max-width: 160px; margin-right: 16px" right-icon="Date" :icon-width="16" :icon-height="16"/>
             <Input placeholder="Время" style="max-width: 160px" right-icon="ArrowDown" :icon-width="16" :icon-height="10"/>
           </div>
@@ -98,37 +98,31 @@
         <div class="diveder-line"></div>
 <!--Payment Part-->
         <div class="section-title">Оплата</div>
-        <CycleRadioInput :cycle-radio-object="paymentOptions" @selectType="clickPaymentOption" style="margin-top: 16px"/>
+        <CycleRadioInput :cycle-radio-object="paymentOptions" v-model="form.selectedPayment.value" style="margin-top: 16px"/>
         <div class="diveder-line"></div>
 <!--    Changes Part  -->
         <div class="section-title">Сдача</div>
          <div class="order-change-box">
-           <CycleRadioInput :cycle-radio-object="changeOptions" @selectType="clickChangeOption"/>
-           <div v-if="selectedChangeOption==='withChange'" style="display: flex">
+           <CycleRadioInput :cycle-radio-object="changeOptions" v-model="form.selectedChange.value"/>
+           <div v-if="form.selectedChange.value==='withChange'" style="display: flex">
              <Input placeholder="0" style="max-width: 160px"  right-icon="Ruble" :icon-width="10" :icon-height="12"/>
            </div>
          </div>
           <div class="diveder-line"></div>
-
-
-
-
       <!--    Comments Part  -->
         <div class="section-title">Комментарий</div>
-        <textarea v-model="comment" class="comment-form" placeholder="Есть уточнения?"></textarea>
-
-
+        <textarea v-model="form.comment.value" class="comment-form" placeholder="Есть уточнения?"></textarea>
 <!--        <CheckoutOrder :total-sum="checkoutTotalSum" @clickComponent="helloMe" style="margin-bottom: 48px"/>-->
       </div>
-      <button class="btn primary" type="submit" :disabled="!form.valid">Submit</button>
+      <button class="btn primary" type="submit" :disabled="submitDemo">Submit</button>
     </form>
+
   </div>
 </template>
 
 <script>
 import OrderedCard from "@/components/OrderedCard/OrderedCard";
 import Input from "@/components/Input/Input";
-
 import Slider from "@/components/Slider/Slider";
 import RadioInput from "@/components/RadioInput/RadioInput";
 import CycleRadioInput from "@/components/CycleRadioInput/CycleRadioInput";
@@ -143,10 +137,8 @@ const required = val => !!val
 // const minLength = num => val => val.length >= num
 export default {
   setup() {
-
     const submitted = ref(false)
     const error = ref()
-
     const form = useForm({
       username: {
         value: 'Mahmud',
@@ -184,10 +176,27 @@ export default {
         value: 'domofon',
         validators: {required}
       },
+      selectedTime: {
+        value: 'normal',
+        validators: {required}
+      },
+      selectedPayment: {
+        value: 'applePay',
+        validators: {required}
+      },
+      selectedChange: {
+        value: 'noChange',
+        validators: {required}
+      },
+      comment: {
+        value: 'There are some comments ..............',
+        validators: {required}
+      }
     })
+    const restaurant = ref(null)
 
     function submit() {
-      console.log('Email:', form.email.value)
+      console.log('In submit', this.restaurant)
       // console.log('Password:', form.password.value)
       submitted.value = true
     }
@@ -196,7 +205,7 @@ export default {
     //   error.value = e.message
     // })
 
-    return {form, submit, submitted, error}
+    return {form, submit, submitted, error }
   },
   components: {
     Slider,
@@ -205,17 +214,12 @@ export default {
     RadioInput,
     CycleRadioInput,
     // CheckoutOrder,
-    // Iconca,
 
   },
   data(){
     return {
-      deliveryType: 'delivery',
-      selectedTimeType: 'normal',
-      selectedPaymentOption: 'card',
-      selectedChangeOption: 'noChange',
-      comment: '',
-      message: 'hello us',
+      deliveryType: 'pickup',
+      // restaurant: '',
       items: [
         {
           id: 1,
@@ -440,6 +444,9 @@ export default {
     ...mapGetters({
       checkoutTotalSum: 'checkoutTotalSum'
     }),
+    submitDemo(){
+      return (this.deliveryType === 'delivery' && !this.form.valid)||(this.deliveryType === 'pickup' && this.restaurant === '')
+    }
   },
   methods: {
     increment(val){
@@ -448,18 +455,7 @@ export default {
     decrement(val){
       this.$store.commit("decCheckoutProQuantity",val)
     },
-    selectType(val){
-      this.deliveryType = val
-    },
-    clickTimeOption(val){
-      this.selectedTimeType = val
-    },
-    clickChangeOption(val){
-      this.selectedChangeOption = val
-    },
-    clickPaymentOption(val){
-      this.selectedPaymentOption = val
-    },
+
     helloMe(){
       console.log('component working properly')
       this.$router.push('/orderDone')

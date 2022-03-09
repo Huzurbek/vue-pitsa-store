@@ -3,7 +3,12 @@
     <div v-for="(item,index) in cycleRadioObject"
           :key="index"
       style="display: flex; margin-right: 24px">
-      <input  type="radio" :id="item.cycleId" :value="item.value" v-model="selected" @click="sendVal(item.value)">
+      <input  type="radio"
+              :id="item.cycleId"
+              :value="item.value"
+              :checked="item.value === modelValue"
+              @input="$emit('update:modelValue', $event.target.value)"
+      />
       <label :for="item.cycleId">{{item.placeholder}}</label>
     </div>
   </div>
@@ -19,18 +24,22 @@ export default {
     text:{
       type: String,
       default:()=>'default text'
+    },
+    modelValue: {
+      type: String
     }
   },
+  emits: ['update:modelValue'],
   data(){
     return {
       selected: this.cycleRadioObject[0].value
     }
   },
   methods:{
-    sendVal(val){
-      this.$emit('selectType',val)
-      console.log('Cycle radio bosildi')
-    }
+    // sendVal(val){
+    //   this.$emit('selectType',val)
+    //   console.log('Cycle radio bosildi')
+    // }
   }
 }
 </script>

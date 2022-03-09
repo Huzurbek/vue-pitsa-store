@@ -27,24 +27,9 @@
           </div>
         </div>
 <!--    Crust Part    -->
-        <div class="crust-form-group">
-          <input class="custom-radio" type="radio" id="first" value="Традиционное" v-model="crust">
-          <label for="first">Традиционное</label>
-
-          <input class="custom-radio" type="radio" id="second" value="Тонкое" v-model="crust">
-          <label for="second">Тонкое</label>
-        </div>
-<!--        Pizza Size-->
-        <div class="size-form-group">
-          <input class="custom-radio" type="radio" id="sizeOne" value="20" v-model="PizzaSize">
-          <label for="sizeOne">20 см</label>
-
-          <input class="custom-radio" type="radio" id="sizeSecond" value="28" v-model="PizzaSize">
-          <label for="sizeSecond">28 см</label>
-
-          <input class="custom-radio" type="radio" id="sizeThird" value="33" v-model="PizzaSize">
-          <label for="sizeThird">33 см</label>
-        </div>
+        <RadioInput  :radio-object="crustOptions" v-model="selectedCrust"/>
+<!--    Size Part    -->
+        <RadioInput  :radio-object="sizeOptions" v-model="selectedSize" style="margin-top: 16px"/>
 <!--Adding Toppings to Pizza-->
         <div class="adding-title">Добавьте в пиццу</div>
         <div class="toppings">
@@ -78,11 +63,13 @@
 <script>
 import Iconca from "@/components/Iconca/Iconca";
 import Button from "@/components/Button/Button";
-import IDGenerator from "@/helpers/uniqueId.js"
+import IDGenerator from "@/helpers/uniqueId.js";
+import RadioInput from "@/components/RadioInput/RadioInput";
 export default {
   components:{
     Iconca,
-    Button
+    Button,
+    RadioInput
   },
   props: {
     selectedProduct:{
@@ -92,8 +79,8 @@ export default {
   },
   data(){
     return {
-      crust: this.selectedProduct.crust,
-      PizzaSize: this.selectedProduct.size,
+      selectedCrust: 'thin',
+      selectedSize: '28',
       paidToppings: [
         {
           id: 1,
@@ -128,6 +115,35 @@ export default {
           price: 59
         }
       ],
+      crustOptions:[
+        {
+          radioId: 'firstCrust',
+          value: 'traditional',
+          placeholder: 'Традиционное'
+        },
+        {
+          radioId: 'secondCrust',
+          value: 'thin',
+          placeholder: 'Тонкое'
+        },
+      ],
+      sizeOptions:[
+        {
+          radioId: 'firstSize',
+          value: '20',
+          placeholder: '20 см'
+        },
+        {
+          radioId: 'secondSize',
+          value: '28',
+          placeholder: '28 см'
+        },
+        {
+          radioId: 'thirdSize',
+          value: '33',
+          placeholder: '33 см'
+        },
+      ]
     }
   },
 
@@ -319,39 +335,39 @@ img
   cursor: pointer
 
 //Input style
-.crust-form-group, .size-form-group
-  display: flex
-  width: 480px
-  background: #FFFFFF
-  border: 1px solid #F0F0F0
-  border-radius: 6px
-  box-sizing: border-box
-  height: 48px
-  margin-bottom: 16px
-
-.size-form-group
-  height: 44px
-
-.custom-radio
-  display: none
-
-.custom-radio + label
-  -webkit-appearance: none
-  display: flex
-  justify-content: center
-  align-items: center
-  background-color: #FFFFFF
-  border-radius: 6px
-  width: 100%
-  color: #191919
-  font-family: SF Pro Text
-  font-weight: normal
-  font-size: 16px
-  line-height: 22px
-  cursor: pointer
-
-.custom-radio:checked + label
-  background: #FF7010
-  color: #FFFFFF
+//.crust-form-group, .size-form-group
+//  display: flex
+//  width: 480px
+//  background: #FFFFFF
+//  border: 1px solid #F0F0F0
+//  border-radius: 6px
+//  box-sizing: border-box
+//  height: 48px
+//  margin-bottom: 16px
+//
+//.size-form-group
+//  height: 44px
+//
+//.custom-radio
+//  display: none
+//
+//.custom-radio + label
+//  -webkit-appearance: none
+//  display: flex
+//  justify-content: center
+//  align-items: center
+//  background-color: #FFFFFF
+//  border-radius: 6px
+//  width: 100%
+//  color: #191919
+//  font-family: SF Pro Text
+//  font-weight: normal
+//  font-size: 16px
+//  line-height: 22px
+//  cursor: pointer
+//
+//.custom-radio:checked + label
+//  background: #FF7010
+//  color: #FFFFFF
 
 </style>
