@@ -193,7 +193,7 @@ export default {
         validators: {required}
       }
     })
-    const restaurant = ref(null)
+    
 
     function submit() {
       console.log('In submit', this.restaurant)
