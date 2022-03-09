@@ -1,7 +1,14 @@
 <template>
   <div class="radio-form-group">
     <div v-for="(item,index) of radioObject" :key="index" class="radio-style">
-      <input  class="custom-radio" type="radio" :id="item.radioId" :value="item.value" v-model="selected" @click="sendVal(item.value)">
+      <input
+          class="custom-radio"
+          type="radio"
+          :id="item.radioId"
+          :value="item.value"
+          :checked="item.value === modelValue"
+          @input="$emit('update:modelValue', $event.target.value)"
+          />
       <label :for="item.radioId">{{ item.placeholder }}</label>
     </div>
   </div>
@@ -13,19 +20,18 @@ export default {
     radioObject:{
       type: Object,
       default: ()=>{}
+    },
+    modelValue: {
+      type: String
     }
   },
+  emits: ['update:modelValue'],
   data(){
     return {
-      selected: this.radioObject[0].value
+
     }
   },
-  methods:{
-    sendVal(val){
-      this.$emit('selectType',val)
-      console.log('radio bosildi')
-    }
-  }
+
 
 }
 </script>
@@ -34,7 +40,7 @@ export default {
 
 .radio-form-group
   display: flex
-  max-width: 350px
+  width: 100%
   flex: 1
   background: #FFFFFF
   border: 1px solid #F0F0F0
