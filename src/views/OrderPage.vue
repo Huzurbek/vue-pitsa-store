@@ -16,29 +16,32 @@
     </div>
 
     <div class="section-title">Добавить к заказу?</div>
-<!--Slider Component    -->
+    <!--Slider Component    -->
     <Slider :items="items" style="margin-top: 24px"/>
     <div class="diveder-line" style="margin: 26px 0 3px 0"></div>
 
     <div class="section-title">Соусы</div>
-<!--Slider Component    -->
+    <!--Slider Component    -->
     <Slider :items="sous" style="margin: 24px 0 30px 0"/>
 
     <div class="section-title">О вас</div>
-<!--    FORM CONTAINER-->
+    <!--    FORM CONTAINER-->
     <form @submit.prevent="submit">
       <div class="client-info">
         <div class="client-info-box">
           <div class="input-label">Имя*</div>
-          <Input placeholder="Алексей" class="input-box" v-model="form.username.value" @blur="form.username.blur" :class="{invalid: !form.username.valid && form.username.touched}"/>
+          <Input placeholder="Алексей" class="input-box" v-model="form.username.value" @blur="form.username.blur"
+                 :class="{invalid: !form.username.valid && form.username.touched}"/>
         </div>
         <div class="client-info-box">
           <div class="input-label">Номер телефона*</div>
-          <Input placeholder="+7" class="input-box" v-model="form.number.value" @blur="form.number.blur" :class="{invalid: !form.number.valid && form.number.touched}"/>
+          <Input placeholder="+7" class="input-box" v-model="form.number.value" @blur="form.number.blur"
+                 :class="{invalid: !form.number.valid && form.number.touched}"/>
         </div>
         <div class="client-info-box">
           <div class="input-label">Почта</div>
-          <Input placeholder="mail@gmail.com" class="input-box" v-model="form.email.value" @blur="form.email.blur" :class="{invalid: !form.email.valid && form.email.touched}"/>
+          <Input placeholder="mail@gmail.com" class="input-box" v-model="form.email.value" @blur="form.email.blur"
+                 :class="{invalid: !form.email.valid && form.email.touched}"/>
         </div>
       </div>
 
@@ -48,73 +51,86 @@
         <div class="delivery-header">
           <div>Доставка</div>
           <!--Radio Input Component-->
+          <p>Delivery type is : {{ deliveryType }}</p>
           <RadioInput :radio-object="deliveryOptions" v-model="deliveryType" style="max-width: 350px"/>
         </div>
+        <p>Result: {{ form }}</p>
         <!--Delivery Form-->
-        <div class="delivery-form" v-if="deliveryType==='delivery'" >
+        <div class="delivery-form" v-if="deliveryType == 'delivery'">
           <div style="margin-bottom: 16px">
             <div class="input-label">Улица*</div>
-            <Input placeholder="Пушкина" v-model="form.street.value" @blur="form.street.blur" :class="{invalid: !form.street.valid && form.street.touched}"/>
+            <Input placeholder="Пушкина" v-model="form.street.value" @blur="form.street.blur"
+                   :class="{invalid: !form.street.valid && form.street.touched}"/>
           </div>
           <div style="display: flex; align-items: center; justify-content: space-between">
             <div class="dv-form-group">
               <div class="input-label">Дом</div>
-              <Input placeholder="1а" v-model="form.home.value" @blur="form.home.blur" :class="{invalid: !form.home.valid && form.home.touched}"/>
+              <Input placeholder="1а" v-model="form.home.value" @blur="form.home.blur"
+                     :class="{invalid: !form.home.valid && form.home.touched}"/>
             </div>
             <div class="dv-form-group">
               <div class="input-label">Подъезд</div>
-              <Input placeholder="1" v-model="form.entrance.value" @blur="form.entrance.blur" :class="{invalid: !form.entrance.valid && form.entrance.touched}"/>
+              <Input placeholder="1" v-model="form.entrance.value" @blur="form.entrance.blur"
+                     :class="{invalid: !form.entrance.valid && form.entrance.touched}"/>
             </div>
             <div class="dv-form-group">
               <div class="input-label">Этаж</div>
-              <Input placeholder="2" v-model="form.ground.value" @blur="form.ground.blur" :class="{invalid: !form.ground.valid && form.ground.touched}"/>
+              <Input placeholder="2" v-model="form.ground.value" @blur="form.ground.blur"
+                     :class="{invalid: !form.ground.valid && form.ground.touched}"/>
             </div>
             <div class="dv-form-group">
               <div class="input-label">Квартира</div>
-              <Input placeholder="3" v-model="form.appartment.value" @blur="form.appartment.blur" :class="{invalid: !form.appartment.valid && form.appartment.touched}"/>
+              <Input placeholder="3" v-model="form.appartment.value" @blur="form.appartment.blur"
+                     :class="{invalid: !form.appartment.valid && form.appartment.touched}"/>
             </div>
             <div class="dv-form-group">
-              <div class="input-label" >Домофон</div>
-              <Input placeholder="0000" v-model="form.intercom.value" @blur="form.intercom.blur" :class="{invalid: !form.intercom.valid && form.intercom.touched}"/>
+              <div class="input-label">Домофон</div>
+              <Input placeholder="0000" v-model="form.intercom.value" @blur="form.intercom.blur"
+                     :class="{invalid: !form.intercom.valid && form.intercom.touched}"/>
             </div>
           </div>
         </div>
 
 
-<!--      Pickup Form-->
-        <div class="pickup-form" v-if="deliveryType==='pickup'" >
-            <div class="input-label">Ресторан*</div>
-            <Input placeholder="Выберите ресторан" right-icon="ArrowDown"  v-model="restaurant" :icon-width="16" :icon-height="10"/>
+        <!--      Pickup Form-->
+        <div class="pickup-form" v-if="deliveryType == 'pickup'">
+          <div class="input-label">Ресторан*</div>
+          <Input placeholder="Выберите ресторан" right-icon="ArrowDown" v-model="form.restaurant.value" :icon-width="16"
+                 :icon-height="10"/>
         </div>
-<!--Order Time part        -->
+        <!--Order Time part        -->
         <div class="order-time-title">Когда выполнить заказ?</div>
         <div class="order-time-box">
           <CycleRadioInput :cycle-radio-object="deliveryTimeOptions" v-model="form.selectedTime.value"/>
           <div v-if="form.selectedTime.value==='normal'" style="display: flex">
-            <Input placeholder="Дата" style="max-width: 160px; margin-right: 16px" right-icon="Date" :icon-width="16" :icon-height="16"/>
-            <Input placeholder="Время" style="max-width: 160px" right-icon="ArrowDown" :icon-width="16" :icon-height="10"/>
+            <Input placeholder="Дата" style="max-width: 160px; margin-right: 16px" right-icon="Date" :icon-width="16"
+                   :icon-height="16"/>
+            <Input placeholder="Время" style="max-width: 160px" right-icon="ArrowDown" :icon-width="16"
+                   :icon-height="10"/>
           </div>
         </div>
         <div class="diveder-line"></div>
-<!--Payment Part-->
+        <!--Payment Part-->
         <div class="section-title">Оплата</div>
-        <CycleRadioInput :cycle-radio-object="paymentOptions" v-model="form.selectedPayment.value" style="margin-top: 16px"/>
+        <CycleRadioInput :cycle-radio-object="paymentOptions" v-model="form.selectedPayment.value"
+                         style="margin-top: 16px"/>
         <div class="diveder-line"></div>
-<!--    Changes Part  -->
+        <!--    Changes Part  -->
         <div class="section-title">Сдача</div>
-         <div class="order-change-box">
-           <CycleRadioInput :cycle-radio-object="changeOptions" v-model="form.selectedChange.value"/>
-           <div v-if="form.selectedChange.value==='withChange'" style="display: flex">
-             <Input placeholder="0" style="max-width: 160px"  right-icon="Ruble" :icon-width="10" :icon-height="12"/>
-           </div>
-         </div>
-          <div class="diveder-line"></div>
-      <!--    Comments Part  -->
+        <div class="order-change-box">
+          <CycleRadioInput :cycle-radio-object="changeOptions" v-model="form.selectedChange.value"/>
+          <div v-if="form.selectedChange.value==='withChange'" style="display: flex">
+            <Input placeholder="0" style="max-width: 160px" right-icon="Ruble" :icon-width="10" :icon-height="12"/>
+          </div>
+        </div>
+        <div class="diveder-line"></div>
+        <!--    Comments Part  -->
         <div class="section-title">Комментарий</div>
         <textarea v-model="form.comment.value" class="comment-form" placeholder="Есть уточнения?"></textarea>
-<!--        <CheckoutOrder :total-sum="checkoutTotalSum" @clickComponent="helloMe" style="margin-bottom: 48px"/>-->
+        <!--        <CheckoutOrder :total-sum="checkoutTotalSum" @clickComponent="helloMe" style="margin-bottom: 48px"/>-->
       </div>
-      <button class="btn primary" type="submit" :disabled="submitDemo">Submit</button>
+      <!--      :disabled="!form.valid"-->
+      <button class="btn primary" :disabled="!form.valid" type="submit">Submit</button>
     </form>
 
   </div>
@@ -131,15 +147,20 @@ import CycleRadioInput from "@/components/CycleRadioInput/CycleRadioInput";
 import {mapGetters, mapState} from 'vuex'
 
 
-import {ref} from 'vue'
+import {ref, watch} from 'vue'
 import {useForm} from "@/use/form";
+import { useStore } from 'vuex'
+
 const required = val => !!val
 // const minLength = num => val => val.length >= num
 export default {
   setup() {
+    const store = useStore()
     const submitted = ref(false)
+    const deliveryType = ref('pickup')
     const error = ref()
-    const form = useForm({
+
+    const mainForm = {
       username: {
         value: 'Mahmud',
         validators: {required}
@@ -152,6 +173,24 @@ export default {
         value: 'mahmud@yahoo.com',
         validators: {required}
       },
+      selectedTime: {
+        value: 'normal',
+        validators: {required}
+      },
+      selectedPayment: {
+        value: 'applePay',
+        validators: {required}
+      },
+      selectedChange: {
+        value: 'noChange',
+        validators: {required}
+      },
+      comment: {
+        value: 'There are some comments ..............',
+        validators: {required}
+      },
+    }
+    const firstForm = {
       street: {
         value: 'kucha',
         validators: {required}
@@ -176,36 +215,43 @@ export default {
         value: 'domofon',
         validators: {required}
       },
-      selectedTime: {
-        value: 'normal',
+
+    }
+    const secondForm = {
+      restaurant: {
+        value: '',
         validators: {required}
       },
-      selectedPayment: {
-        value: 'applePay',
-        validators: {required}
-      },
-      selectedChange: {
-        value: 'noChange',
-        validators: {required}
-      },
-      comment: {
-        value: 'There are some comments ..............',
-        validators: {required}
-      }
+    }
+    const form = ref({})
+
+    const loadData = () => {
+      form.value = useForm(deliveryType.value === 'pickup' ? {...mainForm, ...secondForm} : {...mainForm, ...firstForm})
+      console.log("loaded info",form)
+    }
+    watch(deliveryType, () => {
+      loadData()
+      // console.log('Current is:', current)
+      // console.log('periv is ', previous)
     })
-    
 
     function submit() {
-      console.log('In submit', this.restaurant)
-      // console.log('Password:', form.password.value)
+      console.log('In submit', form.value)
+      let demo = {}
+      for (const [key, value] of Object.entries(form.value)) {
+        // {value: '', validators: {required} }
+        demo[key] = value.value
+      }
+
+      store.commit("fillForm", demo)
       submitted.value = true
     }
-
+    loadData()
     // onErrorCaptured(e => {
     //   error.value = e.message
     // })
 
-    return {form, submit, submitted, error }
+    return {form, submit, submitted, error, deliveryType}
   },
   components: {
     Slider,
@@ -216,10 +262,8 @@ export default {
     // CheckoutOrder,
 
   },
-  data(){
+  data() {
     return {
-      deliveryType: 'pickup',
-      // restaurant: '',
       items: [
         {
           id: 1,
@@ -381,7 +425,7 @@ export default {
         },
 
       ],
-      deliveryOptions:[
+      deliveryOptions: [
         {
           radioId: 'first',
           value: 'delivery',
@@ -393,7 +437,7 @@ export default {
           placeholder: 'Самовывоз'
         },
       ],
-      deliveryTimeOptions:[
+      deliveryTimeOptions: [
         {
           cycleId: 'time1',
           value: 'urgent',
@@ -405,7 +449,7 @@ export default {
           placeholder: 'По времени'
         },
       ],
-      paymentOptions:[
+      paymentOptions: [
         {
           cycleId: 'payment1',
           value: 'cash',
@@ -423,7 +467,7 @@ export default {
         },
 
       ],
-      changeOptions:[
+      changeOptions: [
         {
           cycleId: 'change1',
           value: 'noChange',
@@ -444,19 +488,17 @@ export default {
     ...mapGetters({
       checkoutTotalSum: 'checkoutTotalSum'
     }),
-    submitDemo(){
-      return (this.deliveryType === 'delivery' && !this.form.valid)||(this.deliveryType === 'pickup' && this.restaurant === '')
-    }
+
   },
   methods: {
-    increment(val){
-      this.$store.commit("incCheckoutProQuantity",val)
+    increment(val) {
+      this.$store.commit("incCheckoutProQuantity", val)
     },
-    decrement(val){
-      this.$store.commit("decCheckoutProQuantity",val)
+    decrement(val) {
+      this.$store.commit("decCheckoutProQuantity", val)
     },
 
-    helloMe(){
+    helloMe() {
       console.log('component working properly')
       this.$router.push('/orderDone')
     }
@@ -470,7 +512,7 @@ export default {
   //border: 1px solid red
   border-bottom: none
   max-width: 990px
-  margin:  0 auto
+  margin: 0 auto
   padding: 41px 70px 0 70px
   box-sizing: border-box
 
@@ -498,6 +540,7 @@ export default {
   border-radius: 8px
   padding: 16px 24px
   margin-bottom: 30px
+
 .sum-text
   font-family: Inter
   font-weight: 600
@@ -558,11 +601,13 @@ export default {
   align-items: center
   color: #A5A5A5
   margin-top: 16px
+
 .order-time-box, .order-change-box
   display: flex
   align-items: center
   margin-top: 8px
   height: 48px
+
 .order-change-box
   margin-top: 4px
 
@@ -588,6 +633,7 @@ export default {
   width: 100%
   border: none
   outline: none !important
+
 .invalid
   border: 1px solid #e53935
 </style>
