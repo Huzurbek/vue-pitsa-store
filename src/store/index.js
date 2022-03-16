@@ -12,6 +12,7 @@ import axios from 'axios';
 // }
 export default createStore({
   state: {
+    formData:[],
     posts: [],
     // sushes: [
     //   {
@@ -542,6 +543,9 @@ export default createStore({
     },
     setPost(state,payload){
       state.posts = payload
+    },
+    fillForm(state,payload){
+      state.formData.push(payload)
     }
 
   },

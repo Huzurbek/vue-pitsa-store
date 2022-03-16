@@ -14,8 +14,7 @@ export function useForm(init = {}) {
   const withoutValid = k => k !== validKey
 
   form[validKey] = computed(() => Object.keys(form).filter(withoutValid).every(k => form[k].valid))
-  console.log('before form ',form[validKey])
-  console.log('Final result from useForm:',form)
+
   return form
 }
 

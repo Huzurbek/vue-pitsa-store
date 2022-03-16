@@ -35,6 +35,11 @@ const routes = [
     path: '/pagination',
     name: 'Pagination',
     component: () => import(/* webpackChunkName: "about" */ '../views/Pagination.vue')
+  },
+  {
+    path: '/task',
+    name: 'Task',
+    component: () => import(/* webpackChunkName: "about" */ '../views/EnglishTask.vue')
   }
 ]
 
