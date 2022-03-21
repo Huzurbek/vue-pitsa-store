@@ -1,7 +1,7 @@
 <template>
   <div class="checkout-order">
     <div class="total-sum">Итого: {{ totalSum }} ₽</div>
-    <Button class="submit-btn" text="Оформить заказ" @click="clickBtn" :class="{'myDisabled':!totalSum}" />
+    <Button class="submit-btn" text="Оформить заказ" @click="clickBtn" :class="{'myDisabled': !disability}" />
   </div>
 </template>
 
@@ -13,6 +13,10 @@ export default {
     totalSum: {
       type: Number,
       default:()=>0
+    },
+    disability: {
+      type: Boolean,
+      default:()=>false
     }
   },
   methods:{
