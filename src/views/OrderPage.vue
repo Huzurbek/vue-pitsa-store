@@ -26,7 +26,7 @@
 
     <div class="section-title">О вас</div>
     <!--    FORM CONTAINER-->
-    <form @submit.prevent="submit">
+    <form>
       <div class="client-info">
         <div class="client-info-box">
           <div class="input-label">Имя*</div>
@@ -51,12 +51,10 @@
         <div class="delivery-header">
           <div>Доставка</div>
           <!--Radio Input Component-->
-          <p>Delivery type is : {{ deliveryType }}</p>
           <RadioInput :radio-object="deliveryOptions" v-model="deliveryType" style="max-width: 350px"/>
         </div>
-        <p>Result: {{ form }}</p>
         <!--Delivery Form-->
-        <div class="delivery-form" v-if="deliveryType == 'delivery'">
+        <div class="delivery-form" v-if="deliveryType === 'delivery'">
           <div style="margin-bottom: 16px">
             <div class="input-label">Улица*</div>
             <Input placeholder="Пушкина" v-model="form.street.value" @blur="form.street.blur"
@@ -90,13 +88,17 @@
             </div>
           </div>
         </div>
-
-
         <!--      Pickup Form-->
-        <div class="pickup-form" v-if="deliveryType == 'pickup'">
+        <div class="pickup-form" v-if="deliveryType === 'pickup'">
           <div class="input-label">Ресторан*</div>
-          <Input placeholder="Выберите ресторан" right-icon="ArrowDown" v-model="form.restaurant.value" :icon-width="16"
-                 :icon-height="10"/>
+          <v-select
+              class="style-chooser"
+              placeholder="Выберите ресторан"
+              :options="restaurants"
+              label="label"
+              v-model="form.restaurant.value"
+              :reduce="el => el.value"
+          />
         </div>
         <!--Order Time part        -->
         <div class="order-time-title">Когда выполнить заказ?</div>
@@ -127,10 +129,15 @@
         <!--    Comments Part  -->
         <div class="section-title">Комментарий</div>
         <textarea v-model="form.comment.value" class="comment-form" placeholder="Есть уточнения?"></textarea>
-        <!--        <CheckoutOrder :total-sum="checkoutTotalSum" @clickComponent="helloMe" style="margin-bottom: 48px"/>-->
+                <CheckoutOrder
+                    :total-sum="checkoutTotalSum"
+                    @clickComponent="submit"
+                    :disability="(form.valid && checkoutProducts.length>=1)"
+                    style="margin-bottom: 48px"/>
       </div>
+
       <!--      :disabled="!form.valid"-->
-      <button class="btn primary" :disabled="!form.valid" type="submit">Submit</button>
+<!--      <button class="btn primary" :disabled="!form.valid" type="submit">Submit</button>-->
     </form>
 
   </div>
@@ -142,13 +149,13 @@ import Input from "@/components/Input/Input";
 import Slider from "@/components/Slider/Slider";
 import RadioInput from "@/components/RadioInput/RadioInput";
 import CycleRadioInput from "@/components/CycleRadioInput/CycleRadioInput";
-// import CheckoutOrder from "@/components/CheckoutOrder/CheckoutOrder";
+import CheckoutOrder from "@/components/CheckoutOrder/CheckoutOrder";
+import vSelect from "vue-select";
+
 
 import {mapGetters, mapState} from 'vuex'
-
-
 import {ref, watch} from 'vue'
-import {useForm} from "@/use/form";
+import {useForm} from "@/composables/form";
 import { useStore } from 'vuex'
 
 const required = val => !!val
@@ -219,7 +226,7 @@ export default {
     }
     const secondForm = {
       restaurant: {
-        value: '',
+        value: null,
         validators: {required}
       },
     }
@@ -227,31 +234,43 @@ export default {
 
     const loadData = () => {
       form.value = useForm(deliveryType.value === 'pickup' ? {...mainForm, ...secondForm} : {...mainForm, ...firstForm})
-      console.log("loaded info",form)
     }
     watch(deliveryType, () => {
       loadData()
-      // console.log('Current is:', current)
-      // console.log('periv is ', previous)
     })
 
     function submit() {
-      console.log('In submit', form.value)
-      let demo = {}
-      for (const [key, value] of Object.entries(form.value)) {
-        // {value: '', validators: {required} }
-        demo[key] = value.value
+      if(form.value.valid && store.state.checkoutProducts.length>=1) {
+        let payload = {selectedProduct: store.state.checkoutProducts}
+        for (const [key, value] of Object.entries(form.value)) {
+          payload[key] = value.value
+        }
+        store.commit("fillForm", payload)
+      }else {
+        console.log('valid is false')
       }
-
-      store.commit("fillForm", demo)
       submitted.value = true
     }
     loadData()
+    function increment(val) {
+      store.commit("incCheckoutProQuantity", val)
+    }
+    function decrement(val) {
+      store.commit("decCheckoutProQuantity", val)
+    }
     // onErrorCaptured(e => {
     //   error.value = e.message
     // })
 
-    return {form, submit, submitted, error, deliveryType}
+    return {
+      form,
+      submit,
+      submitted,
+      error,
+      deliveryType,
+      increment,
+      decrement
+    }
   },
   components: {
     Slider,
@@ -259,11 +278,17 @@ export default {
     Input,
     RadioInput,
     CycleRadioInput,
-    // CheckoutOrder,
-
+    CheckoutOrder,
+    "v-select": vSelect
   },
   data() {
     return {
+      resta: 'dsdfs',
+      restaurants: [
+        {label: 'Uzbek Pizza Cafe',value: 'uzbcafe', id: '1'},
+        {label: 'Simple Pizza Cafe',value: 'simplecafe', id: '23333'},
+        {label: 'American Pizza Cafe',value: 'americafe', id: '3'},
+      ],
       items: [
         {
           id: 1,
@@ -479,6 +504,7 @@ export default {
           placeholder: 'Сдача с'
         },
       ],
+
     }
   },
   computed: {
@@ -489,20 +515,9 @@ export default {
       checkoutTotalSum: 'checkoutTotalSum'
     }),
 
-  },
-  methods: {
-    increment(val) {
-      this.$store.commit("incCheckoutProQuantity", val)
-    },
-    decrement(val) {
-      this.$store.commit("decCheckoutProQuantity", val)
-    },
 
-    helloMe() {
-      console.log('component working properly')
-      this.$router.push('/orderDone')
-    }
-  }
+  },
+
 }
 </script>
 
@@ -636,4 +651,7 @@ export default {
 
 .invalid
   border: 1px solid #e53935
+
+
+
 </style>
