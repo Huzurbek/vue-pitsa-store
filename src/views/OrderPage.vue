@@ -102,13 +102,11 @@
         </div>
         <!--Order Time part        -->
         <div class="order-time-title">Когда выполнить заказ?</div>
+        <p>day is: {{date}}</p>
         <div class="order-time-box">
           <CycleRadioInput :cycle-radio-object="deliveryTimeOptions" v-model="form.selectedTime.value"/>
           <div v-if="form.selectedTime.value==='normal'" style="display: flex">
-            <Input placeholder="Дата" style="max-width: 160px; margin-right: 16px" right-icon="Date" :icon-width="16"
-                   :icon-height="16"/>
-            <Input placeholder="Время" style="max-width: 160px" right-icon="ArrowDown" :icon-width="16"
-                   :icon-height="10"/>
+            <Datepicker v-model="date" class="meniki" placeholder="Дата" style="width: 300px;"></Datepicker>
           </div>
         </div>
         <div class="diveder-line"></div>
@@ -135,8 +133,6 @@
                     :disability="(form.valid && checkoutProducts.length>=1)"
                     style="margin-bottom: 48px"/>
       </div>
-
-      <!--      :disabled="!form.valid"-->
 <!--      <button class="btn primary" :disabled="!form.valid" type="submit">Submit</button>-->
     </form>
 
@@ -151,25 +147,28 @@ import RadioInput from "@/components/RadioInput/RadioInput";
 import CycleRadioInput from "@/components/CycleRadioInput/CycleRadioInput";
 import CheckoutOrder from "@/components/CheckoutOrder/CheckoutOrder";
 import vSelect from "vue-select";
+import IDGenerator from "@/helpers/uniqueId.js";
 
 
 import {mapGetters, mapState} from 'vuex'
 import {ref, watch} from 'vue'
 import {useForm} from "@/composables/form";
 import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
 
 const required = val => !!val
 // const minLength = num => val => val.length >= num
 export default {
   setup() {
     const store = useStore()
+    const router = useRouter()
     const submitted = ref(false)
     const deliveryType = ref('pickup')
     const error = ref()
 
     const mainForm = {
       username: {
-        value: 'Mahmud',
+        value: '',
         validators: {required}
       },
       number: {
@@ -246,6 +245,9 @@ export default {
           payload[key] = value.value
         }
         store.commit("fillForm", payload)
+        store.commit('removeCheckoutProducts')
+        loadData()
+        router.push({ name: 'OrderDone', params: { orderCode: IDGenerator.uniqueId() } })
       }else {
         console.log('valid is false')
       }
@@ -279,11 +281,11 @@ export default {
     RadioInput,
     CycleRadioInput,
     CheckoutOrder,
-    "v-select": vSelect
+    "v-select": vSelect,
   },
   data() {
     return {
-      resta: 'dsdfs',
+      date: null,
       restaurants: [
         {label: 'Uzbek Pizza Cafe',value: 'uzbcafe', id: '1'},
         {label: 'Simple Pizza Cafe',value: 'simplecafe', id: '23333'},
@@ -504,7 +506,6 @@ export default {
           placeholder: 'Сдача с'
         },
       ],
-
     }
   },
   computed: {
@@ -654,4 +655,15 @@ export default {
 
 
 
+.meniki, .dp__main, .dp__theme_light
+  border-radius: 10px
+  border: 1px solid red
+  height: 48px
+  display: flex
+  align-items: center
+  justify-content: center
+
+input, .dp__pointer, .dp__input, .dp__input_icon_pad
+  height: 48px
+  border: 1px solid red
 </style>
