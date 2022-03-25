@@ -541,13 +541,18 @@ export default createStore({
         return product
       })
     },
-    setPost(state,payload){
-      state.posts = payload
+    removeCheckoutProducts(state){
+      state.checkoutProducts = []
     },
     fillForm(state,payload){
       state.formData.push(payload)
-    }
+    },
 
+
+
+    setPost(state,payload){
+      state.posts = payload
+    },
   },
   actions: {
     getPost({ commit }) {

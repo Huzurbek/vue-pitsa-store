@@ -5,7 +5,7 @@
         <img src="@/assets/orderDone.png" alt="Pizza">
       </div>
       <div class="title">
-        Заказ №310202 принят
+        Заказ № <span style="color: #A5A5A5">{{code}}</span> принят
       </div>
       <div class="response-text">
         Спасибо за заказ!<br>
@@ -20,7 +20,15 @@
 <script>
 import Button from "@/components/Button/Button";
 export default {
-  components:{Button}
+  components:{Button},
+  data(){
+    return {
+      code: 'noCode'
+    }
+  },
+  mounted() {
+    this.code = this.$route.params.orderCode
+  }
 }
 </script>
 

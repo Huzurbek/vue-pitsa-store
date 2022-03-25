@@ -22,9 +22,14 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/OrderPage.vue')
   },
   {
-    path: '/orderDone',
+    path: '/orderDone/:orderCode',
     name: 'OrderDone',
     component: () => import(/* webpackChunkName: "about" */ '../views/OrderDonePage.vue')
+  },
+  {
+    path: '/myAccount',
+    name: 'MyAccount',
+    component: () => import(/* webpackChunkName: "about" */ '../views/MyAccount.vue')
   },
   {
     path: '/register',
@@ -36,11 +41,7 @@ const routes = [
     name: 'Pagination',
     component: () => import(/* webpackChunkName: "about" */ '../views/Pagination.vue')
   },
-  {
-    path: '/task',
-    name: 'Task',
-    component: () => import(/* webpackChunkName: "about" */ '../views/EnglishTask.vue')
-  }
+
 ]
 
 const router = createRouter({
