@@ -41,6 +41,11 @@ const routes = [
     name: 'Pagination',
     component: () => import(/* webpackChunkName: "about" */ '../views/Pagination.vue')
   },
+  {
+    path: '/collapseExample',
+    name: 'Collapse',
+    component: () => import(/* webpackChunkName: "about" */ '../views/CollapseExample.vue')
+  },
 
 ]
 
