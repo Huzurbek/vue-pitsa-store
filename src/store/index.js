@@ -500,6 +500,7 @@ export default createStore({
     addToBasket(state,payload){
       state.basketProducts.push(payload)
     },
+
     incBasketProQuantity(state, payload){
       state.basketProducts = state.basketProducts.map((product)=>{
         if(product.id === payload){
@@ -509,12 +510,17 @@ export default createStore({
       })
     },
     decBasketProQuantity(state,payload){
-      state.basketProducts = state.basketProducts.map((product)=>{
-        if(product.id === payload && product.quantity > 1){
-          product.quantity -=1
+      let buffer=[]
+      state.basketProducts.forEach((product,id)=>{
+        if(product.id === payload ){
+          state.basketProducts[id].quantity-=1
         }
-        return product
+        if (product.quantity!==0 ){
+          buffer.push(state.basketProducts[id])
+        }
       })
+      state.basketProducts=buffer
+
     },
     removeBasketProducts(state){
       state.basketProducts = []
@@ -522,28 +528,7 @@ export default createStore({
     addToCheckout(state,payload){
       state.checkoutProducts = (payload)
     },
-    pushToCheckout(state,payload){
-      state.checkoutProducts.push(payload)
-    },
-    incCheckoutProQuantity(state, payload){
-      state.checkoutProducts = state.checkoutProducts.map((product)=>{
-        if(product.id === payload){
-          product.quantity +=1
-        }
-        return product
-      })
-    },
-    decCheckoutProQuantity(state,payload){
-      state.checkoutProducts = state.checkoutProducts.map((product)=>{
-        if(product.id === payload && product.quantity > 1){
-          product.quantity -=1
-        }
-        return product
-      })
-    },
-    removeCheckoutProducts(state){
-      state.checkoutProducts = []
-    },
+
     fillForm(state,payload){
       state.formData.push(payload)
     },

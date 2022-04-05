@@ -3,7 +3,9 @@
     <div class="trans" v-if="display">
       <div class="aside" >
         <div style="padding: 32px 20px 0 20px">
-          <div class="header">Ваш заказ
+          <div class="header">
+            <span v-if="basketProducts.length">Ваш заказ</span>
+            <span v-else>Корзина пуста</span>
             <Iconca @click="close" name="Close" color="#A5A5A5" :width="24" :height="24" style="cursor: pointer"/>
           </div>
 <!--OrderedCard Component-->
@@ -17,6 +19,7 @@
         </div>
 <!--CheckoutOrder Component-->
         <CheckoutOrder
+            v-if="basketProducts.length"
             :total-sum="basketTotalSum"
             @clickComponent="checkoutOrder"
             :disability="basketProducts.length>=1"
@@ -60,14 +63,13 @@ export default {
       this.$store.commit("incBasketProQuantity",val)
     },
     decrement(val){
+      console.log('decrement ',val)
       this.$store.commit("decBasketProQuantity",val)
     },
     close(){
       this.$emit('close')
     },
     checkoutOrder(){
-      this.$store.commit('addToCheckout',this.basketProducts)
-      this.$store.commit('removeBasketProducts')
       this.close()
       this.$router.push('/order')
     }

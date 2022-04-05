@@ -31,7 +31,7 @@ export default {
         ...val,
         id: IDGenerator.uniqueId()
       }
-      this.$store.commit("pushToCheckout",newProduct)
+      this.$store.commit("addToBasket",newProduct)
     }
   }
 }

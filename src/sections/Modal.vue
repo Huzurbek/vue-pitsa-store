@@ -79,7 +79,7 @@ export default {
   },
   data(){
     return {
-      selectedCrust: 'thin',
+      selectedCrust: 'Тонкое',
       selectedSize: '28',
       paidToppings: [
         {
@@ -118,12 +118,12 @@ export default {
       crustOptions:[
         {
           radioId: 'firstCrust',
-          value: 'traditional',
+          value: 'Традиционное',
           placeholder: 'Традиционное'
         },
         {
           radioId: 'secondCrust',
-          value: 'thin',
+          value: 'Тонкое',
           placeholder: 'Тонкое'
         },
       ],
@@ -163,8 +163,8 @@ export default {
       const product = {
             ...props,
             id: IDGenerator.uniqueId(),
-            crust: this.crust,
-            size: this.PizzaSize,
+            crust: this.selectedCrust,
+            size: this.selectedSize,
             price: this.productPrice,
             startingPrice: true,
             status: 'NEW',
