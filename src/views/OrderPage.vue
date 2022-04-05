@@ -1,140 +1,148 @@
 <template>
   <div class="order-container">
     <div class="order-topic">Ваш заказ</div>
-    <OrderedCard
-        v-for="(item,index) in checkoutProducts"
-        :key="index"
-        large
-        :item="checkoutProducts[index]"
-        @increment="increment"
-        @decrement="decrement"
-        style="margin-bottom: 16px"/>
+<!--    Notification-->
+    <p v-if="!basketProducts.length" style="color: red">Вы пока ничего не выбрали.</p>
+        <OrderedCard
+          v-for="(item,index) in basketProducts"
+          :key="index"
+          large
+          :item="basketProducts[index]"
+          @increment="increment"
+          @decrement="decrement"
+          style="margin-bottom: 16px"/>
 
-    <div class="sum-container">
-      <Input placeholder="Промокод" input-btn style="max-width:320px"/>
-      <div class="sum-text">Итого: {{ checkoutTotalSum }} ₽</div>
+      <!--    Notification-->
+    <p v-if="basketTotalSum < 500 && basketProducts.length >=1" style="color: red">Чтобы сделать заказ, выберите товары на общую сумму не менее 500 ₽.</p>
+    <div v-if="basketTotalSum > 500 && basketProducts.length >=1">
+      <div class="sum-container">
+        <Input placeholder="Промокод" input-btn style="max-width:320px"/>
+        <div class="sum-text">Итого: {{ basketTotalSum }} ₽</div>
+      </div>
+
+      <div class="section-title">Добавить к заказу?</div>
+      <!--Slider Component    -->
+      <Slider :items="items" style="margin-top: 24px"/>
+      <div class="diveder-line" style="margin: 26px 0 3px 0"></div>
+
+      <div class="section-title">Соусы</div>
+      <!--Slider Component    -->
+      <Slider :items="sous" style="margin: 24px 0 30px 0"/>
+
+      <div class="section-title">О вас</div>
+      <!--    FORM CONTAINER-->
+      <form>
+        <div class="client-info">
+          <div class="client-info-box">
+            <div class="input-label">Имя*</div>
+            <Input placeholder="Алексей" class="input-box" v-model="form.username.value" @blur="form.username.blur"
+                   :class="{invalid: !form.username.valid && form.username.touched}"/>
+          </div>
+          <div class="client-info-box">
+            <div class="input-label">Номер телефона*</div>
+            <Input placeholder="+7" class="input-box" v-model="form.number.value" @blur="form.number.blur"
+                   :class="{invalid: !form.number.valid && form.number.touched}"/>
+          </div>
+          <div class="client-info-box">
+            <div class="input-label">Почта</div>
+            <Input placeholder="mail@gmail.com" class="input-box" v-model="form.email.value" @blur="form.email.blur"
+                   :class="{invalid: !form.email.valid && form.email.touched}"/>
+          </div>
+        </div>
+
+        <div class="diveder-line"></div>
+        <!--Delivery Section with Form    -->
+        <div class="delivery-section">
+          <div class="delivery-header">
+            <div>Доставка</div>
+            <!--Radio Input Component-->
+            <RadioInput :radio-object="deliveryOptions" v-model="deliveryType" style="max-width: 350px"/>
+          </div>
+          <!--Delivery Form-->
+          <div class="delivery-form" v-if="deliveryType === 'delivery'">
+            <div style="margin-bottom: 16px">
+              <div class="input-label">Улица*</div>
+              <Input placeholder="Пушкина" v-model="form.street.value" @blur="form.street.blur"
+                     :class="{invalid: !form.street.valid && form.street.touched}"/>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: space-between">
+              <div class="dv-form-group">
+                <div class="input-label">Дом</div>
+                <Input placeholder="1а" v-model="form.home.value" @blur="form.home.blur"
+                       :class="{invalid: !form.home.valid && form.home.touched}"/>
+              </div>
+              <div class="dv-form-group">
+                <div class="input-label">Подъезд</div>
+                <Input placeholder="1" v-model="form.entrance.value" @blur="form.entrance.blur"
+                       :class="{invalid: !form.entrance.valid && form.entrance.touched}"/>
+              </div>
+              <div class="dv-form-group">
+                <div class="input-label">Этаж</div>
+                <Input placeholder="2" v-model="form.ground.value" @blur="form.ground.blur"
+                       :class="{invalid: !form.ground.valid && form.ground.touched}"/>
+              </div>
+              <div class="dv-form-group">
+                <div class="input-label">Квартира</div>
+                <Input placeholder="3" v-model="form.appartment.value" @blur="form.appartment.blur"
+                       :class="{invalid: !form.appartment.valid && form.appartment.touched}"/>
+              </div>
+              <div class="dv-form-group">
+                <div class="input-label">Домофон</div>
+                <Input placeholder="0000" v-model="form.intercom.value" @blur="form.intercom.blur"
+                       :class="{invalid: !form.intercom.valid && form.intercom.touched}"/>
+              </div>
+            </div>
+          </div>
+          <!--      Pickup Form-->
+          <div class="pickup-form" v-if="deliveryType === 'pickup'">
+            <div class="input-label">Ресторан*</div>
+            <v-select
+                class="style-chooser"
+                placeholder="Выберите ресторан"
+                :options="restaurants"
+                label="label"
+                v-model="form.restaurant.value"
+                :reduce="el => el.value"
+            />
+          </div>
+          <!--Order Time part        -->
+          <div class="order-time-title">Когда выполнить заказ?</div>
+          <p>day is: {{date}}</p>
+          <div class="order-time-box">
+            <CycleRadioInput :cycle-radio-object="deliveryTimeOptions" v-model="form.selectedTime.value"/>
+            <div v-if="form.selectedTime.value==='normal'" style="display: flex">
+              <Datepicker v-model="date" class="meniki" placeholder="Дата" style="width: 300px;"></Datepicker>
+            </div>
+          </div>
+          <div class="diveder-line"></div>
+          <!--Payment Part-->
+          <div class="section-title">Оплата</div>
+          <CycleRadioInput :cycle-radio-object="paymentOptions" v-model="form.selectedPayment.value"
+                           style="margin-top: 16px"/>
+          <div class="diveder-line"></div>
+          <!--    Changes Part  -->
+          <div v-if="form.selectedPayment.value === 'cash'">
+            <div class="section-title">Сдача</div>
+            <div class="order-change-box">
+              <CycleRadioInput :cycle-radio-object="changeOptions" v-model="form.selectedChange.value"/>
+              <div v-if="form.selectedChange.value==='withChange'" style="display: flex">
+                <Input placeholder="0" style="max-width: 160px" right-icon="Ruble" :icon-width="10" :icon-height="12"/>
+              </div>
+            </div>
+            <div class="diveder-line"></div>
+          </div>
+          <!--    Comments Part  -->
+          <div class="section-title">Комментарий</div>
+          <textarea v-model="form.comment.value" class="comment-form" placeholder="Есть уточнения?"></textarea>
+          <CheckoutOrder
+              :total-sum="basketTotalSum"
+              @clickComponent="submit"
+              :disability="(form.valid && checkoutProducts.length>=1)"
+              style="margin-bottom: 48px"/>
+        </div>
+        <!--      <button class="btn primary" :disabled="!form.valid" type="submit">Submit</button>-->
+      </form>
     </div>
-
-    <div class="section-title">Добавить к заказу?</div>
-    <!--Slider Component    -->
-    <Slider :items="items" style="margin-top: 24px"/>
-    <div class="diveder-line" style="margin: 26px 0 3px 0"></div>
-
-    <div class="section-title">Соусы</div>
-    <!--Slider Component    -->
-    <Slider :items="sous" style="margin: 24px 0 30px 0"/>
-
-    <div class="section-title">О вас</div>
-    <!--    FORM CONTAINER-->
-    <form>
-      <div class="client-info">
-        <div class="client-info-box">
-          <div class="input-label">Имя*</div>
-          <Input placeholder="Алексей" class="input-box" v-model="form.username.value" @blur="form.username.blur"
-                 :class="{invalid: !form.username.valid && form.username.touched}"/>
-        </div>
-        <div class="client-info-box">
-          <div class="input-label">Номер телефона*</div>
-          <Input placeholder="+7" class="input-box" v-model="form.number.value" @blur="form.number.blur"
-                 :class="{invalid: !form.number.valid && form.number.touched}"/>
-        </div>
-        <div class="client-info-box">
-          <div class="input-label">Почта</div>
-          <Input placeholder="mail@gmail.com" class="input-box" v-model="form.email.value" @blur="form.email.blur"
-                 :class="{invalid: !form.email.valid && form.email.touched}"/>
-        </div>
-      </div>
-
-      <div class="diveder-line"></div>
-      <!--Delivery Section with Form    -->
-      <div class="delivery-section">
-        <div class="delivery-header">
-          <div>Доставка</div>
-          <!--Radio Input Component-->
-          <RadioInput :radio-object="deliveryOptions" v-model="deliveryType" style="max-width: 350px"/>
-        </div>
-        <!--Delivery Form-->
-        <div class="delivery-form" v-if="deliveryType === 'delivery'">
-          <div style="margin-bottom: 16px">
-            <div class="input-label">Улица*</div>
-            <Input placeholder="Пушкина" v-model="form.street.value" @blur="form.street.blur"
-                   :class="{invalid: !form.street.valid && form.street.touched}"/>
-          </div>
-          <div style="display: flex; align-items: center; justify-content: space-between">
-            <div class="dv-form-group">
-              <div class="input-label">Дом</div>
-              <Input placeholder="1а" v-model="form.home.value" @blur="form.home.blur"
-                     :class="{invalid: !form.home.valid && form.home.touched}"/>
-            </div>
-            <div class="dv-form-group">
-              <div class="input-label">Подъезд</div>
-              <Input placeholder="1" v-model="form.entrance.value" @blur="form.entrance.blur"
-                     :class="{invalid: !form.entrance.valid && form.entrance.touched}"/>
-            </div>
-            <div class="dv-form-group">
-              <div class="input-label">Этаж</div>
-              <Input placeholder="2" v-model="form.ground.value" @blur="form.ground.blur"
-                     :class="{invalid: !form.ground.valid && form.ground.touched}"/>
-            </div>
-            <div class="dv-form-group">
-              <div class="input-label">Квартира</div>
-              <Input placeholder="3" v-model="form.appartment.value" @blur="form.appartment.blur"
-                     :class="{invalid: !form.appartment.valid && form.appartment.touched}"/>
-            </div>
-            <div class="dv-form-group">
-              <div class="input-label">Домофон</div>
-              <Input placeholder="0000" v-model="form.intercom.value" @blur="form.intercom.blur"
-                     :class="{invalid: !form.intercom.valid && form.intercom.touched}"/>
-            </div>
-          </div>
-        </div>
-        <!--      Pickup Form-->
-        <div class="pickup-form" v-if="deliveryType === 'pickup'">
-          <div class="input-label">Ресторан*</div>
-          <v-select
-              class="style-chooser"
-              placeholder="Выберите ресторан"
-              :options="restaurants"
-              label="label"
-              v-model="form.restaurant.value"
-              :reduce="el => el.value"
-          />
-        </div>
-        <!--Order Time part        -->
-        <div class="order-time-title">Когда выполнить заказ?</div>
-        <p>day is: {{date}}</p>
-        <div class="order-time-box">
-          <CycleRadioInput :cycle-radio-object="deliveryTimeOptions" v-model="form.selectedTime.value"/>
-          <div v-if="form.selectedTime.value==='normal'" style="display: flex">
-            <Datepicker v-model="date" class="meniki" placeholder="Дата" style="width: 300px;"></Datepicker>
-          </div>
-        </div>
-        <div class="diveder-line"></div>
-        <!--Payment Part-->
-        <div class="section-title">Оплата</div>
-        <CycleRadioInput :cycle-radio-object="paymentOptions" v-model="form.selectedPayment.value"
-                         style="margin-top: 16px"/>
-        <div class="diveder-line"></div>
-        <!--    Changes Part  -->
-        <div class="section-title">Сдача</div>
-        <div class="order-change-box">
-          <CycleRadioInput :cycle-radio-object="changeOptions" v-model="form.selectedChange.value"/>
-          <div v-if="form.selectedChange.value==='withChange'" style="display: flex">
-            <Input placeholder="0" style="max-width: 160px" right-icon="Ruble" :icon-width="10" :icon-height="12"/>
-          </div>
-        </div>
-        <div class="diveder-line"></div>
-        <!--    Comments Part  -->
-        <div class="section-title">Комментарий</div>
-        <textarea v-model="form.comment.value" class="comment-form" placeholder="Есть уточнения?"></textarea>
-                <CheckoutOrder
-                    :total-sum="checkoutTotalSum"
-                    @clickComponent="submit"
-                    :disability="(form.valid && checkoutProducts.length>=1)"
-                    style="margin-bottom: 48px"/>
-      </div>
-<!--      <button class="btn primary" :disabled="!form.valid" type="submit">Submit</button>-->
-    </form>
 
   </div>
 </template>
@@ -255,10 +263,10 @@ export default {
     }
     loadData()
     function increment(val) {
-      store.commit("incCheckoutProQuantity", val)
+      store.commit("incBasketProQuantity", val)
     }
     function decrement(val) {
-      store.commit("decCheckoutProQuantity", val)
+      store.commit("decBasketProQuantity", val)
     }
     // onErrorCaptured(e => {
     //   error.value = e.message
@@ -510,10 +518,10 @@ export default {
   },
   computed: {
     ...mapState({
-      checkoutProducts: state => state.checkoutProducts
+      basketProducts: state => state.basketProducts
     }),
     ...mapGetters({
-      checkoutTotalSum: 'checkoutTotalSum'
+      basketTotalSum: 'basketTotalSum'
     }),
 
 
