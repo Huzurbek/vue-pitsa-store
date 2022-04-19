@@ -3,6 +3,7 @@
     <div class="image">
       <img :src="require(`@/assets/${items.image}`)" alt="Pizza Picture">
     </div>
+
     <div class="card-content">
       <div  style="flex: 1">
         <div class="red-sign" v-if="items.status">{{items.status}}</div>

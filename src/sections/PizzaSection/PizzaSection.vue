@@ -1,8 +1,15 @@
 <template>
-  <div class="topic">Пицца</div>
+  <div class="topic" id="pizza">
+    Пицца
+  </div>
   <div class="pizza-container">
 <!--    Component FoodCard-->
-    <FoodCard  v-for="(item, index) in products" :key="index" :items="products[index]" @chooseProduct="chooseProduct(item)" class="card-style"/>
+    <FoodCard
+        v-for="(item, index) in products"
+        :key="index"
+        :items="products[index]"
+        @chooseProduct="chooseProduct(item)"
+        />
   </div>
 <!--  Modal Section-->
   <Modal v-if="modal" @close="modal = false" :selected-product="selectedProduct"/>
@@ -49,10 +56,11 @@ export default {
   color: #191919
 
 .pizza-container
-  display: flex
-  justify-content: space-between
-  flex-flow: row wrap
+  display: grid
+  grid-template-columns: repeat(4,1fr)
+  grid-column-gap: 30px
+  grid-row-gap: 30px
 
-.card-style
-  margin-bottom: 30px
+
+
 </style>
