@@ -1,10 +1,10 @@
 <template>
-  <div class="topic" id="sushi">
-    Суши
+  <div class="topic" id="snacks">
+    Закуски
   </div>
-  <div class="sushi-container">
-<!--  FoodCard Component-->
-    <Card v-for="(item, index) in sushes" :key="index" :items="sushes[index]" />
+  <div class="snack-container">
+    <!--  FoodCard Component-->
+    <Card v-for="(item, index) in snacks" :key="index" :items="snacks[index]" />
   </div>
 </template>
 
@@ -12,13 +12,13 @@
 import Card from "@/components/FoodCard/FoodCard";
 import { mapState } from 'vuex';
 export default {
-  name: 'SushiSection',
+  name: 'SnackSection',
   components:{
     Card
   },
   computed: {
     ...mapState({
-      sushes: state => state.sushes
+      snacks: state => state.snacks
     })
   }
 
@@ -36,7 +36,7 @@ export default {
   align-items: center
   color: #191919
 
-.sushi-container
+.snack-container
   display: grid
   grid-template-columns: repeat(4,1fr)
   grid-column-gap: 30px

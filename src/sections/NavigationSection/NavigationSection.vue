@@ -23,13 +23,13 @@
         <div class="logo">
           <img src="@/assets/pitsa-logo.png" alt="Logo" style="margin-right: 12px">
           <div class="logo-title">
-            Куда пицца
+            <router-link to="/" style="color: #191919; text-decoration: none">Куда пицца</router-link>
           </div>
         </div>
         <div class="nav-list" v-if="!isLoged">
           <ul>
             <li v-for="item in listItems" :key="item.title">
-              {{ item.title }}
+              <router-link :to="{ path: '/', hash: item.hashId }" style="color: #191919; text-decoration: none"> {{ item.title }}</router-link>
             </li>
             <li class="other-btn">Другое<Iconca name="ArrowDown" color="#191919" :width="12" :height="8" style="margin-left: 8px"/></li>
           </ul>
@@ -57,28 +57,36 @@ export default {
       isLoged: false,
       listItems: [
         {
-          title: "Акции"
+          title: "Акции",
+          hashId: '#promotion'
         },
         {
-          title: "Пицца"
+          title: "Пицца",
+          hashId: '#pizza'
         },
         {
-          title: "Суши"
+          title: "Суши",
+          hashId: '#sushi'
         },
         {
-          title: "Напитки"
+          title: "Напитки",
+          hashId: '#drinks'
         },
         {
-          title: "Закуски"
+          title: "Закуски",
+          hashId: '#snacks'
         },
         {
-          title: "Комбо"
+          title: "Комбо",
+          hashId: '#combo'
         },
         {
-          title: "Десерты"
+          title: "Десерты",
+          hashId: '#desserts'
         },
         {
-          title: "Соусы"
+          title: "Соусы",
+          hashId: '#sauces'
         },
       ]
     }

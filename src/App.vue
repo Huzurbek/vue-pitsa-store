@@ -1,21 +1,20 @@
 <template>
-<!--  <div id="nav" style="background: #42b983; height: 50px">-->
-<!--    <router-link to="/">Home</router-link> |-->
-<!--    <router-link to="/about">About</router-link> |-->
-<!--    <router-link to="/order">Order</router-link>-->
-<!--  </div>-->
 
 
+  <div style="padding-top: 136px">
 
-  <NavigationSection @openModel="isOpen=true"/>
-  <!--YourOrder Modal component-->
-  <YourOrderModal :display="isOpen"  @close="isOpen = false"/>
+    <NavigationSection @openModel="isOpen=true"/>
+    <!--YourOrder Modal component-->
+    <YourOrderModal :display="isOpen"  @close="isOpen = false"/>
 
-  <div class="container">
+    <div class="container" >
       <router-view/>
+    </div>
+
+    <FooterSection/>
   </div>
 
-  <FooterSection/>
+
 
 </template>
 <script>

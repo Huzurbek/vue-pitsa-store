@@ -3,12 +3,13 @@
   display: flex
   //align-self: auto
   flex-direction: column
-  width: 302px
+  //width: 302px
   box-sizing: border-box
   overflow: hidden
   background: #FFFFFF
-  border: 1px solid #F0F0F0
+  outline: 1px solid #F0F0F0
   border-radius: 12px
+
 
 .red-sign
   position: absolute
@@ -46,19 +47,26 @@
   color: #191919
 
 .card-title
-  display: flex
-  align-items: center
   font-weight: 600
   font-size: 18px
   line-height: 24px
-  white-space: pre-wrap
   margin-bottom: 12px
+  overflow: hidden //toshib chiqib ketishni ko'rinmas qilib qo'yamiz
+  text-overflow: ellipsis //toshib ketganda avtomatik word-break qilayabdi uni o'chirish kerak'
+  white-space: nowrap //mana shunday qiib okochiriladi
 
 .car-text
+  max-height: 44px
   font-weight: normal
   font-size: 16px
   line-height: 22px
   margin-bottom: 16px
+  overflow: hidden //toshib chiqib ketishni ko'rinmas qilib qo'yamiz
+  text-overflow: ellipsis //toshib ketganda avtomatik word-break qilayabdi uni o'chirish kerak'
+  white-space: normal //mana shunday qiib okochiriladi
+  display: -webkit-box
+  -webkit-box-orient: vertical
+  -webkit-line-clamp: 2
 
 .price
   font-weight: 600

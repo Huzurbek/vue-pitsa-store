@@ -14,11 +14,134 @@ export default createStore({
   state: {
     formData:[],
     posts: [],
-    // sushes: [
+    sushes: [
+        {
+          id: 1,
+          image: 'sushi-cranch.png',
+          name: 'Филадельфия кранч',
+          description: 'Семга, рис, сыр креметто, соус унаги, креветка, авокадо, чип...',
+          toppings: [
+        {
+          icon: 'MozarellaCheese',
+          width: 41,
+          height: 35,
+          toppingName: 'Моцарелла',
+          inStock: true,
+        },
+        {
+          icon: 'Cucumber',
+          width: 40,
+          height: 40,
+          toppingName: 'Огурцы маринованные',
+          inStock: true,
+        },
+        {
+          icon: '',
+          width: 40,
+          height: 40,
+          toppingName: 'Пепперони',
+          inStock: true,
+        },
+        {
+          icon: 'SousInsideWhite',
+          width: 41,
+          height: 27,
+          toppingName: 'Томатный соус',
+          inStock: false,
+        }
+      ],
+          additionalToppings:[
+        {
+          id: 1,
+          icon: 'MozarellaCheese',
+          width: 41,
+          height: 35,
+          toppingName: 'Моцарелла',
+          price: 59
+        },
+        {
+          id: 2,
+          icon: 'Mashroom',
+          width: 105,
+          height: 105,
+          toppingName: 'Шампиньоны',
+          price: 59
+        },
+
+      ],
+          crust: 'Традиционное',
+          size: 20,
+          price: 399,
+          startingPrice: true,
+          status: 'NEW',
+          quantity: 1,
+        },
+        {
+          id: 2,
+            image: 'sushi-cream.png',
+            name: 'Филадельфия крем-брюле',
+            description: 'Семга, рис, сыр креметто, соус унаги, креветка, авокадо, чип...',
+            toppings: [
+          {
+            icon: 'MozarellaCheese',
+            width: 41,
+            height: 35,
+            toppingName: 'Моцарелла',
+            inStock: true,
+          },
+          {
+            icon: 'Cucumber',
+            width: 40,
+            height: 40,
+            toppingName: 'Огурцы маринованные',
+            inStock: true,
+          },
+          {
+            icon: '',
+            width: 40,
+            height: 40,
+            toppingName: 'Пепперони',
+            inStock: true,
+          },
+          {
+            icon: 'SousInsideWhite',
+            width: 41,
+            height: 27,
+            toppingName: 'Томатный соус',
+            inStock: false,
+          }
+        ],
+            additionalToppings:[
+          {
+            id: 1,
+            icon: 'MozarellaCheese',
+            width: 41,
+            height: 35,
+            toppingName: 'Моцарелла',
+            price: 59
+          },
+          {
+            id: 2,
+            icon: 'Mashroom',
+            width: 105,
+            height: 105,
+            toppingName: 'Шампиньоны',
+            price: 59
+          },
+
+        ],
+            crust: 'Традиционное',
+            size: 20,
+            price: 399,
+            startingPrice: true,
+            status: 'ХИТ',
+            quantity: 1,
+        },
+    ],
     //   {
     //     image: 'sushi-cranch.png',
     //     name: 'Филадельфия кранч',
-    //     description: 'Семга, рис, сыр креметто, соус унаги, креветка, авокадо, чип...',
+    //     description: 'Сливочный сыр, семга татаки с тростниковым сахаром, соус у...',
     //     toppings: ['Моцарелла','Огурцы маринованные','Пепперони','Томатный соус'],
     //     crust: 'Традиционное',
     //     size: '20 см',
@@ -103,7 +226,7 @@ export default createStore({
     //     startingPrice: false,
     //     status: ''
     //   },
-    // ],
+
 
     basket: 0,
     products: [
@@ -111,7 +234,7 @@ export default createStore({
         id: 1,
         image: 'chicken-sweet.png',
         name: 'Чикен Сладкий Чили',
-        description: 'Курица, Лук, Перец Халапеньо, Сыр Моцарелла, Томатный соу...',
+        description: 'Курица, Лук, Перец Халапеньо, Сыр Моцарелла, Томатный соу',
         toppings: [
           {
             icon: 'MozarellaCheese',
@@ -172,7 +295,7 @@ export default createStore({
         id: 2,
         image: 'easy-peasy.png',
         name: 'EASY PEASY огуречный расколбас',
-        description: 'Курица, Лук, Перец Халапеньо...',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. gd Accusamus aliquam aspernatur culpa dignissimos dolorem enim facilis harum in incidunt, ipsa iusto magnam nostrum odit optio quibusdam reprehenderit rerum, sit suscipit?',
         toppings: [
           {
             icon: 'MozarellaCheese',
@@ -215,7 +338,7 @@ export default createStore({
         id: 3,
         image: 'easy-peasy-checken.png',
         name: 'EASY PEASY чикен а-ля хрен',
-        description: 'Курица, Лук, Соус Карбонара,...',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aliquam aspernatur culpa dignissimos dolorem enim facilis harum in incidunt, ipsa iusto magnam nostrum odit optio quibusdam reprehenderit rerum, sit suscipit?',
         toppings: [
           {
             icon: 'MozarellaCheese',
@@ -426,11 +549,56 @@ export default createStore({
         status: '',
         quantity: 1,
       },
+      // {
+      //   id: 8,
+      //   image: 'easy-peasy.png',
+      //   name: 'EASY PEASY огуречный расколбас',
+      //   description: 'Курица, Лук, Перец Халапеньо...',
+      //   toppings: [
+      //     {
+      //       icon: 'MozarellaCheese',
+      //       width: 41,
+      //       height: 35,
+      //       toppingName: 'Моцарелла',
+      //       inStock: true,
+      //     },
+      //     {
+      //       icon: 'Cucumber',
+      //       width: 40,
+      //       height: 40,
+      //       toppingName: 'Огурцы маринованные',
+      //       inStock: false,
+      //     },
+      //     {
+      //       icon: '',
+      //       width: 40,
+      //       height: 40,
+      //       toppingName: 'Пепперони',
+      //       inStock: true,
+      //     },
+      //     {
+      //       icon: 'SousInsideWhite',
+      //       width: 41,
+      //       height: 27,
+      //       toppingName: 'Томатный соус',
+      //       inStock: false,
+      //     }
+      //   ],
+      //   additionalToppings:[],
+      //   crust: 'Традиционное',
+      //   size: 33,
+      //   price: 399,
+      //   startingPrice: true,
+      //   status: '',
+      //   quantity: 1,
+      // },
+    ],
+    snacks: [
       {
-        id: 8,
-        image: 'easy-peasy.png',
-        name: 'EASY PEASY огуречный расколбас',
-        description: 'Курица, Лук, Перец Халапеньо...',
+        id: 1,
+        image: 'snack1.png',
+        name: 'Филадельфия кранч',
+        description: 'Семга, рис, сыр креметто, соус унаги, креветка, авокадо, чип...',
         toppings: [
           {
             icon: 'MozarellaCheese',
@@ -444,7 +612,7 @@ export default createStore({
             width: 40,
             height: 40,
             toppingName: 'Огурцы маринованные',
-            inStock: false,
+            inStock: true,
           },
           {
             icon: '',
@@ -461,17 +629,892 @@ export default createStore({
             inStock: false,
           }
         ],
-        additionalToppings:[],
+        additionalToppings:[
+          {
+            id: 1,
+            icon: 'MozarellaCheese',
+            width: 41,
+            height: 35,
+            toppingName: 'Моцарелла',
+            price: 59
+          },
+          {
+            id: 2,
+            icon: 'Mashroom',
+            width: 105,
+            height: 105,
+            toppingName: 'Шампиньоны',
+            price: 59
+          },
+
+        ],
         crust: 'Традиционное',
-        size: 33,
+        size: 20,
         price: 399,
         startingPrice: true,
-        status: '',
+        status: 'NEW',
+        quantity: 1,
+      },
+      {
+        id: 2,
+        image: 'snack2.png',
+        name: 'Филадельфия крем-брюле',
+        description: 'Семга, рис, сыр креметто, соус унаги, креветка, авокадо, чип...',
+        toppings: [
+          {
+            icon: 'MozarellaCheese',
+            width: 41,
+            height: 35,
+            toppingName: 'Моцарелла',
+            inStock: true,
+          },
+          {
+            icon: 'Cucumber',
+            width: 40,
+            height: 40,
+            toppingName: 'Огурцы маринованные',
+            inStock: true,
+          },
+          {
+            icon: '',
+            width: 40,
+            height: 40,
+            toppingName: 'Пепперони',
+            inStock: true,
+          },
+          {
+            icon: 'SousInsideWhite',
+            width: 41,
+            height: 27,
+            toppingName: 'Томатный соус',
+            inStock: false,
+          }
+        ],
+        additionalToppings:[
+          {
+            id: 1,
+            icon: 'MozarellaCheese',
+            width: 41,
+            height: 35,
+            toppingName: 'Моцарелла',
+            price: 59
+          },
+          {
+            id: 2,
+            icon: 'Mashroom',
+            width: 105,
+            height: 105,
+            toppingName: 'Шампиньоны',
+            price: 59
+          },
+
+        ],
+        crust: 'Традиционное',
+        size: 20,
+        price: 399,
+        startingPrice: true,
+        status: 'ХИТ',
+        quantity: 1,
+      },
+      {
+        id: 3,
+        image: 'snack3.png',
+        name: 'Филадельфия крем-брюле',
+        description: 'Семга, рис, сыр креметто, соус унаги, креветка, авокадо, чип...',
+        toppings: [
+          {
+            icon: 'MozarellaCheese',
+            width: 41,
+            height: 35,
+            toppingName: 'Моцарелла',
+            inStock: true,
+          },
+          {
+            icon: 'Cucumber',
+            width: 40,
+            height: 40,
+            toppingName: 'Огурцы маринованные',
+            inStock: true,
+          },
+          {
+            icon: '',
+            width: 40,
+            height: 40,
+            toppingName: 'Пепперони',
+            inStock: true,
+          },
+          {
+            icon: 'SousInsideWhite',
+            width: 41,
+            height: 27,
+            toppingName: 'Томатный соус',
+            inStock: false,
+          }
+        ],
+        additionalToppings:[
+          {
+            id: 1,
+            icon: 'MozarellaCheese',
+            width: 41,
+            height: 35,
+            toppingName: 'Моцарелла',
+            price: 59
+          },
+          {
+            id: 2,
+            icon: 'Mashroom',
+            width: 105,
+            height: 105,
+            toppingName: 'Шампиньоны',
+            price: 59
+          },
+
+        ],
+        crust: 'Традиционное',
+        size: 20,
+        price: 399,
+        startingPrice: true,
+        status: 'ХИТ',
+        quantity: 1,
+      },
+      {
+        id: 4,
+        image: 'snack4.png',
+        name: 'Филадельфия крем-брюле',
+        description: 'Семга, рис, сыр креметто, соус унаги, креветка, авокадо, чип...',
+        toppings: [
+          {
+            icon: 'MozarellaCheese',
+            width: 41,
+            height: 35,
+            toppingName: 'Моцарелла',
+            inStock: true,
+          },
+          {
+            icon: 'Cucumber',
+            width: 40,
+            height: 40,
+            toppingName: 'Огурцы маринованные',
+            inStock: true,
+          },
+          {
+            icon: '',
+            width: 40,
+            height: 40,
+            toppingName: 'Пепперони',
+            inStock: true,
+          },
+          {
+            icon: 'SousInsideWhite',
+            width: 41,
+            height: 27,
+            toppingName: 'Томатный соус',
+            inStock: false,
+          }
+        ],
+        additionalToppings:[
+          {
+            id: 1,
+            icon: 'MozarellaCheese',
+            width: 41,
+            height: 35,
+            toppingName: 'Моцарелла',
+            price: 59
+          },
+          {
+            id: 2,
+            icon: 'Mashroom',
+            width: 105,
+            height: 105,
+            toppingName: 'Шампиньоны',
+            price: 59
+          },
+
+        ],
+        crust: 'Традиционное',
+        size: 20,
+        price: 399,
+        startingPrice: true,
+        status: 'ХИТ',
+        quantity: 1,
+      },
+      {
+        id: 5,
+        image: 'snack2.png',
+        name: 'Филадельфия крем-брюле',
+        description: 'Семга, рис, сыр креметто, соус унаги, креветка, авокадо, чип...',
+        toppings: [
+          {
+            icon: 'MozarellaCheese',
+            width: 41,
+            height: 35,
+            toppingName: 'Моцарелла',
+            inStock: true,
+          },
+          {
+            icon: 'Cucumber',
+            width: 40,
+            height: 40,
+            toppingName: 'Огурцы маринованные',
+            inStock: true,
+          },
+          {
+            icon: '',
+            width: 40,
+            height: 40,
+            toppingName: 'Пепперони',
+            inStock: true,
+          },
+          {
+            icon: 'SousInsideWhite',
+            width: 41,
+            height: 27,
+            toppingName: 'Томатный соус',
+            inStock: false,
+          }
+        ],
+        additionalToppings:[
+          {
+            id: 1,
+            icon: 'MozarellaCheese',
+            width: 41,
+            height: 35,
+            toppingName: 'Моцарелла',
+            price: 59
+          },
+          {
+            id: 2,
+            icon: 'Mashroom',
+            width: 105,
+            height: 105,
+            toppingName: 'Шампиньоны',
+            price: 59
+          },
+
+        ],
+        crust: 'Традиционное',
+        size: 20,
+        price: 399,
+        startingPrice: true,
+        status: 'ХИТ',
+        quantity: 1,
+      },
+    ],
+    desserts: [
+      {
+        id: 1,
+        image: 'dessert1.png',
+        name: 'Филадельфия кранч',
+        description: 'Семга, рис, сыр креметто, соус унаги, креветка, авокадо, чип...',
+        toppings: [
+          {
+            icon: 'MozarellaCheese',
+            width: 41,
+            height: 35,
+            toppingName: 'Моцарелла',
+            inStock: true,
+          },
+          {
+            icon: 'Cucumber',
+            width: 40,
+            height: 40,
+            toppingName: 'Огурцы маринованные',
+            inStock: true,
+          },
+          {
+            icon: '',
+            width: 40,
+            height: 40,
+            toppingName: 'Пепперони',
+            inStock: true,
+          },
+          {
+            icon: 'SousInsideWhite',
+            width: 41,
+            height: 27,
+            toppingName: 'Томатный соус',
+            inStock: false,
+          }
+        ],
+        additionalToppings:[
+          {
+            id: 1,
+            icon: 'MozarellaCheese',
+            width: 41,
+            height: 35,
+            toppingName: 'Моцарелла',
+            price: 59
+          },
+          {
+            id: 2,
+            icon: 'Mashroom',
+            width: 105,
+            height: 105,
+            toppingName: 'Шампиньоны',
+            price: 59
+          },
+
+        ],
+        crust: 'Традиционное',
+        size: 20,
+        price: 399,
+        startingPrice: true,
+        status: 'NEW',
+        quantity: 1,
+      },
+      {
+        id: 2,
+        image: 'dessert2.png',
+        name: 'Филадельфия крем-брюле',
+        description: 'Семга, рис, сыр креметто, соус унаги, креветка, авокадо, чип...',
+        toppings: [
+          {
+            icon: 'MozarellaCheese',
+            width: 41,
+            height: 35,
+            toppingName: 'Моцарелла',
+            inStock: true,
+          },
+          {
+            icon: 'Cucumber',
+            width: 40,
+            height: 40,
+            toppingName: 'Огурцы маринованные',
+            inStock: true,
+          },
+          {
+            icon: '',
+            width: 40,
+            height: 40,
+            toppingName: 'Пепперони',
+            inStock: true,
+          },
+          {
+            icon: 'SousInsideWhite',
+            width: 41,
+            height: 27,
+            toppingName: 'Томатный соус',
+            inStock: false,
+          }
+        ],
+        additionalToppings:[
+          {
+            id: 1,
+            icon: 'MozarellaCheese',
+            width: 41,
+            height: 35,
+            toppingName: 'Моцарелла',
+            price: 59
+          },
+          {
+            id: 2,
+            icon: 'Mashroom',
+            width: 105,
+            height: 105,
+            toppingName: 'Шампиньоны',
+            price: 59
+          },
+
+        ],
+        crust: 'Традиционное',
+        size: 20,
+        price: 399,
+        startingPrice: true,
+        status: 'ХИТ',
+        quantity: 1,
+      },
+      {
+        id: 3,
+        image: 'dessert3.png',
+        name: 'Филадельфия крем-брюле',
+        description: 'Семга, рис, сыр креметто, соус унаги, креветка, авокадо, чип...',
+        toppings: [
+          {
+            icon: 'MozarellaCheese',
+            width: 41,
+            height: 35,
+            toppingName: 'Моцарелла',
+            inStock: true,
+          },
+          {
+            icon: 'Cucumber',
+            width: 40,
+            height: 40,
+            toppingName: 'Огурцы маринованные',
+            inStock: true,
+          },
+          {
+            icon: '',
+            width: 40,
+            height: 40,
+            toppingName: 'Пепперони',
+            inStock: true,
+          },
+          {
+            icon: 'SousInsideWhite',
+            width: 41,
+            height: 27,
+            toppingName: 'Томатный соус',
+            inStock: false,
+          }
+        ],
+        additionalToppings:[
+          {
+            id: 1,
+            icon: 'MozarellaCheese',
+            width: 41,
+            height: 35,
+            toppingName: 'Моцарелла',
+            price: 59
+          },
+          {
+            id: 2,
+            icon: 'Mashroom',
+            width: 105,
+            height: 105,
+            toppingName: 'Шампиньоны',
+            price: 59
+          },
+
+        ],
+        crust: 'Традиционное',
+        size: 20,
+        price: 399,
+        startingPrice: true,
+        status: 'ХИТ',
+        quantity: 1,
+      },
+      {
+        id: 4,
+        image: 'dessert4.png',
+        name: 'Филадельфия крем-брюле',
+        description: 'Семга, рис, сыр креметто, соус унаги, креветка, авокадо, чип...',
+        toppings: [
+          {
+            icon: 'MozarellaCheese',
+            width: 41,
+            height: 35,
+            toppingName: 'Моцарелла',
+            inStock: true,
+          },
+          {
+            icon: 'Cucumber',
+            width: 40,
+            height: 40,
+            toppingName: 'Огурцы маринованные',
+            inStock: true,
+          },
+          {
+            icon: '',
+            width: 40,
+            height: 40,
+            toppingName: 'Пепперони',
+            inStock: true,
+          },
+          {
+            icon: 'SousInsideWhite',
+            width: 41,
+            height: 27,
+            toppingName: 'Томатный соус',
+            inStock: false,
+          }
+        ],
+        additionalToppings:[
+          {
+            id: 1,
+            icon: 'MozarellaCheese',
+            width: 41,
+            height: 35,
+            toppingName: 'Моцарелла',
+            price: 59
+          },
+          {
+            id: 2,
+            icon: 'Mashroom',
+            width: 105,
+            height: 105,
+            toppingName: 'Шампиньоны',
+            price: 59
+          },
+
+        ],
+        crust: 'Традиционное',
+        size: 20,
+        price: 399,
+        startingPrice: true,
+        status: 'ХИТ',
+        quantity: 1,
+      },
+      {
+        id: 5,
+        image: 'dessert5.png',
+        name: 'Филадельфия крем-брюле',
+        description: 'Семга, рис, сыр креметто, соус унаги, креветка, авокадо, чип...',
+        toppings: [
+          {
+            icon: 'MozarellaCheese',
+            width: 41,
+            height: 35,
+            toppingName: 'Моцарелла',
+            inStock: true,
+          },
+          {
+            icon: 'Cucumber',
+            width: 40,
+            height: 40,
+            toppingName: 'Огурцы маринованные',
+            inStock: true,
+          },
+          {
+            icon: '',
+            width: 40,
+            height: 40,
+            toppingName: 'Пепперони',
+            inStock: true,
+          },
+          {
+            icon: 'SousInsideWhite',
+            width: 41,
+            height: 27,
+            toppingName: 'Томатный соус',
+            inStock: false,
+          }
+        ],
+        additionalToppings:[
+          {
+            id: 1,
+            icon: 'MozarellaCheese',
+            width: 41,
+            height: 35,
+            toppingName: 'Моцарелла',
+            price: 59
+          },
+          {
+            id: 2,
+            icon: 'Mashroom',
+            width: 105,
+            height: 105,
+            toppingName: 'Шампиньоны',
+            price: 59
+          },
+
+        ],
+        crust: 'Традиционное',
+        size: 20,
+        price: 399,
+        startingPrice: true,
+        status: 'ХИТ',
+        quantity: 1,
+      },
+    ],
+    drinks: [
+      {
+        id: 1,
+        image: 'drinks1.png',
+        name: 'Филадельфия кранч',
+        description: 'Семга, рис, сыр креметто, соус унаги, креветка, авокадо, чип...',
+        toppings: [
+          {
+            icon: 'MozarellaCheese',
+            width: 41,
+            height: 35,
+            toppingName: 'Моцарелла',
+            inStock: true,
+          },
+          {
+            icon: 'Cucumber',
+            width: 40,
+            height: 40,
+            toppingName: 'Огурцы маринованные',
+            inStock: true,
+          },
+          {
+            icon: '',
+            width: 40,
+            height: 40,
+            toppingName: 'Пепперони',
+            inStock: true,
+          },
+          {
+            icon: 'SousInsideWhite',
+            width: 41,
+            height: 27,
+            toppingName: 'Томатный соус',
+            inStock: false,
+          }
+        ],
+        additionalToppings:[
+          {
+            id: 1,
+            icon: 'MozarellaCheese',
+            width: 41,
+            height: 35,
+            toppingName: 'Моцарелла',
+            price: 59
+          },
+          {
+            id: 2,
+            icon: 'Mashroom',
+            width: 105,
+            height: 105,
+            toppingName: 'Шампиньоны',
+            price: 59
+          },
+
+        ],
+        crust: 'Традиционное',
+        size: 20,
+        price: 399,
+        startingPrice: true,
+        status: 'NEW',
+        quantity: 1,
+      },
+      {
+        id: 2,
+        image: 'drinks2.png',
+        name: 'Филадельфия крем-брюле',
+        description: 'Семга, рис, сыр креметто, соус унаги, креветка, авокадо, чип...',
+        toppings: [
+          {
+            icon: 'MozarellaCheese',
+            width: 41,
+            height: 35,
+            toppingName: 'Моцарелла',
+            inStock: true,
+          },
+          {
+            icon: 'Cucumber',
+            width: 40,
+            height: 40,
+            toppingName: 'Огурцы маринованные',
+            inStock: true,
+          },
+          {
+            icon: '',
+            width: 40,
+            height: 40,
+            toppingName: 'Пепперони',
+            inStock: true,
+          },
+          {
+            icon: 'SousInsideWhite',
+            width: 41,
+            height: 27,
+            toppingName: 'Томатный соус',
+            inStock: false,
+          }
+        ],
+        additionalToppings:[
+          {
+            id: 1,
+            icon: 'MozarellaCheese',
+            width: 41,
+            height: 35,
+            toppingName: 'Моцарелла',
+            price: 59
+          },
+          {
+            id: 2,
+            icon: 'Mashroom',
+            width: 105,
+            height: 105,
+            toppingName: 'Шампиньоны',
+            price: 59
+          },
+
+        ],
+        crust: 'Традиционное',
+        size: 20,
+        price: 399,
+        startingPrice: true,
+        status: 'ХИТ',
+        quantity: 1,
+      },
+      {
+        id: 3,
+        image: 'drinks3.png',
+        name: 'Филадельфия крем-брюле',
+        description: 'Семга, рис, сыр креметто, соус унаги, креветка, авокадо, чип...',
+        toppings: [
+          {
+            icon: 'MozarellaCheese',
+            width: 41,
+            height: 35,
+            toppingName: 'Моцарелла',
+            inStock: true,
+          },
+          {
+            icon: 'Cucumber',
+            width: 40,
+            height: 40,
+            toppingName: 'Огурцы маринованные',
+            inStock: true,
+          },
+          {
+            icon: '',
+            width: 40,
+            height: 40,
+            toppingName: 'Пепперони',
+            inStock: true,
+          },
+          {
+            icon: 'SousInsideWhite',
+            width: 41,
+            height: 27,
+            toppingName: 'Томатный соус',
+            inStock: false,
+          }
+        ],
+        additionalToppings:[
+          {
+            id: 1,
+            icon: 'MozarellaCheese',
+            width: 41,
+            height: 35,
+            toppingName: 'Моцарелла',
+            price: 59
+          },
+          {
+            id: 2,
+            icon: 'Mashroom',
+            width: 105,
+            height: 105,
+            toppingName: 'Шампиньоны',
+            price: 59
+          },
+
+        ],
+        crust: 'Традиционное',
+        size: 20,
+        price: 399,
+        startingPrice: true,
+        status: 'ХИТ',
+        quantity: 1,
+      },
+      {
+        id: 4,
+        image: 'drinks4.png',
+        name: 'Филадельфия крем-брюле',
+        description: 'Семга, рис, сыр креметто, соус унаги, креветка, авокадо, чип...',
+        toppings: [
+          {
+            icon: 'MozarellaCheese',
+            width: 41,
+            height: 35,
+            toppingName: 'Моцарелла',
+            inStock: true,
+          },
+          {
+            icon: 'Cucumber',
+            width: 40,
+            height: 40,
+            toppingName: 'Огурцы маринованные',
+            inStock: true,
+          },
+          {
+            icon: '',
+            width: 40,
+            height: 40,
+            toppingName: 'Пепперони',
+            inStock: true,
+          },
+          {
+            icon: 'SousInsideWhite',
+            width: 41,
+            height: 27,
+            toppingName: 'Томатный соус',
+            inStock: false,
+          }
+        ],
+        additionalToppings:[
+          {
+            id: 1,
+            icon: 'MozarellaCheese',
+            width: 41,
+            height: 35,
+            toppingName: 'Моцарелла',
+            price: 59
+          },
+          {
+            id: 2,
+            icon: 'Mashroom',
+            width: 105,
+            height: 105,
+            toppingName: 'Шампиньоны',
+            price: 59
+          },
+
+        ],
+        crust: 'Традиционное',
+        size: 20,
+        price: 399,
+        startingPrice: true,
+        status: 'ХИТ',
+        quantity: 1,
+      },
+      {
+        id: 5,
+        image: 'drinks5.png',
+        name: 'Филадельфия крем-брюле',
+        description: 'Семга, рис, сыр креметто, соус унаги, креветка, авокадо, чип...',
+        toppings: [
+          {
+            icon: 'MozarellaCheese',
+            width: 41,
+            height: 35,
+            toppingName: 'Моцарелла',
+            inStock: true,
+          },
+          {
+            icon: 'Cucumber',
+            width: 40,
+            height: 40,
+            toppingName: 'Огурцы маринованные',
+            inStock: true,
+          },
+          {
+            icon: '',
+            width: 40,
+            height: 40,
+            toppingName: 'Пепперони',
+            inStock: true,
+          },
+          {
+            icon: 'SousInsideWhite',
+            width: 41,
+            height: 27,
+            toppingName: 'Томатный соус',
+            inStock: false,
+          }
+        ],
+        additionalToppings:[
+          {
+            id: 1,
+            icon: 'MozarellaCheese',
+            width: 41,
+            height: 35,
+            toppingName: 'Моцарелла',
+            price: 59
+          },
+          {
+            id: 2,
+            icon: 'Mashroom',
+            width: 105,
+            height: 105,
+            toppingName: 'Шампиньоны',
+            price: 59
+          },
+
+        ],
+        crust: 'Традиционное',
+        size: 20,
+        price: 399,
+        startingPrice: true,
+        status: 'ХИТ',
         quantity: 1,
       },
     ],
     basketProducts: [],
-    checkoutProducts:[],
 
   },
   getters: {

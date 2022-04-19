@@ -58,7 +58,7 @@
             class="collapse-card">
           <div style="display: flex; align-items: center; width:40% ">
             <img :src="require(`@/assets/${product.image}`)" alt="Pizza Picture" style="margin-right: 16px">
-            <div class="collapse-product-name" >{{ product.name }}dfsdsfsdfs</div>
+            <div class="collapse-product-name" >{{ product.name }}</div>
           </div>
           <div style="flex:1" class="collapse-product-size" >{{ product.crust }} тесто, {{ product.size }} см</div>
           <div class="collapse-product-amount-btn">1 товар</div>
