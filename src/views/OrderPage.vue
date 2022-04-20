@@ -1,5 +1,5 @@
 <template>
-  <div class="order-container">
+  <div class="order-container" id="orderId">
     <div class="order-topic">Ваш заказ</div>
 <!--    Notification-->
     <p v-if="!basketProducts.length" style="color: red">Вы пока ничего не выбрали.</p>
@@ -137,7 +137,7 @@
           <CheckoutOrder
               :total-sum="basketTotalSum"
               @clickComponent="submit"
-              :disability="(form.valid && checkoutProducts.length>=1)"
+              :disability="(form.valid && basketProducts.length>=1)"
               style="margin-bottom: 48px"/>
         </div>
         <!--      <button class="btn primary" :disabled="!form.valid" type="submit">Submit</button>-->
@@ -247,15 +247,15 @@ export default {
     })
 
     function submit() {
-      if(form.value.valid && store.state.checkoutProducts.length>=1) {
-        let payload = {selectedProduct: store.state.checkoutProducts}
+      if(form.value.valid && store.state.basketProducts.length>=1) {
+        let payload = {selectedProduct: store.state.basketProducts}
         for (const [key, value] of Object.entries(form.value)) {
           payload[key] = value.value
         }
         store.commit("fillForm", payload)
-        store.commit('removeCheckoutProducts')
+        store.commit('removeBasketProducts')
         loadData()
-        router.push({ name: 'OrderDone', params: { orderCode: IDGenerator.uniqueId() } })
+        router.push({ name: 'OrderDone', params: { orderCode: IDGenerator.uniqueId() }, hash: '#orderDone' })
       }else {
         console.log('valid is false')
       }
