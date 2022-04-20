@@ -1568,9 +1568,9 @@ export default createStore({
     removeBasketProducts(state){
       state.basketProducts = []
     },
-    addToCheckout(state,payload){
-      state.checkoutProducts = (payload)
-    },
+    // addToCheckout(state,payload){
+    //   state.checkoutProducts = (payload)
+    // },
 
     fillForm(state,payload){
       state.formData.push(payload)

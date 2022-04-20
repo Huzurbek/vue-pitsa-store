@@ -1,5 +1,5 @@
 <template>
-  <div class="order-done-box">
+  <div class="order-done-box" id="orderDone">
     <div class="done-center">
       <div class="image">
         <img src="@/assets/orderDone.png" alt="Pizza">

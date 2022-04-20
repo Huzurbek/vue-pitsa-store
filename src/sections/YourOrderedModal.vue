@@ -71,7 +71,7 @@ export default {
     },
     checkoutOrder(){
       this.close()
-      this.$router.push('/order')
+      this.$router.push({ path: '/order', hash: '#orderId' })
     }
   }
 }
