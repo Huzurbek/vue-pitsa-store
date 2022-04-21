@@ -8,12 +8,42 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/MainPage.vue')
   },
   {
-    path: '/about',
-    name: 'About',
+    path: '/aboutCompany',
+    name: 'AboutCompany',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/AboutCompany.vue')
+  },
+  {
+    path: '/termOfUses',
+    name: 'TermOfUses',
+    component: () => import(/* webpackChunkName: "about" */ '../views/TermOfUses.vue')
+  },
+  {
+    path: '/warranty',
+    name: 'WarrantyTerms',
+    component: () => import(/* webpackChunkName: "about" */ '../views/WarrantyTerms.vue')
+  },
+  {
+    path: '/restaurant',
+    name: 'Restaurant',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Restaurant.vue')
+  },
+  {
+    path: '/contacts',
+    name: 'Contacts',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Contacts.vue')
+  },
+  {
+    path: '/support',
+    name: 'Support',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Support.vue')
+  },
+  {
+    path: '/trackOrder',
+    name: 'TrackOrder',
+    component: () => import(/* webpackChunkName: "about" */ '../views/TrackOrder.vue')
   },
 
   {

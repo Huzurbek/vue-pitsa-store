@@ -1,21 +1,16 @@
 <template>
-
-
   <div style="padding-top: 136px">
 
     <NavigationSection @openModel="isOpen=true"/>
-    <!--YourOrder Modal component-->
+<!--YourOrder Modal component-->
     <YourOrderModal :display="isOpen"  @close="isOpen = false"/>
 
     <div class="container" >
       <router-view/>
     </div>
-
+<!--Footer Section-->
     <FooterSection/>
   </div>
-
-
-
 </template>
 <script>
 import NavigationSection from "@/sections/NavigationSection/NavigationSection";
