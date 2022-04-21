@@ -1,8 +1,6 @@
 <template>
   <div >
     <HeaderSection/>
-<!--    <router-link :to="{ path: '/', hash: '#sushi' }">test</router-link>-->
-<!--    <router-link :to="{ path: '/', hash: '#hed' }">test</router-link>-->
 
     <PizzaSection/>
     <SushiSection/>
