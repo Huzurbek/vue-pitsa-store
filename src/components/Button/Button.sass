@@ -12,11 +12,22 @@
   font-weight: normal
   font-size: 16px
   font-family: SF Pro Text
+  transition: box-shadow 250ms ease-in, background-color 250ms ease-in, color 250ms ease-in
 
 
 .buttonWrapper:hover
-  background: #FFFFFF
+  background-color: #FFFFFF
   color: #FF7010
-  border: 1px solid #FF7010
+  box-shadow: rgba(255, 112, 16, 1) 0px 1px 1px 0px, rgba(255, 112, 16, 1) 0px 0px 0px 1px
+  //outline: 1px solid #FF7010
 
 
+/*Mobile Version*/
+@media screen and (max-width: 540px)
+  .buttonWrapper
+    background: #FFEEE2
+    color: #FF7010
+    height: 32px
+    font-size: 14px
+    font-weight: 600
+    font-family: 'Inter'

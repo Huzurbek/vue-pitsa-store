@@ -12,6 +12,7 @@ import axios from 'axios';
 // }
 export default createStore({
   state: {
+    windowWidth: window.innerWidth,
     formData:[],
     posts: [],
     sushes: [
@@ -1529,6 +1530,9 @@ export default createStore({
     }
   },
   mutations: {
+    setWindowWidth(state) {
+      state.windowWidth = window.innerWidth;
+    },
     addTopping(state,payload){
       let index = state.products.findIndex(el=>el.id === payload.id)
 

@@ -1,5 +1,7 @@
 <template>
-  <h2>Warranty Terms</h2>
+  <div id="warranty">
+    <h2>Warranty Terms</h2>
+  </div>
 </template>
 
 <script>

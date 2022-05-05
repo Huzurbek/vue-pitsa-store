@@ -37,6 +37,9 @@
             <div class="input-label">Имя*</div>
             <Input placeholder="Алексей" class="input-box" v-model="form.username.value" @blur="form.username.blur"
                    :class="{invalid: !form.username.valid && form.username.touched}"/>
+            <small
+                style="color: red"
+                v-if="form.username.touched && form.username.errors.required">Username field is required</small>
           </div>
           <div class="client-info-box">
             <div class="input-label">Номер телефона*</div>
@@ -120,6 +123,7 @@
           <CycleRadioInput :cycle-radio-object="paymentOptions" v-model="form.selectedPayment.value"
                            style="margin-top: 16px"/>
           <div class="diveder-line"></div>
+          <p>cash res: {{form.selectedChange.value}}</p>
           <!--    Changes Part  -->
           <div v-if="form.selectedPayment.value === 'cash'">
             <div class="section-title">Сдача</div>
@@ -142,6 +146,7 @@
         </div>
         <!--      <button class="btn primary" :disabled="!form.valid" type="submit">Submit</button>-->
       </form>
+<!--      <p>Error info: {{error}}</p>-->
     </div>
 
   </div>
@@ -155,26 +160,26 @@ import RadioInput from "@/components/RadioInput/RadioInput";
 import CycleRadioInput from "@/components/CycleRadioInput/CycleRadioInput";
 import CheckoutOrder from "@/components/CheckoutOrder/CheckoutOrder";
 import vSelect from "vue-select";
-import IDGenerator from "@/helpers/uniqueId.js";
+// import IDGenerator from "@/helpers/uniqueId.js";
 
 
 import {mapGetters, mapState} from 'vuex'
-import {ref, watch} from 'vue'
+import {ref, watch, onErrorCaptured} from 'vue'
 import {useForm} from "@/composables/form";
 import { useStore } from 'vuex'
-import { useRouter } from 'vue-router'
+// import { useRouter } from 'vue-router'
 
 const required = val => !!val
 // const minLength = num => val => val.length >= num
 export default {
   setup() {
     const store = useStore()
-    const router = useRouter()
+    // const router = useRouter()
     const submitted = ref(false)
     const deliveryType = ref('pickup')
     const error = ref()
 
-    const mainForm = {
+    const mainFormData = {
       username: {
         value: '',
         validators: {required}
@@ -204,7 +209,7 @@ export default {
         validators: {required}
       },
     }
-    const firstForm = {
+    const firstFormData = {
       street: {
         value: 'kucha',
         validators: {required}
@@ -231,7 +236,7 @@ export default {
       },
 
     }
-    const secondForm = {
+    const secondFormData = {
       restaurant: {
         value: null,
         validators: {required}
@@ -240,22 +245,24 @@ export default {
     const form = ref({})
 
     const loadData = () => {
-      form.value = useForm(deliveryType.value === 'pickup' ? {...mainForm, ...secondForm} : {...mainForm, ...firstForm})
+      form.value = useForm(deliveryType.value === 'pickup' ? {...mainFormData, ...secondFormData} : {...mainFormData, ...firstFormData})
     }
     watch(deliveryType, () => {
       loadData()
     })
 
     function submit() {
+      console.log('brinchi submitda',form)
       if(form.value.valid && store.state.basketProducts.length>=1) {
         let payload = {selectedProduct: store.state.basketProducts}
         for (const [key, value] of Object.entries(form.value)) {
           payload[key] = value.value
         }
+        // console.log('Forma tuldi',payload)
         store.commit("fillForm", payload)
         store.commit('removeBasketProducts')
         loadData()
-        router.push({ name: 'OrderDone', params: { orderCode: IDGenerator.uniqueId() }, hash: '#orderDone' })
+        // router.push({ name: 'OrderDone', params: { orderCode: IDGenerator.uniqueId() }, hash: '#orderDone' })
       }else {
         console.log('valid is false')
       }
@@ -268,9 +275,9 @@ export default {
     function decrement(val) {
       store.commit("decBasketProQuantity", val)
     }
-    // onErrorCaptured(e => {
-    //   error.value = e.message
-    // })
+    onErrorCaptured(e => {
+      error.value = e.message
+    })
 
     return {
       form,
