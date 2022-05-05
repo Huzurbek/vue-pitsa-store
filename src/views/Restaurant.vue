@@ -1,5 +1,7 @@
 <template>
-  <h2>Restaurant</h2>
+  <div id="restaurant">
+    <h2>Restaurant</h2>
+  </div>
 </template>
 
 <script>

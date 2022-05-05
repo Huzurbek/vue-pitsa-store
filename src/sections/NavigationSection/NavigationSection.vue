@@ -13,7 +13,9 @@
       <div class="login-menu">
         <div class="store-time">Время работы: с 11:00 до 23:00</div>
         <Iconca name="Profile" color="#FF7010" :width="18" :height="20" style="margin-right: 9px"/>
-        <div class="login-btn">Войти в аккаунт</div>
+        <div class="login-btn" @click="openLoginBox = !openLoginBox">Войти в аккаунт</div>
+<!--LoginBoxModel-->
+        <LoginBoxModel :openLoginModelBox="openLoginBox" @close="openLoginBox=false"/>
       </div>
     </div>
     <div class="devider" v-if="isLoged"></div>
@@ -23,7 +25,7 @@
         <div class="logo">
           <img src="@/assets/pitsa-logo.png" alt="Logo" style="margin-right: 12px">
           <div class="logo-title">
-            <router-link to="/" class="nav-list-item">Куда пицца</router-link>
+            <router-link :to="{path: '/', hash: '#mainPage'}" class="nav-list-item">Куда пицца</router-link>
           </div>
         </div>
         <div class="nav-list" v-if="!isLoged">
@@ -58,6 +60,7 @@
 import Button from "@/components/Button/Button";
 import Iconca from "@/components/Iconca/Iconca";
 import OtherListBox from "@/sections/NavigationSection/OtherListBox";
+import LoginBoxModel from "@/sections/NavigationSection/LoginBoxModel";
 import { mapState, mapGetters } from 'vuex';
 
 export default {
@@ -66,10 +69,12 @@ export default {
     Button,
     Iconca,
     OtherListBox,
+    LoginBoxModel
   },
   data(){
     return {
       isLoged: false,
+      openLoginBox: false,
       openOther: false,
       listItems: [
         {

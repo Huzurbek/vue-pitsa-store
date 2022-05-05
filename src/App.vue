@@ -31,10 +31,18 @@ export default {
 
     }
   },
+  created() {
+    window.addEventListener(
+        'resize',
+        this.$store.commit('setWindowWidth')
+  )
+  }
 
 }
 </script>
 <style lang="sass">
+body
+  margin: 0
 #app
   font-family: Avenir, Helvetica, Arial, sans-serif
   -webkit-font-smoothing: antialiased
@@ -42,7 +50,6 @@ export default {
   //text-align: center;
   color: #2c3e50
   background:  #F9F9F9
-
 .container
   //border: 1px solid red
   border-top: none
@@ -77,5 +84,12 @@ export default {
 *:root
   --vs-dropdown-option--active-bg: #FF7010
   --vs-dropdown-option--active-color: #fff
+
+/*Mobile Version*/
+@media screen and (max-width: 540px)
+  .container
+    padding: 0 20px
+
+
 
 </style>

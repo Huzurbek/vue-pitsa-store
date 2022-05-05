@@ -42,5 +42,13 @@ export default {
   grid-column-gap: 30px
   grid-row-gap: 30px
 
-
+/*Mobile Version*/
+@media screen and (max-width: 540px)
+  .topic
+    font-size: 28px
+    line-height: 32px
+    padding-bottom: 20px
+  .dessert-container
+    grid-template-columns: repeat(1,1fr)
+    grid-row-gap: 12px
 </style>

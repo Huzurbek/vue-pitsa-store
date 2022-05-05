@@ -9,15 +9,13 @@
               :key="item.title"
               @click="$emit('close')"
           >
-            <router-link :to="{ path: item.to }" class="otherList-routerlink"> {{ item.title }}</router-link>
+            <router-link :to="{ path: item.to, hash: item.hashId }" class="otherList-routerlink"> {{ item.title }}</router-link>
           </li>
-
         </ul>
       </div>
     </div>
   </collapse-transition>
 </template>
-
 <script>
 import CollapseTransition from '@ivanv/vue-collapse-transition/src/CollapseTransition.vue'
 
@@ -27,35 +25,41 @@ export default {
   },
   data(){
     return {
-
       otherPagesList: [
         {
           title: 'О компании',
-          to: '/aboutCompany'
+          to: '/aboutCompany',
+          hashId: '#aboutCompany'
         },
         {
           title: 'Пользовательское соглашение',
-          to: '/termOfUses'
+          to: '/termOfUses',
+          hashId: '#termOfUses'
         },
         {
           title: 'Условия гарантии',
-          to: '/warranty'
+          to: '/warranty',
+          hashId: '#warranty'
         },
         {
           title: 'Ресторан',
-          to: '/restaurant'
+          to: '/restaurant',
+          hashId: '#restaurant'
         },
         {
           title: 'Контакты',
-          to: '/contacts'
+          to: '/contacts',
+          hashId: '#contacts'
         },
         {
           title: 'Поддержка',
-          to: '/support'
+          to: '/support',
+          hashId: '#support'
         },
         {
           title: 'Отследить заказ',
-          to: '/trackOrder'
+          to: '/trackOrder',
+          hashId: '#trackOrder'
         },
       ]
     }
@@ -91,7 +95,7 @@ li:last-child
   display: flex
   flex-direction: column
   padding: 20px
-  
+
 .otherList-routerlink
   color: #191919
   text-decoration: none
