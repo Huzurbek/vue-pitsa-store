@@ -2,13 +2,13 @@
   <div style="padding-top: 136px">
 
     <NavigationSection @openModel="isOpen=true"/>
-<!--YourOrder Modal component-->
-    <YourOrderModal :display="isOpen"  @close="isOpen = false"/>
+    <!--YourOrder Modal component-->
+    <YourOrderModal :display="isOpen" @close="isOpen = false"/>
 
-    <div class="container" >
+    <div class="container">
       <router-view/>
     </div>
-<!--Footer Section-->
+    <!--Footer Section-->
     <FooterSection/>
   </div>
 </template>
@@ -17,25 +17,36 @@ import NavigationSection from "@/sections/NavigationSection/NavigationSection";
 import YourOrderModal from "@/sections/YourOrderedModal";
 import FooterSection from "@/sections/FooterSerction/FooterSection";
 import "vue-select/dist/vue-select.css";
+
 export default {
-  components:{
+  components: {
     NavigationSection,
     YourOrderModal,
     FooterSection
   },
-  data(){
+  data() {
     return {
       modal: false,
       isOpen: false,
-      selectedProduct:{},
+      selectedProduct: {},
+      timer: null
+    }
+  },
+  mutation: {
+    detectWindowSize() {
 
     }
   },
   created() {
     window.addEventListener(
         'resize',
-        this.$store.commit('setWindowWidth')
-  )
+        () => {
+          clearTimeout(this.timer)
+          this.timer = setTimeout(() => {
+            this.$store.commit('setWindowWidth')
+          }, 200)
+        }
+    )
   }
 
 }
@@ -43,19 +54,21 @@ export default {
 <style lang="sass">
 body
   margin: 0
+
 #app
   font-family: Avenir, Helvetica, Arial, sans-serif
   -webkit-font-smoothing: antialiased
   -moz-osx-font-smoothing: grayscale
   //text-align: center;
   color: #2c3e50
-  background:  #F9F9F9
+  background: #F9F9F9
+
 .container
   //border: 1px solid red
   border-top: none
   border-bottom: none
   max-width: 1290px
-  margin:  0 auto
+  margin: 0 auto
   min-height: 1000px
 
 //Seleceted Input Style
@@ -89,7 +102,6 @@ body
 @media screen and (max-width: 540px)
   .container
     padding: 0 20px
-
 
 
 </style>

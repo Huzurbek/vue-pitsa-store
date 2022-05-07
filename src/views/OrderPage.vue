@@ -120,12 +120,11 @@
           <div class="diveder-line"></div>
           <!--Payment Part-->
           <div class="section-title">Оплата</div>
-          <CycleRadioInput :cycle-radio-object="paymentOptions" v-model="form.selectedPayment.value"
+          <CycleRadioInput :cycle-radio-object="paymentOptions" v-model="payment"
                            style="margin-top: 16px"/>
           <div class="diveder-line"></div>
-          <p>cash res: {{form.selectedChange.value}}</p>
           <!--    Changes Part  -->
-          <div v-if="form.selectedPayment.value === 'cash'">
+          <div v-if="payment === 'cash'">
             <div class="section-title">Сдача</div>
             <div class="order-change-box">
               <CycleRadioInput :cycle-radio-object="changeOptions" v-model="form.selectedChange.value"/>
@@ -162,7 +161,6 @@ import CheckoutOrder from "@/components/CheckoutOrder/CheckoutOrder";
 import vSelect from "vue-select";
 // import IDGenerator from "@/helpers/uniqueId.js";
 
-
 import {mapGetters, mapState} from 'vuex'
 import {ref, watch, onErrorCaptured} from 'vue'
 import {useForm} from "@/composables/form";
@@ -177,6 +175,9 @@ export default {
     // const router = useRouter()
     const submitted = ref(false)
     const deliveryType = ref('pickup')
+    const payment = ref('applePay')
+
+
     const error = ref()
 
     const mainFormData = {
@@ -194,14 +195,6 @@ export default {
       },
       selectedTime: {
         value: 'normal',
-        validators: {required}
-      },
-      selectedPayment: {
-        value: 'applePay',
-        validators: {required}
-      },
-      selectedChange: {
-        value: 'noChange',
         validators: {required}
       },
       comment: {
@@ -242,20 +235,43 @@ export default {
         validators: {required}
       },
     }
+
+    const change = {
+      selectedChange: {
+        value: 'noChange',
+        validators: {required}
+      },
+    }
     const form = ref({})
 
     const loadData = () => {
-      form.value = useForm(deliveryType.value === 'pickup' ? {...mainFormData, ...secondFormData} : {...mainFormData, ...firstFormData})
+      let data= {...mainFormData,selectedPayment:{
+        value:payment.value,
+          validators:{required}
+        }}
+
+      if (payment.value === 'cash'){
+        data={...data,...change}
+      }
+
+      form.value = useForm(deliveryType.value === 'pickup' ? {...data
+        , ...secondFormData} : {...data, ...firstFormData})
+      console.log('Data info before submitting', form)
     }
     watch(deliveryType, () => {
       loadData()
     })
+    watch(payment, () => {
+      loadData()
+    })
 
     function submit() {
-      console.log('brinchi submitda',form)
+
+
       if(form.value.valid && store.state.basketProducts.length>=1) {
         let payload = {selectedProduct: store.state.basketProducts}
         for (const [key, value] of Object.entries(form.value)) {
+          console.log(value.value)
           payload[key] = value.value
         }
         // console.log('Forma tuldi',payload)
@@ -286,7 +302,8 @@ export default {
       error,
       deliveryType,
       increment,
-      decrement
+      decrement,
+      payment
     }
   },
   components: {

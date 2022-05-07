@@ -1519,6 +1519,12 @@ export default createStore({
 
   },
   getters: {
+    isMobile:(state)=>{
+      return state.windowWidth<=540
+    },
+    isTablet:(state)=>{
+      return state.windowWidth<840 && state.windowWidth>540
+    },
     basketTotalSum: (state) => {
       return state.basketProducts.reduce((total,el)=>total += (el.price * el.quantity),0)
     },

@@ -7,52 +7,52 @@
         <img :src="require(`@/assets/${selectedProduct.image}`)" alt="Product Picture">
       </div>
 
-      <div class="description" style="flex: 1; max-width: 480px" >
+      <div class="description">
         <div class="pizza-name">
           <Iconca name="smallSale" color="#E23535" :width="18" :height="24" style="margin-right: 11px"/>
           {{ selectedProduct.name }}
         </div>
-<!--Toppings-->
         <div class="toppings">
-          <div class="blog" v-for="(item, index) in selectedProduct.toppings" :key="index">
+            <div class="blog" v-for="(item, index) in selectedProduct.toppings" :key="index">
+              <div class="icon-box">
+                <div class="close-sign" v-if="!item.inStock">
+                  <Iconca name="CircleClose" color="#A5A5A5" :width="16" :height="16"/>
+                </div>
 
-            <div class="icon-box">
-              <div class="close-sign" v-if="!item.inStock">
-                <Iconca name="CircleClose" color="#A5A5A5" :width="16" :height="16"/>
+                <Iconca :name="item.icon" :color="item.inStock ? '#FF7010':'#A5A5A5'" :width="item.width" :height="item.height"/>
               </div>
-
-              <Iconca :name="item.icon" :color="item.inStock ? '#FF7010':'#A5A5A5'" :width="item.width" :height="item.height"/>
+              <div class="blog-title">{{ item.toppingName }}</div>
             </div>
-            <div class="blog-title">{{ item.toppingName }}</div>
-          </div>
         </div>
+        <!--Toppings-->
 <!--    Crust Part    -->
-        <RadioInput  :radio-object="crustOptions" v-model="selectedCrust"/>
+        <RadioInput  :radio-object="crustOptions" v-model="selectedCrust" class="additional-radio-class"/>
 <!--    Size Part    -->
-        <RadioInput  :radio-object="sizeOptions" v-model="selectedSize" style="margin-top: 16px"/>
+        <RadioInput  :radio-object="sizeOptions" v-model="selectedSize"/>
 <!--Adding Toppings to Pizza-->
         <div class="adding-title">Добавьте в пиццу</div>
         <div class="toppings">
-          <div class="blog" v-for="(item, index) in paidToppings" :key="index">
-            <div class="icon-box" @click="addTopping(item)" :style="selectedProduct.additionalToppings.filter(el=>el.toppingName === item.toppingName).length ? 'border: 1px solid #FF7010':''">
-              <div style="position: absolute; top:8px; right: 8px" v-if="selectedProduct.additionalToppings.filter(el=>el.toppingName === item.toppingName).length">
-                <Iconca name="CircleClick" color="#FF7010" :width="16" :height="16"/>
+            <div class="blog" v-for="(item, index) in paidToppings" :key="index">
+              <div class="icon-box" @click="addTopping(item)" :style="selectedProduct.additionalToppings.filter(el=>el.toppingName === item.toppingName).length ? 'border: 1px solid #FF7010':''">
+                <div class="close-sign" v-if="selectedProduct.additionalToppings.filter(el=>el.toppingName === item.toppingName).length">
+                  <Iconca name="CircleClick" color="#FF7010" :width="16" :height="16"/>
+                </div>
+                <Iconca :name="item.icon" color="#FF7010" :width="item.width" :height="item.height"/>
               </div>
-              <Iconca :name="item.icon" color="#FF7010" :width="item.width" :height="item.height"/>
+              <div class="blog-title">{{ item.toppingName }}</div>
+              <div class="topping-price">{{ item.price }} ₽</div>
             </div>
-            <div class="blog-title">{{ item.toppingName }}</div>
-            <div class="topping-price">{{ item.price }} ₽</div>
-          </div>
         </div>
 <!--     Footer Part   -->
         <div class="modal-footer">
-          <div class="total-sum" style="display: flex; align-items: center">
+          <div class="total-sum-box">
             <div class="sum">Итого: {{ productPrice }} ₽</div>
             <div class="gramm">400 г</div>
           </div>
-          <Button text="Добавить" @click="addToBasket"/>
+          <Button text="Добавить" @click="addToBasket" :fit="isMobile" style="width: 149px" :class="{ 'mobile-button': isMobile }"/>
         </div>
       </div>
+      <div class="absolute-line"></div>
       <div class="close-btn">
         <Iconca @click="closeModal" name="Close" color="white" :width="32" :height="32"/>
       </div>
@@ -65,6 +65,7 @@ import Iconca from "@/components/Iconca/Iconca";
 import Button from "@/components/Button/Button";
 import IDGenerator from "@/helpers/uniqueId.js";
 import RadioInput from "@/components/RadioInput/RadioInput";
+import { mapGetters } from 'vuex'
 export default {
   components:{
     Iconca,
@@ -148,6 +149,7 @@ export default {
   },
 
   computed:{
+    ...mapGetters(['isMobile']),
     productPrice(){
       return this.selectedProduct.additionalToppings.reduce((total,el)=>{
          return total += el.price
@@ -182,9 +184,6 @@ export default {
 
 <style scoped lang="sass">
 .modal
-  //position: fixed /* Stay in place */
-  //z-index: 1 /* Sit on top */
-  //padding-top: 100px /* Location of the box */
   overflow: auto /* Enable scroll if needed */
   position: fixed
   z-index: 1000
@@ -198,17 +197,17 @@ export default {
 /* Modal Content */
 .modal-content
   position: absolute
-  width: 1070px
-  height: 680px
-  left: 20px
+  left: 50px
   top: 20px
+  width: 1070px
   background: #FFFFFF
   border-radius: 24px
-  padding: 32px 20px 0 60px
   box-sizing: border-box
   display: flex
   justify-content: space-between
   align-items: center
+  padding: 32px 20px 20px 60px
+
 .red-sign
   position: absolute
   top: 32px
@@ -227,12 +226,20 @@ export default {
   font-size: 18px
   line-height: 24px
 
+.image
+  max-width: 450px
+  max-height: 450px
 img
   width: 450px
   height: 450px
 
+.description
+  display: flex
+  flex-direction: column
+  flex: 1
+
 .pizza-name
-  font-family: Inter
+  font-family: 'Inter'
   font-weight: 600
   font-size: 20px
   line-height: 28px
@@ -278,14 +285,12 @@ img
   font-size: 14px
   line-height: 18px
   color: #191919
-  //display: flex;
-  //align-items: center;
   text-align: center
 .topping-price
   font-weight: 600
   color: #FF7010
 
-  //Adding toppings to pizza
+//Adding toppings to pizza
 .adding-title
   font-family: Inter
   font-weight: 600
@@ -294,80 +299,137 @@ img
   color: #191919
   margin-top: 8px
   margin-bottom: 16px
-//display: flex;
-//align-items: center;
 
-//Crust Part
-.crust, .size
-  background: #FFFFFF
-  border: 1px solid #F0F0F0
-  box-sizing: border-box
-  border-radius: 6px
+.additional-radio-class
   margin-bottom: 16px
-  display: flex
-  align-items: center
 
-
-//Footer Part
+//Footer Part of Model
 .modal-footer
   display: flex
   justify-content: space-between
 
-.sum
+.modal-footer .total-sum-box
+  display: flex
+  align-items: center
+.modal-footer .sum, .modal-footer .gramm
   font-family: Inter
+
+.modal-footer .sum
   font-weight: 600
   font-size: 20px
   line-height: 28px
   color: #FF7010
   margin-right: 12px
-//display: flex
-//align-items: center
-.gramm
-  font-family: Inter
+
+.modal-footer .gramm
   font-weight: normal
   font-size: 14px
   line-height: 18px
   color: #A5A5A5
+
+//Modal close Button
 .close-btn
   position: absolute
-  right: -62px
   top: 0
+  right: -62px
   cursor: pointer
 
-//Input style
-//.crust-form-group, .size-form-group
-//  display: flex
-//  width: 480px
-//  background: #FFFFFF
-//  border: 1px solid #F0F0F0
-//  border-radius: 6px
-//  box-sizing: border-box
-//  height: 48px
-//  margin-bottom: 16px
-//
-//.size-form-group
-//  height: 44px
-//
-//.custom-radio
-//  display: none
-//
-//.custom-radio + label
-//  -webkit-appearance: none
-//  display: flex
-//  justify-content: center
-//  align-items: center
-//  background-color: #FFFFFF
-//  border-radius: 6px
-//  width: 100%
-//  color: #191919
-//  font-family: SF Pro Text
-//  font-weight: normal
-//  font-size: 16px
-//  line-height: 22px
-//  cursor: pointer
-//
-//.custom-radio:checked + label
-//  background: #FF7010
-//  color: #FFFFFF
+//Sending Binding class for Button component
+.mobile-button
+  background: #FF7010
+  color: #FFFFFF
+  height: 44px
+  font-weight: 400
+
+/*MOBILE VERSION */
+@media screen and (max-width: 540px)
+  .modal-content
+    width: 100%
+    min-width: 312px
+    left: 0
+    top: 60px
+    flex-direction: column
+    border-radius: 16px 16px 0 0
+    padding: 20px 20px 0 20px
+    align-items: center
+  .red-sign
+    top: 20px
+    width: 69px
+    height: 32px
+    font-family: 'Inter'
+    font-style: normal
+    font-weight: 400
+    font-size: 16px
+    line-height: 18px
+  img, .image
+    width: 100px
+    height: 100px
+  .image
+    margin-bottom: 13px
+  .description
+    width: 100%
+  .pizza-name
+    font-size: 18px
+    line-height: 22px
+    margin-bottom: 13px
+
+  .toppings
+    overflow-x: auto
+    min-width: 200px
+    margin-bottom: 20px
+
+  .toppings::-webkit-scrollbar
+    display: none
+
+  .blog
+    margin-right: 12px
+    width: 90px
+  .icon-box
+    width: 90px
+    height: 90px
+  .close-sign
+    top: 6px
+    right: 6px
+  .blog-title, .topping-price
+    font-size: 12px
+    line-height: 16px
+  .topping-price
+    font-weight: 600
+  .additional-radio-class
+    margin-bottom: 12px
+  .adding-title
+    font-size: 14px
+    line-height: 18px
+  //Footer of Model
+  .modal-footer
+    padding: 12px 0
+  .modal-footer .total-sum-box
+    flex-direction: column
+    align-items: start
+  .modal-footer .sum
+    font-size: 18px
+    line-height: 22px
+    margin-bottom: 4px
+  //Model Close Button
+  .close-btn
+    right: 21px
+    top: 18px
+    width: 38px
+    height: 38px
+    border: 2px solid #F0F0F0
+    background: #d2cfcf
+    display: inline-flex
+    justify-content: center
+    text-align: center
+    border-radius: 69%
+    padding-top: 5px
+    padding-left: 6px
+    box-sizing: border-box
+  .absolute-line
+    position: absolute
+    bottom: 67px
+    width: 100%
+    height: 1px
+    background: #F0F0F0
 
 </style>
