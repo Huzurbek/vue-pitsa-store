@@ -41,7 +41,7 @@ export default {
 .radio-form-group
   display: flex
   width: 100%
-  flex: 1
+  //flex: 1
   background: #FFFFFF
   border: 1px solid #F0F0F0
   border-radius: 6px
@@ -74,4 +74,14 @@ export default {
   background: #FF7010
   color: #FFFFFF
 
+/*Mobile Version*/
+@media screen and (max-width: 540px)
+  .radio-form-group
+    height: 44px
+
+  .custom-radio + label
+    font-family: 'Inter'
+    font-weight: 400
+    font-size: 14px
+    line-height: 18px
 </style>
